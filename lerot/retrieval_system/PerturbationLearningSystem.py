@@ -94,7 +94,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # else:
         #     self.comparison_args = None
         # self.comparison = self.comparison_class(self.comparison_args)
-        self.query_count = 0
+        # self.query_count = 0
 
     # This seems to get a randomly changed new ranker
     # def _get_new_candidate(self):
