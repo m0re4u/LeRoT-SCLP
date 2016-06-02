@@ -16,4 +16,4 @@ def get_feedback(current_ranking, clicks, pairs):
             feedback_ranking[upper], feedback_ranking[lower] = \
                 feedback_ranking[lower], feedback_ranking[upper]
 
-        return feedback_ranking
+    return feedback_ranking
