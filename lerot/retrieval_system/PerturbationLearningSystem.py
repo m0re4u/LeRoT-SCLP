@@ -128,7 +128,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         return l
 
     def update_solution(self, clicks):
-        outcome = self.perturbater.infer_outcome(self.current_l,
+        outcome = self.perturbator.infer_outcome(self.current_l,
                                                  self.current_context,
                                                  clicks,
                                                  self.current_query)
