@@ -20,14 +20,13 @@ Retrieval system implementation for use in learning experiments.
 
 import argparse
 from numpy import array
-import copy
 
 from .AbstractLearningSystem import AbstractLearningSystem
 from ..utils import get_class, split_arg_str
 
 
 class PerturbationLearningSystem(AbstractLearningSystem):
-    """A retrieval system that learns online from listwise comparisons. The
+    """A retrieval system that learns online from pairwise comparisons. The
     system keeps track of all necessary state variables (current query,
     weights, etc.) so that comparison and learning classes can be stateless
     (implement only static / class methods)."""
@@ -42,7 +41,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         parser.add_argument("-w", "--init_weights", help="Initialization "
                             "method for weights (random, zero).",
                             required=True)
-        parser.add_argument("--sample_weights", default="sample_unit_sphere")
 
         # The following should be changed for perturbation
         # parser.add_argument("-c", "--comparison", required=True)
@@ -52,39 +50,29 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         parser.add_argument("-s", "--ranker_args", nargs="*")
         parser.add_argument("-t", "--ranker_tie", default="random")
 
-        # Michiel will know what delta is. It seems to be unnecessary
-        # parser.add_argument("-d", "--delta", required=True, type=str)
+        parser.add_argument("-l", "--max_results", default=10)
 
-        # Learning rate
-        parser.add_argument("-a", "--alpha", required=True, type=str)
-
-        # I don't know what anneal is
-        # parser.add_argument("--anneal", type=int, default=0)
-        parser.add_argument("--normalize", default="False")
         args = vars(parser.parse_known_args(split_arg_str(arg_str))[0])
 
         self.ranker_class = get_class(args["ranker"])
         self.ranker_args = args["ranker_args"]
         self.ranker_tie = args["ranker_tie"]
-        self.sample_weights = args["sample_weights"]
         self.init_weights = args["init_weights"]
         self.feature_count = feature_count
-        self.ranker = self.ranker_class(self.ranker_args,
-                                        self.ranker_tie,
-                                        self.feature_count,
-                                        sample=self.sample_weights,
-                                        init=self.init_weights)
+        self.ranker = self.ranker_class(
+            self.ranker_args,
+            self.ranker_tie,
+            self.feature_count,
+            sample=None,  # explicitly break sampling
+            init=self.init_weights
+        )
 
-        # if "," in args["delta"]:
-        #     self.delta = array([float(x) for x in args["delta"].split(",")])
-        # else:
-        #     self.delta = float(args["delta"])
+        self.max_results = args["max_results"]
+
         if "," in args["alpha"]:
             self.alpha = array([float(x) for x in args["alpha"].split(",")])
         else:
             self.alpha = float(args["alpha"])
-
-        # self.anneal = args["anneal"]
 
         # Comparison that should be replaced by perturbation again
         # self.comparison_class = get_class(args["comparison"])
@@ -96,31 +84,9 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # self.comparison = self.comparison_class(self.comparison_args)
         # self.query_count = 0
 
-    # This seems to get a randomly changed new ranker
-    # def _get_new_candidate(self):
-    #     w, u = self.ranker.get_candidate_weight(self.delta)
-    #     candidate_ranker = copy.deepcopy(self.ranker)
-    #     candidate_ranker.update_weights(w)
-    #     return candidate_ranker, u
-
-    # def _get_candidate(self):
-    #     return self._get_new_candidate()
-
     def get_ranked_list(self, query):  # , getNewCandidate=True):
-        # I don't know what anneal is or why the query_count is important,
-        # so I'll just ignore this
-        # self.query_count += 1
-        # if self.anneal > 0 and self.query_count % self.anneal == 0:
-        #     self.delta /= 2
-        #     self.alpha /= 2
-
-        # if getNewCandidate == True:
-        #     self.candidate_ranker, self.current_u = self._get_candidate()
-
-        # The ranker is fed to Maarten (the perturbation)
-        # The 10 is the maximum number of the results returned. We should
-        # create a parameter for this.
-        (l, context) = self.perturbater.perturb(self.ranker, query, 10)
+        (l, context) = self.perturbater.perturb(self.ranker, query,
+                                                self.max_results)
 
         self.current_l = l
         self.current_context = context
