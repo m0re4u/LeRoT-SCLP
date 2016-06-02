@@ -19,15 +19,15 @@ def formPairs(length):
     
     # Else, assign singular starter, swap flag
     else:
-        paired_indices = [[0]]
+        paired_indices = [(0,)]
         has_one = not has_one
 
     # Gather all pairs of 2 that have no item in indices yet    
     for i in xrange(len(paired_indices),length-1,2):
-        paired_indices.append([i, i+1])
+        paired_indices.append((i, i+1))
     
     # Add last index if it hasn't been added yet
     if has_one:
-        paired_indices.append([length-1])
+        paired_indices.append((length-1,))
 
     return paired_indices
