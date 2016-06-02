@@ -118,7 +118,8 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         #     self.candidate_ranker, self.current_u = self._get_candidate()
 
         # The ranker is fed to Maarten (the perturbation)
-        # What is the 10 for
+        # The 10 is the maximum number of the results returned. We should
+        # create a parameter for this.
         (l, context) = self.perturbater.perturb(self.ranker, query, 10)
 
         self.current_l = l
