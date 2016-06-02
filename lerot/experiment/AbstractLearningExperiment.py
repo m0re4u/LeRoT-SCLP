@@ -35,8 +35,8 @@ class AbstractLearningExperiment:
         self.system_class = get_class(args["system"])
         self.system_args = args["system_args"]
         self.system = self.system_class(self.feature_count, self.system_args)
-        #if isinstance(self.system, AbstractOracleSystem):
-        #    self.system.set_test_queries(self.test_queries)
+        # if isinstance(self.system, AbstractOracleSystem):
+        #     self.system.set_test_queries(self.test_queries)
         self.evaluations = {}
         for evaluation in args["evaluation"]:
             self.evaluation_class = get_class(evaluation)
