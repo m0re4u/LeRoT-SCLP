@@ -75,7 +75,7 @@ class ListwiseLearningSystem(AbstractLearningSystem):
         self.anneal = args["anneal"]
 
         self.comparison_class = get_class(args["comparison"])
-        if "comparison_args" in args and args["comparison_args"] != None:
+        if "comparison_args" in args and args["comparison_args"] is not None:
             self.comparison_args = " ".join(args["comparison_args"])
             self.comparison_args = self.comparison_args.strip("\"")
         else:
@@ -84,6 +84,8 @@ class ListwiseLearningSystem(AbstractLearningSystem):
         self.query_count = 0
 
     def _get_new_candidate(self):
+        # Get a new candidate whose weights are slightly changed with strength
+        # delta.
         w, u = self.ranker.get_candidate_weight(self.delta)
         candidate_ranker = copy.deepcopy(self.ranker)
         candidate_ranker.update_weights(w)
@@ -100,7 +102,7 @@ class ListwiseLearningSystem(AbstractLearningSystem):
 
         if getNewCandidate == True:
             self.candidate_ranker, self.current_u = self._get_candidate()
-    
+
         (l, context) = self.comparison.interleave(self.ranker,
                                                   self.candidate_ranker,
                                                   query,
@@ -115,6 +117,8 @@ class ListwiseLearningSystem(AbstractLearningSystem):
                                                 self.current_context,
                                                 clicks,
                                                 self.current_query)
+        # Value van feedback_ranking - value van current_ranking
+        # weights += above
         if outcome > 0:
             self.ranker.update_weights(self.current_u, self.alpha)
         return self.get_solution()
