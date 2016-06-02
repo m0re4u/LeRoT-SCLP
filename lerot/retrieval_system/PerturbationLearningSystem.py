@@ -26,7 +26,7 @@ from .AbstractLearningSystem import AbstractLearningSystem
 from ..utils import get_class, split_arg_str
 
 
-class ListwiseLearningSystem(AbstractLearningSystem):
+class PerturbationLearningSystem(AbstractLearningSystem):
     """A retrieval system that learns online from listwise comparisons. The
     system keeps track of all necessary state variables (current query,
     weights, etc.) so that comparison and learning classes can be stateless
@@ -36,7 +36,7 @@ class ListwiseLearningSystem(AbstractLearningSystem):
         # parse arguments
         parser = argparse.ArgumentParser(description="Initialize retrieval "
             "system with the specified feedback and learning mechanism.",
-            prog="ListwiseLearningSystem")
+            prog="PerturbationLearningSystem")
         parser.add_argument("-w", "--init_weights", help="Initialization "
             "method for weights (random, zero).", required=True)
         parser.add_argument("--sample_weights", default="sample_unit_sphere")
