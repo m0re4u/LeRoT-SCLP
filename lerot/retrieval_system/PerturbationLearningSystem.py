@@ -19,7 +19,7 @@ Retrieval system implementation for use in learning experiments.
 """
 
 import argparse
-from numpy import array
+import logging
 
 from .AbstractLearningSystem import AbstractLearningSystem
 from ..utils import get_class, split_arg_str
@@ -42,9 +42,10 @@ class PerturbationLearningSystem(AbstractLearningSystem):
                             "method for weights (random, zero).",
                             required=True)
 
-        # The following should be changed for perturbation
-        # parser.add_argument("-c", "--comparison", required=True)
-        # parser.add_argument("-f", "--comparison_args", nargs="*")
+        # Perturbation arguments
+        parser.add_argument("-p", "--perturbator", required=True)
+        parser.add_argument("-b", "--swap_prob", default=0.25, type=float)
+        # parser.add_argument("-f", "--perturbator_args", nargs="*")
 
         parser.add_argument("-r", "--ranker", required=True)
         parser.add_argument("-s", "--ranker_args", nargs="*")
@@ -69,25 +70,24 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
         self.max_results = args["max_results"]
 
-        if "," in args["alpha"]:
-            self.alpha = array([float(x) for x in args["alpha"].split(",")])
-        else:
-            self.alpha = float(args["alpha"])
-
         # Comparison that should be replaced by perturbation again
-        # self.comparison_class = get_class(args["comparison"])
-        # if "comparison_args" in args and args["comparison_args"] != None:
-        #     self.comparison_args = " ".join(args["comparison_args"])
-        #     self.comparison_args = self.comparison_args.strip("\"")
+        # Perturbator perturbator = new Perturbator(args["swap_prob"])
+        # self.perturbator = perturbator
+        self.perturbator = get_class(args["perturbator"])(args["swap_prob"])
+        # if "perturbator_args" not in args or args["perturbator_args"] is None:
+        #     self.perturbator_args = []
+        #     " ".join(args["perturbator_args"])
+        #     self.perturbator_args = self.perturbator_args.strip("\"")
         # else:
-        #     self.comparison_args = None
-        # self.comparison = self.comparison_class(self.comparison_args)
+        #     self.perturbator_args = None
+        # self.perturbator = self.perturbator_class(*self.perturbator_args)
         # self.query_count = 0
 
     def get_ranked_list(self, query):  # , getNewCandidate=True):
-        (l, context) = self.perturbater.perturb(self.ranker, query,
+        (l, context) = self.perturbator.perturb(self.ranker, query,
                                                 self.max_results)
-
+        logging.info(l)
+        logging.info(context)
         self.current_l = l
         self.current_context = context
         self.current_query = query
@@ -95,7 +95,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
     def update_solution(self, clicks):
         # feedback_ranking = self.perturbater.get_feedback(self.current_l, clicks, pairs)
-        outcome = self.perturbater.infer_outcome(self.current_l,
+        outcome = self.perturbator.infer_outcome(self.current_l,
                                                  self.current_context,
                                                  clicks,
                                                  self.current_query)
