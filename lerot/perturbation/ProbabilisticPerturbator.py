@@ -14,7 +14,7 @@ class ProbabilisticPerturbator:
 
     def perturb(self, ranker, query, max_length):
         """
-        Get a ranked list form the ranker, preform perturbation on the
+        Get a ranked list from the ranker, perform perturbation on the
         max_length amount of items
         """
         
