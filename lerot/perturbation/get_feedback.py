@@ -1,9 +1,9 @@
-"""
-Get a new ranking, swapped according to user clicks
-"""
-
 
 def get_feedback(current_ranking, clicks, pairs):
+    """
+    Get a new ranking, swapped according to user clicks
+    """
+    
     feedback_ranking = current_ranking
     for pair in pairs:
         if len(pair) == 1:
