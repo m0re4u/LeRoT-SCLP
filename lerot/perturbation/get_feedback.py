@@ -33,9 +33,10 @@ def get_feedback(clicks, documents, single_start):
     return new_ranked
 
 if __name__ == '__main__':
-    clicks = [0,0,1,0,0]
+    clicks = [0,0,0,1,0]
     documents = ['a','b','c','d','e']
     single_start = False
 
     new_ranking = get_feedback(clicks, documents, single_start)
     print(new_ranking)
+    
