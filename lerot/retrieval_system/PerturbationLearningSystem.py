@@ -86,8 +86,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
     def get_ranked_list(self, query):  # , getNewCandidate=True):
         (l, context) = self.perturbator.perturb(self.ranker, query,
                                                 self.max_results)
-        logging.info(l)
-        logging.info(context)
         self.current_l = l
         self.current_context = context
         self.current_query = query
@@ -104,6 +102,11 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # if outcome > 0:
         #     self.ranker.update_weights(self.current_u, self.alpha)
         return self.get_solution()
+
+    def _create_ranking_vector(feature_matrix):
+        # Calculate number of documents
+        ndocs = 2
+        # gamma =
 
     def get_solution(self):
         return self.ranker
