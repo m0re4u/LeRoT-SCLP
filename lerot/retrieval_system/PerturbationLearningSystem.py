@@ -94,7 +94,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
     def update_solution(self, clicks):
 
-        feedback_ranking = self.perturbator.get_feedback(clicks,
+        new_ranking = self.perturbator.get_feedback(clicks,
                                 self.current_ranking, self.current_single_start)
 
         # Create matrices of feature vectors based on old / new ranking
@@ -107,9 +107,10 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             for doc_id in new_ranking])
 
         # Calculate updated weights
+        old_ranking_vector = self._create_ranking_vector(old_ranked_vectors)
+        new_ranking_vector = self._create_ranking_vector(new_ranked_vectors)
 
-        # if outcome > 0:
-        #     self.ranker.update_weights(self.current_u, self.alpha)
+
         return self.get_solution()
 
     def _create_ranking_vector(feature_matrix):
