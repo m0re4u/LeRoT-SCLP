@@ -97,7 +97,16 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         feedback_ranking = self.perturbator.get_feedback(clicks,
                                 self.current_ranking, self.current_single_start)
 
-        # Update weights!
+        # Create matrices of feature vectors based on old / new ranking
+        document_feature_vectors = self.query.get_feature_vectors()
+
+        old_ranked_vectors = np.array([document_feature_vectors[doc_id]
+            for doc_id in self.current_ranking])
+
+        new_ranked_vectors = np.array([document_feature_vectors[doc_id]
+            for doc_id in new_ranking])
+
+        # Calculate updated weights
 
         # if outcome > 0:
         #     self.ranker.update_weights(self.current_u, self.alpha)
@@ -144,20 +153,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         if len(new_ranking) < max_length:
             new_ranking.append(self.current_ranking[max_length-1])
 
-        # Create matrices of feature vectors based on old / new ranking
-        document_feature_vectors = self.query.get_feature_vectors()
-
-        old_ranked_vectors = np.array([document_feature_vectors[doc_id]
-            for doc_id in self.current_ranking])
-
-        new_ranked_vectors = np.array([document_feature_vectors[doc_id]
-            for doc_id in new_ranking])
-
-        # Calculate updated weights
-
-
-
-        return new_ranked
+        return new_ranking
 
 if __name__ == '__main__':
     self.clicks = [0,0,0,1,0]
