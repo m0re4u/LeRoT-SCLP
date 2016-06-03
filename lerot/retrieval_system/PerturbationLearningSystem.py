@@ -154,12 +154,3 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             new_ranking.append(self.current_ranking[max_length-1])
 
         return new_ranking
-
-if __name__ == '__main__':
-    self.clicks = [0,0,0,1,0]
-    self.documents = ['a','b','c','d','e']
-    self.single_start = False
-
-    new_ranking = get_feedback(clicks)
-    print(new_ranking)
-
