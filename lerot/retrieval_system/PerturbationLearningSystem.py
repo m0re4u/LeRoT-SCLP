@@ -71,20 +71,9 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
         self.max_results = args["max_results"]
 
-        # Comparison that should be replaced by perturbation again
-        # Perturbator perturbator = new Perturbator(args["swap_prob"])
-        # self.perturbator = perturbator
         self.perturbator = get_class(args["perturbator"])(args["swap_prob"])
-        # if "perturbator_args" not in args or args["perturbator_args"] is None:
-        #     self.perturbator_args = []
-        #     " ".join(args["perturbator_args"])
-        #     self.perturbator_args = self.perturbator_args.strip("\"")
-        # else:
-        #     self.perturbator_args = None
-        # self.perturbator = self.perturbator_class(*self.perturbator_args)
-        # self.query_count = 0
 
-    def get_ranked_list(self, query):  # , getNewCandidate=True):
+    def get_ranked_list(self, query):
         new_ranking, single_start = self.perturbator.perturb(self.ranker, query,
                                                 self.max_results)
         self.current_ranking = new_ranking
