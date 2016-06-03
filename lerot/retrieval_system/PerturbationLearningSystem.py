@@ -82,27 +82,32 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         return new_ranking
 
     def update_solution(self, clicks):
-
-        new_ranking = self.perturbator.get_feedback(clicks,
-                                self.current_ranking, self.current_single_start)
+        """Update the ranker weights."""
+        new_ranking = self.get_feedback(clicks)
 
         # Create matrices of feature vectors based on old / new ranking
-        document_feature_vectors = self.query.get_feature_vectors()
+        current_matrix = self._create_feature_matrix(self.current_ranking)
+        new_matrix = self._create_feature_matrix(new_ranking)
 
-        old_ranked_vectors = np.array([document_feature_vectors[doc_id]
-            for doc_id in self.current_ranking])
+        # Calculate ranking vectors
+        current_vector = self._create_ranking_vector(current_matrix)
+        new_vector = self._create_ranking_vector(new_matrix)
 
-        new_ranked_vectors = np.array([document_feature_vectors[doc_id]
-            for doc_id in new_ranking])
-
-        # Calculate updated weights
-        old_ranking_vector = self._create_ranking_vector(old_ranked_vectors)
-        new_ranking_vector = self._create_ranking_vector(new_ranked_vectors)
-
+        # Update the weights
+        self.ranker.update_weights(new_vector - current_vector, 1)
 
         return self.get_solution()
 
-    def _create_ranking_vector(feature_matrix):
+    def get_solution(self):
+        return self.ranker
+
+    def _create_feature_matrix(self, ranking):
+        feature_vectors = self.query.get_feature_vectors()
+        return np.array(
+            [feature_vectors[doc_id] for doc_id in ranking]
+        )
+
+    def _create_ranking_vector(self, feature_matrix):
         """
         Create a ranking vector from a matrix of document vectors.
         """
@@ -114,10 +119,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # Assume the features are row vectors
         return np.sum(feature_matrix * gamma.transpose(), axis=0)
 
-    def get_solution(self):
-        return self.ranker
-
-    def get_feedback(self, clicks):
+    def _get_feedback(self, clicks):
         """
         Get a new ranking of documents, swapped according to user clicks
         """
