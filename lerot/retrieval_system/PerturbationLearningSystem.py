@@ -87,6 +87,8 @@ class PerturbationLearningSystem(AbstractLearningSystem):
     def get_ranked_list(self, query):  # , getNewCandidate=True):
         (l, context) = self.perturbator.perturb(self.ranker, query,
                                                 self.max_results)
+        logging.info(l)
+        logging.info(context)
         self.current_l = l
         self.current_context = context
         self.current_query = query
