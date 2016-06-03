@@ -125,25 +125,37 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
         # Check whether new ranking should start with a single start
         if self.current_single_start:
-            new_ranked = [self.current_ranking[0]]
+            new_ranking = [self.current_ranking[0]]
         else:
-            new_ranked = []
+            new_ranking = []
 
         # Loop for swapping pairs of documents according to clicks
         for i in xrange(self.current_single_start, max_length-1, 2):
             # Swap if there is a click on the lower item of a pair
-            if clicks[i+1]: # ANDERE IF-STATEMENT
-                new_ranked.append(self.current_ranking[i+1])
-                new_ranked.append(self.current_ranking[i])
+            if clicks[i+1]:
+                new_ranking.append(self.current_ranking[i+1])
+                new_ranking.append(self.current_ranking[i])
             # Don't swap
             else:
-                new_ranked.append(self.current_ranking[i])
-                new_ranked.append(self.current_ranking[i+1])
-
+                new_ranking.append(self.current_ranking[i])
+                new_ranking.append(self.current_ranking[i+1])
 
         # Add last index if it hasn't been added yet
-        if len(new_ranked) < max_length:
-            new_ranked.append(self.current_ranking[max_length-1])
+        if len(new_ranking) < max_length:
+            new_ranking.append(self.current_ranking[max_length-1])
+
+        # Create matrices of feature vectors based on old / new ranking
+        document_feature_vectors = self.query.get_feature_vectors()
+
+        old_ranked_vectors = np.array([document_feature_vectors[doc_id]
+            for doc_id in self.current_ranking])
+
+        new_ranked_vectors = np.array([document_feature_vectors[doc_id]
+            for doc_id in new_ranking])
+
+        # Calculate updated weights
+
+
 
         return new_ranked
 
