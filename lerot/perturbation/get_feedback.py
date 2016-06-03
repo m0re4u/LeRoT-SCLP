@@ -28,7 +28,14 @@ def get_feedback(clicks, documents, single_start):
 
     # Add last index if it hasn't been added yet
     if len(new_ranked) < max_length:
-        new_ranked.append(ranker.next())
+        new_ranked.append(documents[max_length-1])
 
     return new_ranked
-    
+
+if __name__ == '__main__':
+    clicks = [0,0,1,0,0]
+    documents = ['a','b','c','d','e']
+    single_start = False
+
+    new_ranking = get_feedback(clicks, documents, single_start)
+    print(new_ranking)
