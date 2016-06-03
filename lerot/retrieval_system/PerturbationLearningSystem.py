@@ -102,11 +102,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         #     self.ranker.update_weights(self.current_u, self.alpha)
         return self.get_solution()
 
-    def _create_ranking_vector(feature_matrix):
-        # Calculate number of documents
-        ndocs = 2
-        # gamma =
-
     def get_solution(self):
         return self.ranker
 
