@@ -84,19 +84,18 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # self.query_count = 0
 
     def get_ranked_list(self, query):  # , getNewCandidate=True):
-        (l, context) = self.perturbator.perturb(self.ranker, query,
+        new_ranking, single_start = self.perturbator.perturb(self.ranker, query,
                                                 self.max_results)
-        self.current_l = l
-        self.current_context = context
+        self.current_ranking = new_ranking
+        self.current_single_start = single_start
         self.current_query = query
-        return l
+        return new_ranking
 
     def update_solution(self, clicks):
-        # feedback_ranking = self.perturbater.get_feedback(self.current_l, clicks, pairs)
-        outcome = self.perturbator.infer_outcome(self.current_l,
-                                                 self.current_context,
-                                                 clicks,
-                                                 self.current_query)
+
+        feedback_ranking = self.perturbator.get_feedback(clicks,
+                                self.current_ranking, self.current_single_start)
+
         # Update weights!
 
         # if outcome > 0:
@@ -110,3 +109,43 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
     def get_solution(self):
         return self.ranker
+
+    def get_feedback(self, clicks):
+        """
+        Get a new ranking of documents, swapped according to user clicks
+        """
+
+        max_length = len(self.current_ranking)
+
+        # Check whether new ranking should start with a single start
+        if self.current_single_start:
+            new_ranked = [self.current_ranking[0]]
+        else:
+            new_ranked = []
+
+        # Loop for swapping pairs of documents according to clicks
+        for i in xrange(self.current_single_start, max_length-1, 2):
+            # Swap if there is a click on the lower item of a pair
+            if clicks[i+1]: # ANDERE IF-STATEMENT
+                new_ranked.append(self.current_ranking[i+1])
+                new_ranked.append(self.current_ranking[i])
+            # Don't swap
+            else:
+                new_ranked.append(self.current_ranking[i])
+                new_ranked.append(self.current_ranking[i+1])
+
+
+        # Add last index if it hasn't been added yet
+        if len(new_ranked) < max_length:
+            new_ranked.append(self.current_ranking[max_length-1])
+
+        return new_ranked
+
+if __name__ == '__main__':
+    self.clicks = [0,0,0,1,0]
+    self.documents = ['a','b','c','d','e']
+    self.single_start = False
+
+    new_ranking = get_feedback(clicks)
+    print(new_ranking)
+
