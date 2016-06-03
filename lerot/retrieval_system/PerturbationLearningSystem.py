@@ -71,20 +71,9 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
         self.max_results = args["max_results"]
 
-        # Comparison that should be replaced by perturbation again
-        # Perturbator perturbator = new Perturbator(args["swap_prob"])
-        # self.perturbator = perturbator
         self.perturbator = get_class(args["perturbator"])(args["swap_prob"])
-        # if "perturbator_args" not in args or args["perturbator_args"] is None:
-        #     self.perturbator_args = []
-        #     " ".join(args["perturbator_args"])
-        #     self.perturbator_args = self.perturbator_args.strip("\"")
-        # else:
-        #     self.perturbator_args = None
-        # self.perturbator = self.perturbator_class(*self.perturbator_args)
-        # self.query_count = 0
 
-    def get_ranked_list(self, query):  # , getNewCandidate=True):
+    def get_ranked_list(self, query):
         new_ranking, single_start = self.perturbator.perturb(self.ranker, query,
                                                 self.max_results)
         self.current_ranking = new_ranking
@@ -114,7 +103,9 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         return self.get_solution()
 
     def _create_ranking_vector(feature_matrix):
-        """Create one feature vector from a matrix of document vectors."""
+        """
+        Create a ranking vector from a matrix of document vectors.
+        """
         # Calculate number of documents
         ndocs = 2
         # log(1) = 0, so fix this by starting range at 2
@@ -155,12 +146,3 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             new_ranking.append(self.current_ranking[max_length-1])
 
         return new_ranking
-
-if __name__ == '__main__':
-    self.clicks = [0,0,0,1,0]
-    self.documents = ['a','b','c','d','e']
-    self.single_start = False
-
-    new_ranking = get_feedback(clicks)
-    print(new_ranking)
-
