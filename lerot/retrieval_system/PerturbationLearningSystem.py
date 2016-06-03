@@ -20,6 +20,7 @@ Retrieval system implementation for use in learning experiments.
 
 import argparse
 import logging
+import numpy as np
 
 from .AbstractLearningSystem import AbstractLearningSystem
 from ..utils import get_class, split_arg_str
@@ -101,6 +102,16 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # if outcome > 0:
         #     self.ranker.update_weights(self.current_u, self.alpha)
         return self.get_solution()
+
+    def _create_ranking_vector(feature_matrix):
+        """Create one feature vector from a matrix of document vectors."""
+        # Calculate number of documents
+        ndocs = 2
+        # log(1) = 0, so fix this by starting range at 2
+        gamma = 1.0 / np.log2(np.arrange(2, ndocs + 2, dtype=float))
+
+        # Assume the features are row vectors
+        return np.sum(feature_matrix * gamma.transpose(), axis=0)
 
     def get_solution(self):
         return self.ranker
