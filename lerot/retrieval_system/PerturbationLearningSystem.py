@@ -113,7 +113,9 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         return self.get_solution()
 
     def _create_ranking_vector(feature_matrix):
-        """Create one feature vector from a matrix of document vectors."""
+        """
+        Create a ranking vector from a matrix of document vectors.
+        """
         # Calculate number of documents
         ndocs = 2
         # log(1) = 0, so fix this by starting range at 2
