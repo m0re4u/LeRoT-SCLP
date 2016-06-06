@@ -5,5 +5,5 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
     """
 
     def __init__(self, delta=0.8):
-        self.delta = 0.8
+        self.delta = delta
         print("Init of Dynamic Probabilistic Perturbator done")
