@@ -46,4 +46,7 @@ class ProbabilisticPerturbator:
         return new_ranked, single_start
 
     def update_swap_probability(self, swap_prob):
+        """
+        Update the swap probability of the pertubator
+        """
         self.swap_prob = swap_prob
