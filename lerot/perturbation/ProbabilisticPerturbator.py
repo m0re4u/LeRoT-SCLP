@@ -1,12 +1,10 @@
 
 import random as rnd
 
-"""
-Application system for perturbation on ranker
-"""
-
-
 class ProbabilisticPerturbator:
+    """
+    Application system for perturbation on ranker
+    """
 
     # swap_prob 0.25, gives a good result according to papers
     def __init__(self, swap_prob=0.25):
