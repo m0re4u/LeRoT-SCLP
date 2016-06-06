@@ -19,7 +19,6 @@ Retrieval system implementation for use in learning experiments.
 """
 
 import argparse
-import numpy as np
 
 from .AbstractLearningSystem import AbstractLearningSystem
 from ..utils import get_class, split_arg_str, create_ranking_vector
@@ -86,7 +85,10 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         new_ranking = self._get_feedback(clicks)
 
         # Calculate ranking vectors
-        current_vector = create_ranking_vector(self.current_query, self.current_ranking)
+        current_vector = create_ranking_vector(
+            self.current_query,
+            self.current_ranking
+        )
         new_vector = create_ranking_vector(self.current_query, new_ranking)
 
         # Update the weights
