@@ -22,7 +22,7 @@ import argparse
 import numpy as np
 
 from .AbstractLearningSystem import AbstractLearningSystem
-from ..utils import get_class, split_arg_str
+from ..utils import get_class, split_arg_str, create_ranking_vector
 
 
 class PerturbationLearningSystem(AbstractLearningSystem):
@@ -86,8 +86,8 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         new_ranking = self._get_feedback(clicks)
 
         # Calculate ranking vectors
-        current_vector = self._create_ranking_vector(self.current_ranking)
-        new_vector = self._create_ranking_vector(new_ranking)
+        current_vector = create_ranking_vector(self.current_query, self.current_ranking)
+        new_vector = create_ranking_vector(self.current_query, new_ranking)
 
         # Update the weights
         self.ranker.update_weights(new_vector - current_vector, 1)
@@ -96,23 +96,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
     def get_solution(self):
         return self.ranker
-
-    def _create_ranking_vector(self, ranking):
-        """
-        Create a ranking vector from a matrix of document vectors.
-        """
-        feature_matrix = self.current_query.get_feature_vectors()
-        feature_matrix = np.array(
-            [feature_matrix[doc.get_id()] for doc in ranking]
-        )
-
-        # Calculate number of documents
-        ndocs = feature_matrix.shape[0]
-        # log(1) = 0, so fix this by starting range at 2
-        gamma = 1.0 / np.log2(np.arange(2, ndocs + 2, dtype=float))
-
-        # Assume the features are row vectors
-        return np.sum(feature_matrix.transpose() * gamma, axis=1)
 
     def _get_feedback(self, clicks):
         """
