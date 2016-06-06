@@ -14,12 +14,7 @@
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath('..'))
-
-import utils
+import lerot.utils as utils
 
 
 class TestUtils(unittest.TestCase):
