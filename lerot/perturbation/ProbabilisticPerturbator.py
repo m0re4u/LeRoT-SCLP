@@ -11,7 +11,7 @@ class ProbabilisticPerturbator:
         self.swap_prob = swap_prob
         print("Init of Perturbator done")
 
-    def perturb(self, ranker, query, max_length):
+    def perturb(self, ranker, query, max_length=None):
         """
         Get a ranked list from the ranker, perform perturbation on the
         max_length amount of items
@@ -19,7 +19,10 @@ class ProbabilisticPerturbator:
 
         # Create ranked list given query and ranker
         ranker.init_ranking(query)
-        max_length = min(ranker.document_count(), max_length)
+        if max_length is None:
+            max_length = ranker.document_count()
+        else:
+            max_length = min(ranker.document_count(), max_length)
         # Set flag for single start
         # Start with pair calculation
         if rnd.randint(0, 1):
