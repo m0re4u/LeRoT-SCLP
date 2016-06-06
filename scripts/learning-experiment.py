@@ -14,7 +14,8 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
-
+import logging
+import numpy
 try:
     from include import *
 except:
@@ -22,5 +23,22 @@ except:
 from lerot.experiment.GenericExperiment import GenericExperiment
 
 if __name__ == "__main__":
+	# Creates an experiment that can be iterated over
     experiment = GenericExperiment()
-    experiment.run()
+    # Runs a number of experiments and returns a list of those experiment results
+    experiment_list = experiment.run()
+
+    offline_ndcg_eval_list = []
+
+    # Loop over results of all experiments
+	# You can call:
+ 	# 	experiment["online_" + evaluation]
+ 	# 	experiment["offline_test_" + evaluation]
+ 	# 	experiment["offline_train_" + evaluation] 
+    for experiment in experiment_list:
+    	offline_ndcg_eval_list.append(experiment["offline_train_evaluation.NdcgEval"][-1])
+    logging.info("RESULTS:")
+    print("Average NDCG result: "+ str(float(sum(offline_ndcg_eval_list))/len(offline_ndcg_eval_list)))
+    print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
+    print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
+    print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
