@@ -60,6 +60,34 @@ class TestPerturbation(unittest.TestCase):
             self.ranker.next() for _ in range(self.ranker.document_count())
         ]
 
+    @staticmethod
+    def count_swaps(single_start, list1, list2):
+        list1 = [1, 2, 3, 4, 5]
+        list2 = [1, 2, 3, 4, 5]
+        single_start = False
+        lislen = len(list1)
+        if lislen != len(list2):
+            raise ValueError("Lists are not the same size")
+        if single_start and not list1[0] == list2[0]:
+            raise ValueError("Single element not the same")
+        if single_start and lislen % 2 == 0 or \
+                not single_start and lislen % 2 == 1:
+            # in this case there is a left over item at the end of the list
+            if list1[lislen-1] != list2[lislen-1]:
+                raise ValueError("last element not the same")
+        swapped = 0
+        for i in xrange(single_start, len(list1) - 1, 2):
+            print("Comparing {},{} and {},{}".format(list1[i], list1[i+1],
+                                                     list2[i], list2[i+1]))
+            if list1[i] == list2[i] and list2[i+1] == list1[i+1]:
+                print("tuple same")
+            elif list1[i] == list2[i+1] and list2[i] == list1[i+1]:
+                print("swapped")
+                swapped += 1
+            else:
+                raise ValueError("Impossible swap")
+        return swapped
+
     def test_prob_0(self):
         """
         Test perturbing with a probability of 0
