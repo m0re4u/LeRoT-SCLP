@@ -176,23 +176,25 @@ class GenericExperiment:
             pool.close()
             pool.join()
         else:
-            return [self._run(i) for i in range(self.num_runs)]
+            # Run an experiment and get the results
+            return [self._run(experiment_count) for experiment_count in range(self.num_runs)]
 
     def _run(self, run_id):
         logging.info("run %d starts" % run_id)
         aux_log_file = os.path.join(self.output_dir, "_%s-%d.txt.gz" %
                                 (self.output_prefix, run_id))
         aux_log_fh = gzip.open(aux_log_file, "wb")
-        r = self.run_experiment(aux_log_fh)
+        # Returns summary from experiment
+        summarized_experiment = self.run_experiment(aux_log_fh)
         aux_log_fh.close()
         log_file = os.path.join(self.output_dir, "%s-%d.txt.gz" %
                                 (self.output_prefix, run_id))
         log_fh = gzip.open(log_file, "wb")
-        yaml.dump(r, log_fh, default_flow_style=False)
+        yaml.dump(summarized_experiment, log_fh, default_flow_style=False)
         log_fh.close()
         logging.info("run %d done" % run_id)
 
-        return r
+        return summarized_experiment
 
     def run_experiment(self, aux_log_fh):
         experiment = self.experimenter(
