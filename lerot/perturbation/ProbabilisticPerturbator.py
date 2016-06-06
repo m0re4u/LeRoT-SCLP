@@ -34,7 +34,7 @@ class ProbabilisticPerturbator:
         # Loop for perturbation swap & pairing
         for i in xrange(single_start, max_length-1, 2):
             # Swap with p(swap)
-            if rnd.random() <= self.swap_prob:
+            if rnd.random() < self.swap_prob:
                 new_ranked.append(ranker.next())
                 new_ranked.insert(i, ranker.next())
             # Don't swap
