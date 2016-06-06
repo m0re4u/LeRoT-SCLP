@@ -74,8 +74,9 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         self.perturbator = get_class(args["perturbator"])(args["swap_prob"])
 
     def get_ranked_list(self, query):
-        new_ranking, single_start = self.perturbator.perturb(self.ranker, query,
-                                                self.max_results)
+        new_ranking, single_start = self.perturbator.perturb(
+            self.ranker, query, self.max_results
+        )
         self.current_ranking = new_ranking
         self.current_single_start = single_start
         self.current_query = query
