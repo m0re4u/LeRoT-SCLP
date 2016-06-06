@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
-# KH, 2012/06/14
 """
 Retrieval system implementation for use in learning experiments.
 """
