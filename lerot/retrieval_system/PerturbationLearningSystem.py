@@ -19,7 +19,6 @@ Retrieval system implementation for use in learning experiments.
 """
 
 import argparse
-import logging
 import numpy as np
 
 from .AbstractLearningSystem import AbstractLearningSystem
@@ -136,7 +135,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # Loop for swapping pairs of documents according to clicks
         for i in xrange(self.current_single_start, max_length-1, 2):
             # Swap if there is a click on the lower item of a pair
-            if clicks[i+1]:
+            if clicks[i+1] and not clicks[i]:
                 new_ranking.append(self.current_ranking[i+1])
                 new_ranking.append(self.current_ranking[i])
             # Don't swap
