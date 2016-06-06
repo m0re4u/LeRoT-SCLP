@@ -19,7 +19,6 @@ Retrieval system implementation for use in learning experiments.
 """
 
 import argparse
-import logging
 import numpy as np
 
 from .AbstractLearningSystem import AbstractLearningSystem
