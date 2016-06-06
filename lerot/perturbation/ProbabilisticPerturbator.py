@@ -9,7 +9,6 @@ class ProbabilisticPerturbator:
     # swap_prob 0.25, gives a good result according to papers
     def __init__(self, swap_prob=0.25):
         self.swap_prob = swap_prob
-        print("Init of Perturbator done")
 
     def perturb(self, ranker, query, max_length=None):
         """
