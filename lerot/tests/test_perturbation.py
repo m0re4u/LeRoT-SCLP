@@ -62,6 +62,9 @@ class TestPerturbation(unittest.TestCase):
 
     @staticmethod
     def count_swaps(single_start, list1, list2):
+        """
+        Count the number of pairs that are swapped.
+        """
         list1 = [1, 2, 3, 4, 5]
         list2 = [1, 2, 3, 4, 5]
         single_start = False
