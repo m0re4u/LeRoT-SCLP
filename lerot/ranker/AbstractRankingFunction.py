@@ -84,7 +84,7 @@ class AbstractRankingFunction:
         docs = []
         i = 0
         while True:
-            if numdocs != None and i >= numdocs:
+            if numdocs is not None and i >= numdocs:
                 break
             try:
                 docs.append(self.next())
