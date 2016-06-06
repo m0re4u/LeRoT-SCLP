@@ -19,7 +19,7 @@ class ProbabilisticPerturbator:
         max_length amount of items
         """
 
-        #Create ranked list given query and ranker
+        # Create ranked list given query and ranker
         ranker.init_ranking(query)
         max_length = min(ranker.document_count(), max_length)
         # Set flag for single start
