@@ -64,30 +64,24 @@ class TestPerturbation(unittest.TestCase):
     def count_swaps(single_start, list1, list2):
         """
         Count the number of pairs that are swapped.
+
+        If the lists aren't a swapped version of each other an error is raised
         """
-        list1 = [1, 2, 3, 4, 5]
-        list2 = [1, 2, 3, 4, 5]
-        single_start = False
         lislen = len(list1)
         if lislen != len(list2):
             raise ValueError("Lists are not the same size")
+
         if single_start and not list1[0] == list2[0]:
-            raise ValueError("Single element not the same")
-        if single_start and lislen % 2 == 0 or \
-                not single_start and lislen % 2 == 1:
+            raise ValueError("First element not the same")
+        if bool(single_start) ^ lislen % 2 and list1[-1] != list2[-1]:
             # in this case there is a left over item at the end of the list
-            if list1[lislen-1] != list2[lislen-1]:
-                raise ValueError("last element not the same")
+            raise ValueError("Last element not the same")
+
         swapped = 0
-        for i in xrange(single_start, len(list1) - 1, 2):
-            print("Comparing {},{} and {},{}".format(list1[i], list1[i+1],
-                                                     list2[i], list2[i+1]))
-            if list1[i] == list2[i] and list2[i+1] == list1[i+1]:
-                print("tuple same")
-            elif list1[i] == list2[i+1] and list2[i] == list1[i+1]:
-                print("swapped")
+        for i in xrange(single_start, lislen - 1, 2):
+            if list1[i] == list2[i+1] and list2[i] == list1[i+1]:
                 swapped += 1
-            else:
+            elif list1[i] != list2[i] or list2[i+1] != list1[i+1]:
                 raise ValueError("Impossible swap")
         return swapped
 
