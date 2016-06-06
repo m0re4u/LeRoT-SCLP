@@ -46,9 +46,3 @@ class ProbabilisticPerturbator:
         if len(new_ranked) < max_length:
             new_ranked.append(ranker.next())
         return new_ranked, single_start
-
-    """
-    Returns single valuation of the result
-    """
-    def infer_outcome(self, l, context, clicks, query):
-        return 1
