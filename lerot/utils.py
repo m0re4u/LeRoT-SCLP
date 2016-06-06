@@ -123,3 +123,20 @@ def sample_unit_sphere(n):
 
 def sample_fixed(self, n):
     return np.ones(n) / sqrt(n)
+
+def create_ranking_vector(current_query, ranking):
+    """
+    Create a ranking vector from a matrix of document vectors.
+    """
+    feature_matrix = current_query.get_feature_vectors()
+    feature_matrix = np.array(
+        [feature_matrix[doc.get_id()] for doc in ranking]
+    )
+
+    # Calculate number of documents
+    ndocs = feature_matrix.shape[0]
+    # log(1) = 0, so fix this by starting range at 2
+    gamma = 1.0 / np.log2(np.arange(2, ndocs + 2, dtype=float))
+
+    # Assume the features are row vectors
+    return np.sum(feature_matrix.transpose() * gamma, axis=1)
