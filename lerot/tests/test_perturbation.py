@@ -95,6 +95,19 @@ class TestPerturbation(unittest.TestCase):
         )
         self.assertEqual(new_ranked, self.ranking)
 
+    def test_prob_1(self):
+        """
+        Test perturbing with a probability of 1
+        """
+        new_ranked, single_start = ProbabilisticPerturbator(1).perturb(
+            self.ranker,
+            self.query
+        )
+        self.assertNotEqual(new_ranked, self.ranking)
+        swaps = self.count_swaps(single_start, new_ranked, self.ranking)
+        print(len(self.ranking))
+        self.assertEqual(swaps, (len(self.ranking) - single_start) / 2)
+
 
 if __name__ == '__main__':
     unittest.main()
