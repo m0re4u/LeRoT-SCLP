@@ -36,7 +36,6 @@ def string_to_boolean(string):
 
 
 def get_class(name):
-    print("get_class", name)
     """Dynamically import lerot.<name>.
 
     Here be dragons.
