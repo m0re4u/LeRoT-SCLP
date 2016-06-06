@@ -1,17 +1,15 @@
 
 import random as rnd
 
-"""
-Application system for perturbation on ranker
-"""
-
-
 class ProbabilisticPerturbator:
+    """
+    Application system for perturbation on ranker
+    """
 
     # swap_prob 0.25, gives a good result according to papers
     def __init__(self, swap_prob=0.25):
         self.swap_prob = swap_prob
-    print("Init of Perturbator done")
+        print("Init of Perturbator done")
 
     def perturb(self, ranker, query, max_length):
         """
@@ -46,3 +44,9 @@ class ProbabilisticPerturbator:
         if len(new_ranked) < max_length:
             new_ranked.append(ranker.next())
         return new_ranked, single_start
+
+    def update_swap_probability(self, swap_prob):
+        """
+        Update the swap probability of the pertubator
+        """
+        self.swap_prob = swap_prob
