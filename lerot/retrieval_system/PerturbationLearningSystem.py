@@ -85,13 +85,9 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         """Update the ranker weights."""
         new_ranking = self._get_feedback(clicks)
 
-        # Create matrices of feature vectors based on old / new ranking
-        current_matrix = self._create_feature_matrix(self.current_ranking)
-        new_matrix = self._create_feature_matrix(new_ranking)
-
         # Calculate ranking vectors
-        current_vector = self._create_ranking_vector(current_matrix)
-        new_vector = self._create_ranking_vector(new_matrix)
+        current_vector = self._create_ranking_vector(self.current_ranking)
+        new_vector = self._create_ranking_vector(new_ranking)
 
         # Update the weights
         self.ranker.update_weights(new_vector - current_vector, 1)
@@ -101,16 +97,15 @@ class PerturbationLearningSystem(AbstractLearningSystem):
     def get_solution(self):
         return self.ranker
 
-    def _create_feature_matrix(self, ranking):
-        feature_vectors = self.current_query.get_feature_vectors()
-        return np.array(
-            [feature_vectors[doc.get_id()] for doc in ranking]
-        )
-
-    def _create_ranking_vector(self, feature_matrix):
+    def _create_ranking_vector(self, ranking):
         """
         Create a ranking vector from a matrix of document vectors.
         """
+        feature_matrix = self.current_query.get_feature_vectors()
+        feature_matrix = np.array(
+            [feature_matrix[doc.get_id()] for doc in ranking]
+        )
+
         # Calculate number of documents
         ndocs = feature_matrix.shape[0]
         # log(1) = 0, so fix this by starting range at 2
