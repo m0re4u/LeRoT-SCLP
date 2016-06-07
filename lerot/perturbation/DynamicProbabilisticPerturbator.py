@@ -61,7 +61,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         weights = np.transpose(ranker.w)
         return np.dot(weights,org_feature_vec) - np.dot(weights, max_feature_vec)
 
-    def perturb_dynamically(self, ranker, query, max_length):
+    def perturb(self, ranker, query, max_length):
         """
         Calculate perturbed ranking with swap probability
         based on maximum perturbation and the cumulative affirmativeness
@@ -83,7 +83,9 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         self.update_swap_probability(swap_prob)
         self.t += 1
         print(self.get_swap_probability())
-        return self.perturb(ranker, query, max_length)
+        return super(DynamicProbabilisticPerturbator, self).perturb(
+            ranker, query, max_length
+        )
 
     def ranker_to_list(self, ranker, max_length):
         """
