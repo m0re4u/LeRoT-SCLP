@@ -17,7 +17,7 @@ from AsRbpEval import AsRbpEval
 from DcgEval import DcgEval
 from NdcgEval import NdcgEval
 from LetorNdcgEval import LetorNdcgEval
-from MAPEval import MAPEval
+from PAKEval import PAKEval
 
 from VSEval import VSEval
 from VDEval import VDEval
@@ -36,5 +36,5 @@ __all__ = [
     'ISEval',
     'RPEval',
     'LivingLabsEval'
-    'MAPEval'
+    'PAKEval'
 ]
