@@ -67,3 +67,9 @@ class ProbabilisticPerturbator:
         Update the swap probability of the pertubator
         """
         self.swap_prob = swap_prob
+
+    def get_swap_probability(self):
+        """
+        Return the current swap probability
+        """
+        return self.swap_prob
