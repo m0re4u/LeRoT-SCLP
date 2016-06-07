@@ -55,7 +55,8 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
 
         # Calculate feature vector for maximum swap ranking
         self.update_swap_probability(2.0)
-        max_ranking, single_start = self.perturb(ranker, query, max_length)
+        s = super(DynamicProbabilisticPerturbator, self)
+        max_ranking, single_start = s.perturb(ranker, query, max_length)
         max_feature_vec = create_ranking_vector(query, max_ranking)
 
         weights = np.transpose(ranker.w)
