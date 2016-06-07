@@ -62,3 +62,16 @@ class MAPEval:
         if len(precisions) == 0:
             return 0.0
         return float(sum(precisions)) / len(precisions)
+
+    def _sort_docids_by_score(self, docids, scores, ties="random"):
+        n = len(docids)
+        if ties == "first":
+            scored_docids = zip(scores, reversed(range(n)), docids)
+        elif ties == "last":
+            scored_docids = zip(scores, range(n), docids)
+        elif ties == "random":
+            scored_docids = zip(scores, sample(range(n), n), docids)
+        else:
+            raise Exception("Unknown method for breaking ties: \"%s\"" % ties)
+        scored_docids.sort(reverse=True)
+        return [docid for _, _, docid in scored_docids]
