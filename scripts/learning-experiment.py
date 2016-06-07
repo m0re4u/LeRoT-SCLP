@@ -35,13 +35,11 @@ if __name__ == "__main__":
     #   single_run["online_"+experiment.experiment_args["evaluation"][0]]
     #   single_run["offline_test_"+experiment.experiment_args["evaluation"][0]]
     #   single_run["offline_train_"+experiment.experiment_args["evaluation"][0]]
+    evaluation_type = str(experiment.experiment_args["evaluation"][0])
     for single_run in experiment_list:
-        offline_ndcg_eval_list.append(
-            single_run["offline_train_" +
-                       experiment.experiment_args["evaluation"][0]][-1])
+        offline_ndcg_eval_list.append(single_run["offline_train_" + evaluation_type][-1])
         logging.info("RESULTS:")
-        print("Average NDCG result: " + str(float(sum(
-              offline_ndcg_eval_list)) / len(offline_ndcg_eval_list)))
-    print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
-    print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
-    print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
+    print("Average " + evaluation_type + " result: " + str(float(sum(offline_ndcg_eval_list)) / len(offline_ndcg_eval_list)))
+    print(evaluation_type + " mean: " + str(numpy.mean(offline_ndcg_eval_list)))
+    print(evaluation_type + " Max: " + str(max(offline_ndcg_eval_list)))
+    print(evaluation_type + " Min: " + str(min(offline_ndcg_eval_list)))
