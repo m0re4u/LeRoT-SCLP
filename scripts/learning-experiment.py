@@ -36,8 +36,9 @@ if __name__ == "__main__":
     #   single_run["offline_test_"+experiment.experiment_args["evaluation"][0]]
     #   single_run["offline_train_"+experiment.experiment_args["evaluation"][0]]
     for single_run in experiment_list:
-        offline_ndcg_eval_list.append(single_run["offl\
-            ine_train_" + experiment.experiment_args["evaluation"][0]][-1])
+        offline_ndcg_eval_list.append(
+            single_run["offline_train_" +
+                       experiment.experiment_args["evaluation"][0]][-1])
         logging.info("RESULTS:")
         print("Average NDCG result: " + str(float(sum(
               offline_ndcg_eval_list)) / len(offline_ndcg_eval_list)))
