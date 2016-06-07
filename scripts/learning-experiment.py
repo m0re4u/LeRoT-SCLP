@@ -27,16 +27,15 @@ if __name__ == "__main__":
     experiment = GenericExperiment()
     # Runs a number of experiments and returns a list of those experiment results
     experiment_list = experiment.run()
-
     offline_ndcg_eval_list = []
 
-    # Loop over results of all experiments
+    # Loop over results of all runs
 	# You can call:
- 	# 	experiment["online_" + evaluation]
- 	# 	experiment["offline_test_" + evaluation]
- 	# 	experiment["offline_train_" + evaluation] 
-    for experiment in experiment_list:
-    	offline_ndcg_eval_list.append(experiment["offline_train_evaluation.NdcgEval"][-1])
+ 	# 	single_run["online_" + experiment.experiment_args["evaluation"][0]]
+ 	# 	single_run["offline_test_" + experiment.experiment_args["evaluation"][0]]
+ 	# 	single_run["offline_train_" + experiment.experiment_args["evaluation"][0]]
+    for single_run in experiment_list:
+    	offline_ndcg_eval_list.append(single_run["offline_train_" + experiment.experiment_args["evaluation"][0]][-1])
     logging.info("RESULTS:")
     print("Average NDCG result: "+ str(float(sum(offline_ndcg_eval_list))/len(offline_ndcg_eval_list)))
     print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))

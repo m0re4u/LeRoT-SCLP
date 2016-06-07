@@ -49,7 +49,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         parser.add_argument("-s", "--ranker_args", nargs="*")
         parser.add_argument("-t", "--ranker_tie", default="random")
 
-        parser.add_argument("-l", "--max_results", default=10)
+        parser.add_argument("-l", "--max_results", default=float('Inf'))
 
         args = vars(parser.parse_known_args(split_arg_str(arg_str))[0])
 

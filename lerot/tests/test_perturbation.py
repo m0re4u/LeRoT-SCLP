@@ -13,9 +13,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import division
 import unittest
-import random
-import numpy
+
+from hypothesis import given
+from hypothesis.strategies import floats
+
 import cStringIO
 import lerot.query as query
 import lerot.ranker.DeterministicRankingFunction as DRF
@@ -23,11 +26,10 @@ import lerot.perturbation.ProbabilisticPerturbator as ProbabilisticPerturbator
 
 
 class TestPerturbation(unittest.TestCase):
-    def setUp(self):
-        # Seed the random modules to be able to predict the outcome of tests
-        random.seed(42)
-        numpy.random.seed(42)
+    TRIES = 1000
+    MARGIN = 5 / TRIES
 
+    def setUp(self):
         # Create ranker to test with
         ranker_args = ['3']
         ranker_tie = 'random'
@@ -105,8 +107,20 @@ class TestPerturbation(unittest.TestCase):
         )
         self.assertNotEqual(new_ranked, self.ranking)
         swaps = self.count_swaps(single_start, new_ranked, self.ranking)
-        print(len(self.ranking))
-        self.assertEqual(swaps, (len(self.ranking) - single_start) / 2)
+        self.assertEqual(swaps, (len(self.ranking) - single_start) // 2)
+
+    @given(floats(0, 1))
+    def test_prob_hypothesis(self, probability):
+        perturb = ProbabilisticPerturbator(probability).perturb
+        self.assertLessEqual(sum(
+            self.count_swaps(*(
+                    list(
+                        reversed(perturb(self.ranker, self.query))
+                    ) + [self.ranking]
+                )
+            )
+            for _ in range(self.TRIES)
+        ) / self.TRIES * 2 / len(self.ranking) - probability, self.MARGIN)
 
 
 if __name__ == '__main__':
