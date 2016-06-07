@@ -83,7 +83,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         """
         Update the ranker weights
         """
-        print(clicks)
         new_ranking = self._get_feedback(clicks)
 
         # Calculate ranking vectors

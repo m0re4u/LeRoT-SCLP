@@ -143,7 +143,7 @@ class GenericExperiment:
                 self.experiment_args["output_dir"])
 
         logging.basicConfig(format='%(asctime)s %(module)s: %(message)s',
-                            level=logging.DEBUG,)
+                            level=logging.INFO)
         logging.info("Arguments: %s" % self.experiment_args)
 
         # Printing out arguments that are used in execution
