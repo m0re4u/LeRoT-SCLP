@@ -23,21 +23,24 @@ except:
 from lerot.experiment.GenericExperiment import GenericExperiment
 
 if __name__ == "__main__":
-	# Creates an experiment that can be iterated over
+    # Creates an experiment that can be iterated over
     experiment = GenericExperiment()
-    # Runs a number of experiments and returns a list of those experiment results
+    # Runs a number of experiments and returns a list of those experiment
+    # results
     experiment_list = experiment.run()
     offline_ndcg_eval_list = []
 
     # Loop over results of all runs
-	# You can call:
- 	# 	single_run["online_" + experiment.experiment_args["evaluation"][0]]
- 	# 	single_run["offline_test_" + experiment.experiment_args["evaluation"][0]]
- 	# 	single_run["offline_train_" + experiment.experiment_args["evaluation"][0]]
+    # You can call:
+    #   single_run["online_"+experiment.experiment_args["evaluation"][0]]
+    #   single_run["offline_test_"+experiment.experiment_args["evaluation"][0]]
+    #   single_run["offline_train_"+experiment.experiment_args["evaluation"][0]]
     for single_run in experiment_list:
-    	offline_ndcg_eval_list.append(single_run["offline_train_" + experiment.experiment_args["evaluation"][0]][-1])
-    logging.info("RESULTS:")
-    print("Average NDCG result: "+ str(float(sum(offline_ndcg_eval_list))/len(offline_ndcg_eval_list)))
+        offline_ndcg_eval_list.append(single_run["offl\
+            ine_train_" + experiment.experiment_args["evaluation"][0]][-1])
+        logging.info("RESULTS:")
+        print("Average NDCG result: " + str(float(sum(
+              offline_ndcg_eval_list)) / len(offline_ndcg_eval_list)))
     print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
     print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
     print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
