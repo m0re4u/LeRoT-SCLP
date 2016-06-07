@@ -10,7 +10,7 @@ user_model: environment.CascadeUserModel
 user_model_args: --p_click 0:0.0,1:0.5,2:1 --p_stop 0:0.0,1:0.0,2:0.0
 system: retrieval_system.PerturbationLearningSystem
 system_args:
-    --init_weights random
+    --init_weights zero # for 3PR weights should be initialised with zero
     --ranker ranker.DeterministicRankingFunction
     --ranker_arg 3
     --ranker_tie random
