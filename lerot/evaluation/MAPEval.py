@@ -25,18 +25,10 @@ TOP_DOCUMENTS_CHECKED = 10
 class MAPEval(AbstractEval):
     
     def evaluate_ranking(self, ranking, query, cutoff=-1):
-        # print(cutoff)
-        # print(ranking)
-        # print(len(ranking))
-        # print(query.get_labels())
-        # print('=======================')
         if cutoff == -1 or cutoff > len(ranking):
             cutoff = len(ranking)
         stats_by_vert = defaultdict(lambda: {'total': 0, 'rel': 0})
         for d in ranking[:cutoff]:
-            # print(d.get_id())
-            # print(len(ranking))
-            # print("==========")
             vert = d.get_type()
             stats_by_vert[vert]['total'] += 1
             if query.get_labels()[d.get_id()] == 1:
