@@ -24,57 +24,81 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
 
     def __init__(self, delta=0.8):
         self.cum_affirm = 0
-        self.delta = delta
         self.t = 1
+        self.swap_prob = 0
         print("Init of Dynamic Probabilistic Perturbator done")
 
-    def update_affirm(self, query, weights, perturbed_vec, feedback_vec):
+    def update_affirm(self, feedback_vec, perturbed_vec, query, ranker):
         """
         Update the cumulative affirmativeness with the affirmativeness of
         the last iteration
         """
-        perturbed_feature_vec = create_ranking_vector(query, perturbed_vec)
-        feedback_feature_vec = create_ranking_vector(query, feedback_vec)
+        #perturbed_feature_vec = create_ranking_vector(query, perturbed_vec)
+        #feedback_feature_vec = create_ranking_vector(query, feedback_vec)
 
-        weights = np.transpose(weights)
-        new_affirm = weights * feedback_feature_vec - weights * perturbed_feature_vec
+        weights = np.transpose(ranker.w)
+        new_affirm = np.dot(weights,feedback_vec) - np.dot(weights,perturbed_vec)
+        print(np.dot(weights,feedback_vec))
+        print(np.dot(weights,perturbed_vec))
         self.cum_affirm += new_affirm
 
-    def _calc_max_perturbation(self, ranker, query, weights):
+
+    def _calc_max_affirm(self, ranker, query, max_length):
         """
         Calculate the maximum perturbation for the original
         ranking of this iteration
         """
         # Calculate feature vector for original ranking
-        ranking = ranker_to_list(ranker.init_ranking(query))
+        ranker.init_ranking(query)
+        ranking = self.ranker_to_list(ranker, max_length)
         org_feature_vec = create_ranking_vector(query, ranking)
 
         # Calculate feature vector for maximum swap ranking
         self.update_swap_probability(2.0)
-        max_ranking = self.perturb(self, ranker, query, max_length)
+        max_ranking, single_start = self.perturb(ranker, query, max_length)
         max_feature_vec = create_ranking_vector(query, max_ranking)
 
-        weights = np.transpose(weights)
-        return weights * original_vec - weights * max_vec
+        weights = np.transpose(ranker.w)
+        return np.dot(weights,org_feature_vec) - np.dot(weights, max_feature_vec)
 
-    def perturb_dynamically(self, weights, ranker, query, max_length):
+    def perturb(self, ranker, query, max_length):
         """
         Calculate perturbed ranking with swap probability
         based on maximum perturbation and the cumulative affirmativeness
         """
 
         # Calc the maximum perturbation
-        max_perturbation = self._calc_max_perturbation(self, ranker,
-            query, weights)
+        max_affirm = self._calc_max_affirm(ranker,
+            query, max_length)
 
         # Calculate swap probability and ranking
-        swap_prob = max(0,(delta*t - cum_affirm) / max_perturbation)
-        self.update_swap_probability(swap_prob)
-        return self.perturb(self, ranker, query, max_length)
+        #print((self.delta*self.t - self.cum_affirm) / max_affirm)
+        if self.t > 1:
+            delta = self.cum_affirm / self.t - 1
+        else:
+            delta = 0
 
-    def ranker_to_list(ranker):
+        swap_prob = max(0,(delta*self.t - self.cum_affirm) / max_affirm)
+        #print(swap_prob)
+        self.update_swap_probability(swap_prob)
+        self.t += 1
+        print(self.get_swap_probability())
+        return super(DynamicProbabilisticPerturbator, self).perturb(
+            ranker, query, max_length
+        )
+
+    def ranker_to_list(self, ranker, max_length):
+        """
+        Extract the ranking from a ranker,
+        put it in a list
+        """
         new_ranked = []
 
-        for i in range(0,len(ranker.docids)):
+        if max_length is None:
+            max_length = ranker.document_count()
+        else:
+            max_length = min(ranker.document_count(), max_length)
+
+        for i in range(max_length):
             new_ranked.append(ranker.next())
         return new_ranked

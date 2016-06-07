@@ -49,7 +49,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         parser.add_argument("-s", "--ranker_args", nargs="*")
         parser.add_argument("-t", "--ranker_tie", default="random")
 
-        parser.add_argument("-l", "--max_results", default=10)
+        parser.add_argument("-l", "--max_results", default=float('Inf'))
 
         args = vars(parser.parse_known_args(split_arg_str(arg_str))[0])
 
@@ -80,7 +80,10 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         return new_ranking
 
     def update_solution(self, clicks):
-        """Update the ranker weights."""
+        """
+        Update the ranker weights
+        """
+        print(clicks)
         new_ranking = self._get_feedback(clicks)
 
         # Calculate ranking vectors
@@ -88,7 +91,14 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             self.current_query,
             self.current_ranking
         )
-        new_vector = create_ranking_vector(self.current_query, new_ranking)
+
+        new_vector = create_ranking_vector(
+            self.current_query,
+            new_ranking
+        )
+
+        self.perturbator.update_affirm(new_vector, current_vector,
+            self.current_query, self.ranker)
 
         # Update the weights
         self.ranker.update_weights(new_vector - current_vector, 1)
