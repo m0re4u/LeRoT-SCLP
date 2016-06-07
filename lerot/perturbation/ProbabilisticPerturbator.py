@@ -16,7 +16,7 @@
 import random as rnd
 
 
-class ProbabilisticPerturbator:
+class ProbabilisticPerturbator(object):
     """
     Application system for perturbation on ranker
     """
