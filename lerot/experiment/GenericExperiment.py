@@ -143,7 +143,7 @@ class GenericExperiment:
                 self.experiment_args["output_dir"])
 
         logging.basicConfig(format='%(asctime)s %(module)s: %(message)s',
-                            level=logging.INFO)
+                            level=logging.DEBUG)
         logging.info("Arguments: %s" % self.experiment_args)
 
         # Printing out arguments that are used in execution
@@ -189,8 +189,7 @@ class GenericExperiment:
             pool.join()
         else:
             # Run the experiment num_runs times and return the list of results
-            return [self._run(run_id) for
-                    run_id in range(self.num_runs)]
+            return [self._run(run_id) for run_id in range(self.num_runs)]
 
     def _run(self, run_id):
         logging.info("run %d starts" % run_id)

@@ -20,10 +20,9 @@ import numpy as np
 from collections import defaultdict
 from .AbstractEval import AbstractEval
 
-TOP_DOCUMENTS_CHECKED = 10
 
 class PAKEval(AbstractEval):
-    
+
     def evaluate_ranking(self, ranking, query, cutoff=-1):
         if cutoff == -1 or cutoff > len(ranking):
             cutoff = len(ranking)

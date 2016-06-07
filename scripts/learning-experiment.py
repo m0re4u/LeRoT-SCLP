@@ -29,6 +29,7 @@ if __name__ == "__main__":
     # results
     experiment_list = experiment.run()
     offline_ndcg_eval_list = []
+    online_ndcg_eval_list = []
 
     # Loop over results of all runs
     # You can call:
@@ -38,8 +39,19 @@ if __name__ == "__main__":
     evaluation_type = str(experiment.experiment_args["evaluation"][0])
     for single_run in experiment_list:
         offline_ndcg_eval_list.append(single_run["offline_train_" + evaluation_type][-1])
+        online_ndcg_eval_list.append(single_run["online_" + evaluation_type][-1])
     logging.info(" ===== RESULTS: =====")
+    # ONLINE
+    logging.info(" ----- ONLINE: -----")
+    logging.info("Average " + evaluation_type + " result: " + str(float(sum(online_ndcg_eval_list)) / len(online_ndcg_eval_list)))
+    logging.info(evaluation_type + " mean: " + str(numpy.mean(online_ndcg_eval_list)))
+    logging.info(evaluation_type + " std: " + str(numpy.std(online_ndcg_eval_list)))
+    logging.info(evaluation_type + " Max: " + str(max(online_ndcg_eval_list)))
+    logging.info(evaluation_type + " Min: " + str(min(online_ndcg_eval_list)))
+    # OFFLINE
+    logging.info(" ----- OFFLINE: -----")
     logging.info("Average " + evaluation_type + " result: " + str(float(sum(offline_ndcg_eval_list)) / len(offline_ndcg_eval_list)))
     logging.info(evaluation_type + " mean: " + str(numpy.mean(offline_ndcg_eval_list)))
+    logging.info(evaluation_type + " std: " + str(numpy.std(offline_ndcg_eval_list)))
     logging.info(evaluation_type + " Max: " + str(max(offline_ndcg_eval_list)))
     logging.info(evaluation_type + " Min: " + str(min(offline_ndcg_eval_list)))
