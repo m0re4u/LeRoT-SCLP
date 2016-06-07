@@ -16,7 +16,7 @@ system_args:
     --ranker_tie random
     --perturbator perturbation.DynamicProbabilisticPerturbator
 
-output_dir: Perterperter
+output_dir: DynamicPerterPerter
 output_dir_overwrite: True
 output_prefix: Fold1
 
