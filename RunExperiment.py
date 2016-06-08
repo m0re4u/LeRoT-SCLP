@@ -11,6 +11,24 @@ except:
 from VisualEval import update_config
 from lerot.experiment import GenericExperiment
 
+def get_data_one_experiment():
+    """
+    Get the data of a single experiment with one config file
+    """
+    experiment = GenericExperiment()
+    # Runs a number of experiments and returns a list of those experiment results
+    experiment_list = experiment.run()
+
+    offline_ndcg_eval_list = []
+
+    for experiment in experiment_list:
+        offline_ndcg_eval_list.append(experiment["offline_train_evaluation.NdcgEval"][-1])
+    # logging.info("RESULTS:")
+    # print("Average NDCG result: "+ str(float(sum(offline_ndcg_eval_list))/len(offline_ndcg_eval_list)))
+    # print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
+    # print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
+    # print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
+    return offline_ndcg_eval_list
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""
@@ -30,7 +48,7 @@ if __name__ == "__main__":
                         help="steps that the range is traversed with",
                         type=float)
     args = parser.parse_args()
-    # Creates an experiment that can be iterated over
+    # Save original config file
     with open(args.file_name, 'r') as f:
         original_file = f.read()
         experiment_eval_list = []
@@ -38,30 +56,18 @@ if __name__ == "__main__":
         for i in numpy.arange(args.variable_minimum, args.variable_maximum+args.step_size, args.step_size):
             # update variable in config
             update_config(args.file_name,args.variable_key,i)
-            experiment = GenericExperiment()
-            # Runs a number of experiments and returns a list of those experiment results
-            experiment_list = experiment.run()
-
-            offline_ndcg_eval_list = []
-
-            for experiment in experiment_list:
-                offline_ndcg_eval_list.append(experiment["offline_train_evaluation.NdcgEval"][-1])
-            logging.info("RESULTS:")
-            print("Average NDCG result: "+ str(float(sum(offline_ndcg_eval_list))/len(offline_ndcg_eval_list)))
-            print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
-            print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
-            print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
-            # Add to overall eval list as tuple
-            experiment_eval_list.append((offline_ndcg_eval_list, i ))
+            # Add data to overall eval list as tuple
+            experiment_eval_list.append((get_data_one_experiment(), i ))
         # Write datadump
         with open("EvalDump.txt", 'w') as f:
             f.write(str(experiment_eval_list))
-        # Recover original eval
+        # Restore original config file
         with open(args.file_name, 'w') as f:
             f.write(original_file)
-    # When something goes wrong, print the type and the error and recover original config
+    # When something goes wrong, print error
     except Exception as err:
             print(type(err))
             print(err)
+            # Restore original config file
             with open(args.file_name, 'w') as f:
                 f.write(original_file)
