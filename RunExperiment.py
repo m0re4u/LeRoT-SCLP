@@ -8,7 +8,7 @@ try:
     from include import *
 except:
     pass
-from VisualEval import make_experiment_args
+from VisualEval import update_config
 from lerot.experiment import GenericExperiment
 
 
@@ -35,11 +35,9 @@ if __name__ == "__main__":
         original_file = f.read()
         experiment_eval_list = []
     try:
-            print("reading done")
-            print(args.variable_key)
         for i in numpy.arange(args.variable_minimum, args.variable_maximum+args.step_size, args.step_size):
-            # Set string using proper steps
-            make_experiment_args(args.file_name,args.variable_key,args.variable_minimum)
+            # update variable in config
+            update_config(args.file_name,args.variable_key,i)
             experiment = GenericExperiment()
             # Runs a number of experiments and returns a list of those experiment results
             experiment_list = experiment.run()
@@ -53,12 +51,15 @@ if __name__ == "__main__":
             print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
             print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
             print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
-            # Add to overall eval list
-            experiment_eval_list.append(offline_ndcg_eval_list)
-        with open("EvalDump.txt") as f:
-            f.write(offline_ndcg_eval_list)
+            # Add to overall eval list as tuple
+            experiment_eval_list.append((offline_ndcg_eval_list, i ))
+        # Write datadump
+        with open("EvalDump.txt", 'w') as f:
+            f.write(str(experiment_eval_list))
+        # Recover original eval
         with open(args.file_name, 'w') as f:
             f.write(original_file)
+    # When something goes wrong, print the type and the error and recover original config
     except Exception as err:
             print(type(err))
             print(err)
