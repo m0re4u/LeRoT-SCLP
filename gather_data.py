@@ -9,26 +9,7 @@ try:
 except:
     pass
 from VisualEval import update_config
-from lerot.experiment import GenericExperiment
-
-def get_data_one_experiment():
-    """
-    Get the data of a single experiment with one config file
-    """
-    experiment = GenericExperiment()
-    # Runs a number of experiments and returns a list of those experiment results
-    experiment_list = experiment.run()
-
-    offline_ndcg_eval_list = []
-
-    for experiment in experiment_list:
-        offline_ndcg_eval_list.append(experiment["offline_train_evaluation.NdcgEval"][-1])
-    # logging.info("RESULTS:")
-    # print("Average NDCG result: "+ str(float(sum(offline_ndcg_eval_list))/len(offline_ndcg_eval_list)))
-    # print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
-    # print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
-    # print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
-    return offline_ndcg_eval_list
+from VisualEval import get_data_one_experiment
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""
@@ -65,7 +46,7 @@ if __name__ == "__main__":
         with open(args.file_name, 'w') as f:
             f.write(original_file)
     # When something goes wrong, print error
-    except Exception as err:
+    except BaseException as err:
             print(type(err))
             print(err)
             # Restore original config file

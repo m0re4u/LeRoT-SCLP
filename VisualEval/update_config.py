@@ -7,7 +7,7 @@ def update_config(file, var_name, var_value):
     """
     new_text = ""
     # Regex to find variable in config file
-    regex = re.escape(var_name) + r'+.*'
+    regex = re.escape(var_name) + r'.*'
     with open(file, 'r') as f:
         for line in f:
             # Replace variable value once found
