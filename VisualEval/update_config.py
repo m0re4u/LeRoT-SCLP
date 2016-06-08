@@ -11,8 +11,13 @@ def update_config(file, var_name, var_value):
     with open(file, 'r') as f:
         for line in f:
             # Replace variable value once found
-            line = re.sub(regex, var_name+' '+str(var_value), line)
+            # if there is a : in the line then make sure to place it back
+            if re.match(r'.+:+.+', line):
+                line = re.sub(regex, var_name+': '+str(var_value), line)
+            else:
+                line = re.sub(regex, var_name+' '+str(var_value), line)
             new_text += line
+        print(new_text)
     # Write back to file
     with open(file, 'w') as f:
         f.write(new_text)
