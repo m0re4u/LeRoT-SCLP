@@ -22,10 +22,11 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
     Application system for dynamic probabilistic perturbation on ranker
     """
 
-    def __init__(self, delta=0.8):
+    def __init__(self, delta=0.000025):
         self.cum_affirm = 0
         self.t = 1
         self.swap_prob = 0
+        self.delta = delta
         print("Init of Dynamic Probabilistic Perturbator done")
 
     def update_affirm(self, feedback_vec, perturbed_vec, query, ranker):
@@ -38,9 +39,8 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
 
         weights = np.transpose(ranker.w)
         new_affirm = np.dot(weights,feedback_vec) - np.dot(weights,perturbed_vec)
-        print(np.dot(weights,feedback_vec))
-        print(np.dot(weights,perturbed_vec))
         self.cum_affirm += new_affirm
+        print "New affirmativeness", new_affirm
 
 
     def _calc_max_affirm(self, ranker, query, max_length):
@@ -61,7 +61,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         weights = np.transpose(ranker.w)
         return np.dot(weights,org_feature_vec) - np.dot(weights, max_feature_vec)
 
-    def perturb_dynamically(self, ranker, query, max_length):
+    def perturb(self, ranker, query, max_length):
         """
         Calculate perturbed ranking with swap probability
         based on maximum perturbation and the cumulative affirmativeness
@@ -73,17 +73,17 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
 
         # Calculate swap probability and ranking
         #print((self.delta*self.t - self.cum_affirm) / max_affirm)
-        if self.t > 1:
-            delta = self.cum_affirm / self.t - 1
-        else:
-            delta = 0
 
-        swap_prob = max(0,(delta*self.t - self.cum_affirm) / max_affirm)
-        #print(swap_prob)
+        swap_prob = max(0,(self.delta*self.t - self.cum_affirm) / max_affirm)
+        # print(swap_prob)
+
         self.update_swap_probability(swap_prob)
         self.t += 1
+
         print(self.get_swap_probability())
-        return self.perturb(ranker, query, max_length)
+        return super(DynamicProbabilisticPerturbator, self).perturb(
+            ranker, query, max_length
+        )
 
     def ranker_to_list(self, ranker, max_length):
         """

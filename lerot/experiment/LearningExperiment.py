@@ -28,16 +28,20 @@ from AbstractLearningExperiment import AbstractLearningExperiment
 
 
 class LearningExperiment(AbstractLearningExperiment):
-    """Represents an experiment in which a retrieval system learns from
+    """
+    Represents an experiment in which a retrieval system learns from
     implicit user feedback. The experiment is initialized as specified in the
     provided arguments, or config file.
     """
 
     def run(self):
-        """Run the experiment num_runs times."""
+        """
+        A single run of the experiment.
+        """
         query_keys = sorted(self.training_queries.keys())
         query_length = len(query_keys)
 
+        # setup evaluation
         online_evaluation = {}
         offline_test_evaluation = {}
         offline_train_evaluation = {}
@@ -47,19 +51,22 @@ class LearningExperiment(AbstractLearningExperiment):
             offline_train_evaluation[evaluation] = []
         similarities = [.0]
 
-        # process num_queries queries
-        for query_count in range(self.num_queries):
+        # Process queries
+        for query_count in xrange(self.num_queries):
+            logging.debug("Query nr: {}".format(query_count))
             previous_solution_w = self.system.get_solution().w
             qid = self._sample_qid(query_keys, query_count, query_length)
             query = self.training_queries[qid]
             # get result list for the current query from the system
             result_list = self.system.get_ranked_list(query)
+            logging.debug(online_evaluation)
             for evaluation in self.evaluations:
                 online_evaluation[evaluation].append(
                         float(self.evaluations[evaluation].evaluate_ranking(
                                                 result_list,
                                                 query,
                                                 min(len(result_list), 10))))
+            logging.debug(online_evaluation)
             # generate click feedback
             clicks = self.um.get_clicks(result_list, query.get_labels())
             # send feedback to system

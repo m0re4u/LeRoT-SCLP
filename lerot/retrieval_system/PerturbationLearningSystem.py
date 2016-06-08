@@ -71,7 +71,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         self.perturbator = get_class(args["perturbator"])(args["swap_prob"])
 
     def get_ranked_list(self, query):
-        new_ranking, single_start = self.perturbator.perturb_dynamically(
+        new_ranking, single_start = self.perturbator.perturb(
             self.ranker, query, self.max_results
         )
         self.current_ranking = new_ranking
@@ -83,7 +83,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         """
         Update the ranker weights
         """
-        print(clicks)
         new_ranking = self._get_feedback(clicks)
 
         # Calculate ranking vectors
@@ -97,8 +96,8 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             new_ranking
         )
 
-        self.perturbator.update_affirm(new_vector, current_vector,
-            self.current_query, self.ranker)
+        # self.perturbator.update_affirm(new_vector, current_vector,
+        #     self.current_query, self.ranker)
 
         # Update the weights
         self.ranker.update_weights(new_vector - current_vector, 1)
