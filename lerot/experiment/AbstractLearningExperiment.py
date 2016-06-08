@@ -38,9 +38,17 @@ class AbstractLearningExperiment:
         # if isinstance(self.system, AbstractOracleSystem):
         #     self.system.set_test_queries(self.test_queries)
         self.evaluations = {}
-        for evaluation in args["evaluation"]:
+        for eval_args in args["evaluation"]:
+            # Handle evaluation arguments
+            split_args = eval_args.split()
+            # First element in this list is the evaluation method
+            evaluation = split_args[0]
+
             self.evaluation_class = get_class(evaluation)
-            self.evaluations[evaluation] = self.evaluation_class()
+            self.evaluations[evaluation] = {}
+            self.evaluations[evaluation]['eval_class'] = self.evaluation_class()
+            for i in xrange(1, len(split_args)-1, 2):
+                self.evaluations[evaluation][split_args[i]] = split_args[i+1]
         self.queryid = None
 
     def _sample_qid(self, query_keys, query_count, query_length):

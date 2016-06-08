@@ -50,7 +50,7 @@ class AbstractEval:
         """
         Evaluate one query with a provided solution
         """
-        print(solution)
+
         scores = solution.score(query.get_feature_vectors())
         sorted_docs = self._sort_docids_by_score(query.get_docids(), scores,
                                                  ties=ties)

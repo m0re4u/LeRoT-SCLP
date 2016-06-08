@@ -1,8 +1,8 @@
-test_queries: data/Fold1/test.txt
-training_queries: data/Fold1/train.txt
-feature_count: 64 # 64 for .Gov, 46 for MQ*, 136 for MSLR
+test_queries: data/MQ2007/Fold1/test.txt
+training_queries: data/MQ2007/Fold1/train.txt
+feature_count: 46 # 64 for .Gov, 46 for MQ*, 136 for MSLR
 num_runs: 5
-num_queries: 1000
+num_queries: 100
 processes: 1
 query_sampling_method: random
 user_model: environment.CascadeUserModel
@@ -22,5 +22,6 @@ output_dir_overwrite: True
 output_prefix: Fold1
 
 evaluation:
-    - evaluation.NdcgEval
+    - evaluation.PAKEval train_cutoff 5 test_cutoff 5
+    - evaluation.NdcgEval train_cutoff 6 test_cutoff 6
 experimenter: experiment.LearningExperiment

@@ -22,7 +22,9 @@ from .AbstractEval import AbstractEval
 
 
 class PAKEval(AbstractEval):
-
+    """
+    Precision at k evaluation. Relevant document in ranking up to index k
+    """
     def evaluate_ranking(self, ranking, query, cutoff=-1):
         if cutoff == -1 or cutoff > len(ranking):
             cutoff = len(ranking)

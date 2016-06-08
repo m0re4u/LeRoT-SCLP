@@ -84,7 +84,7 @@ class GenericExperiment:
         detail_group.add_argument(
             "-e", "--experimenter", help="Experimenter type.")
 
-        # Parse arguments, checks if arguments were earlier
+        # Parse arguments, checks earlier arguments
         if args_str:
             args = parser.parse_known_args(args_str.split())[0]
         else:
@@ -143,7 +143,7 @@ class GenericExperiment:
                 self.experiment_args["output_dir"])
 
         logging.basicConfig(format='%(asctime)s %(module)s: %(message)s',
-                            level=logging.DEBUG)
+                            level=logging.INFO)
         logging.info("Arguments: %s" % self.experiment_args)
 
         # Printing out arguments that are used in execution
