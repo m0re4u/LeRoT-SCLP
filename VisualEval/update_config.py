@@ -1,5 +1,10 @@
 import re
-def make_experiment_args(file, var_name, var_value):
+def update_config(file, var_name, var_value):
+    """
+    Given file, variable name and a new value,
+    update the variable to the new value in the
+    given file
+    """
     new_text = ""
     # Regex to find variable in config file
     regex = re.escape(var_name) + r'+.*'
