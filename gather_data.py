@@ -34,7 +34,8 @@ if __name__ == "__main__":
         original_file = f.read()
         experiment_eval_list = []
     try:
-        for i in numpy.arange(args.variable_minimum, args.variable_maximum+args.step_size, args.step_size):
+        for i in [args.variable_minimum + args.step_size * i
+                  for i in xrange(0, int(args.variable_maximum / args.step_size))]:
             # update variable in config
             update_config(args.file_name,args.variable_key,i)
             # Add data to overall eval list as tuple
