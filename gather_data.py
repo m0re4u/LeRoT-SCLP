@@ -4,12 +4,29 @@ import logging
 import numpy
 import argparse
 import os
+import sys
+import matplotlib.pyplot as plt
 try:
     from include import *
 except:
     pass
 from VisualEval import update_config
 from VisualEval import get_data_one_experiment
+
+def visualize_data(data):
+    """
+    Assuming we recieve a list(tuple(list(eval_measure), iteration))
+    make a plot and output it
+    """
+    plt.plot([sample[1] for sample in data],[numpy.mean(sample[0]) for sample in data])
+    print([numpy.mean(sample[0]) for sample in data])
+    plt.xlabel("swap probability")
+    plt.ylabel("nDCG")
+    plt.show()
+        # get mean
+
+
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""
@@ -32,24 +49,26 @@ if __name__ == "__main__":
     # Save original config file
     with open(args.file_name, 'r') as f:
         original_file = f.read()
-        experiment_eval_list = []
+        experiment_eval_list = [([0],0)]
     try:
         for i in [args.variable_minimum + args.step_size * i
                   for i in xrange(0, int(args.variable_maximum / args.step_size))]:
             # update variable in config
             update_config(args.file_name,args.variable_key,i)
             # Add data to overall eval list as tuple
-            experiment_eval_list.append((get_data_one_experiment(), i ))
+            experiment_eval_list.append((get_data_one_experiment(), i))
         # Write datadump
+        visualize_data(experiment_eval_list)
         with open("EvalDump.txt", 'w') as f:
             f.write(str(experiment_eval_list))
         # Restore original config file
         with open(args.file_name, 'w') as f:
             f.write(original_file)
     # When something goes wrong, print error
-    except BaseException as err:
-            print(type(err))
-            print(err)
-            # Restore original config file
-            with open(args.file_name, 'w') as f:
-                f.write(original_file)
+    except BaseException as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type, fname, exc_tb.tb_lineno)
+        # Restore original config file
+        with open(args.file_name, 'w') as f:
+            f.write(original_file)
