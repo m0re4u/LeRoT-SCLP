@@ -65,7 +65,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         """
 
         # Calc the maximum perturbation
-        max_affirm = self._calc_max_affirm(ranker, query, max_length)
+        # max_affirm = self._calc_max_affirm(ranker, query, max_length)
 
         # Calculate swap probability and ranking
         # (self.delta*self.t - self.cum_affirm) / max_affirm
