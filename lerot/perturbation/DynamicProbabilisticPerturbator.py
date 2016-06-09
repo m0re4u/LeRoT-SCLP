@@ -23,10 +23,11 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
     Application system for dynamic probabilistic perturbation on ranker
     """
 
-    def __init__(self, delta=0.000025):
+    # Ignore all input =D
+    def __init__(self, *args, **kwargs):
         self.cum_affirm = 0
         self.t = 1
-        self.delta = delta
+        # self.delta = delta
 
     def update(self, feedback_vec, perturbed_vec, query, ranker):
         """
@@ -36,8 +37,8 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         weights = np.transpose(ranker.w)
         new_affirm = np.dot(weights, feedback_vec) \
             - np.dot(weights, perturbed_vec)
-        self.cum_affirm += new_affirm
         # print "New affirmativeness", new_affirm
+        self.cum_affirm += new_affirm
 
     def _calc_max_affirm(self, ranker, query, max_length):
         """
@@ -67,10 +68,10 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         max_affirm = self._calc_max_affirm(ranker, query, max_length)
 
         # Calculate swap probability and ranking
-        # print((self.delta*self.t - self.cum_affirm) / max_affirm)
-
-        swap_prob = max(0, (self.delta*self.t - self.cum_affirm) / max_affirm)
-        # print(swap_prob)
+        # (self.delta*self.t - self.cum_affirm) / max_affirm
+        # swap_prob = max(0, -self.cum_affirm / max_affirm)
+        swap_prob = max(0, -self.cum_affirm)
+        # print "Swap probability", swap_prob
 
         self.t += 1
 
