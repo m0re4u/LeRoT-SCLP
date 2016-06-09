@@ -48,7 +48,7 @@ class AbstractLearningExperiment:
             self.evaluations[evaluation] = {}
             self.evaluations[evaluation]['eval_class'] = self.evaluation_class()
             for i in xrange(1, len(split_args)-1, 2):
-                self.evaluations[evaluation][split_args[i]] = split_args[i+1]
+                self.evaluations[evaluation][split_args[i]] = int(split_args[i+1])
             if 'test_cutoff' not in self.evaluations[evaluation]:
                 self.evaluations[evaluation]['test_cutoff'] = -1
             if 'train_cutoff' not in self.evaluations[evaluation]:
