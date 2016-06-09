@@ -20,16 +20,21 @@ from numpy import mean
 
 
 class AbstractEval:
-    """Abstract base class for computing evaluation metrics for given relevance
-    labels."""
+    """
+    Abstract base class for computing evaluation metrics for given relevance
+    labels.
+    """
 
     def __init__(self):
         self.prev_solution_w = None
         self.prev_score = None
 
     def evaluate_all(self, solution, queries, cutoff=-1, ties="random"):
+        """
+        Evaluate all queries given a certain solution
+        """
         if self.prev_solution_w is not None and (self.prev_solution_w ==
-                                             solution.w).all():
+                                                 solution.w).all():
             return self.prev_score
         outcomes = []
         for query in queries:
@@ -42,9 +47,13 @@ class AbstractEval:
         return score
 
     def evaluate_one(self, solution, query, cutoff=-1, ties="random"):
+        """
+        Evaluate one query with a provided solution
+        """
+
         scores = solution.score(query.get_feature_vectors())
         sorted_docs = self._sort_docids_by_score(query.get_docids(), scores,
-            ties=ties)
+                                                 ties=ties)
         return self.evaluate_ranking(sorted_docs, query, cutoff)
 
     def evaluate_ranking(self, ranking, query, cutoff=-1):

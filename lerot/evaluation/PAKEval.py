@@ -20,19 +20,25 @@ import numpy as np
 from collections import defaultdict
 from .AbstractEval import AbstractEval
 
-TOP_DOCUMENTS_CHECKED = 10
 
-class MAPEval(AbstractEval):
-    
+class PAKEval(AbstractEval):
+    """
+    Precision at k evaluation. Relevant document in ranking up to index k
+    """
     def evaluate_ranking(self, ranking, query, cutoff=-1):
+        # If cutoff is out of range, make it length of ranking
         if cutoff == -1 or cutoff > len(ranking):
             cutoff = len(ranking)
+
+        # return dict if value is not in stats_by_vert
         stats_by_vert = defaultdict(lambda: {'total': 0, 'rel': 0})
-        for d in ranking[:cutoff]:
-            vert = d.get_type()
+        for doc in ranking[:cutoff]:
+            vert = doc.get_type()
             stats_by_vert[vert]['total'] += 1
-            if query.get_labels()[d.get_id()] == 1:
+            # If document is relevant, add one to counter
+            if query.get_labels()[doc.get_id()] > 0:
                 stats_by_vert[vert]['rel'] += 1
+        # Calculate the precision for ranking
         precisions = [float(s['rel']) / s['total'] for s in stats_by_vert.itervalues()]
         if len(precisions) == 0:
             return 0.0
