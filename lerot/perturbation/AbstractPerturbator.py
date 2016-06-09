@@ -13,13 +13,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
-from AbstractProbabilisticPerturbator import AbstractProbabilisticPerturbator
 
+class AbstractPerturbator(object):
+    def perturb(self, ranker, query, max_length=None):
+        raise NotImplementedError("perturb must be implemented")
 
-class ProbabilisticPerturbator(AbstractProbabilisticPerturbator):
-    # swap_prob 0.25, gives a good result according to papers
-    def __init__(self, swap_prob=0.25):
-        self.swap_prob = swap_prob
-
-    def perturb(self, *args, **kwargs):
-        return self._perturb(self.swap_prob, *args, **kwargs)
+    def update(self, new_vector, current_vector, current_query, ranker):
+        """This function is called when the correct solution is known"""
+        pass
