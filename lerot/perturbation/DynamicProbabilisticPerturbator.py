@@ -17,6 +17,7 @@ import numpy as np
 from .ProbabilisticPerturbator import ProbabilisticPerturbator
 from ..utils import create_ranking_vector
 
+
 class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
     """
     Application system for dynamic probabilistic perturbation on ranker
@@ -25,28 +26,23 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
     def __init__(self, delta=0.000025):
         self.cum_affirm = 0
         self.t = 1
-        self.swap_prob = 0
         self.delta = delta
-        print("Init of Dynamic Probabilistic Perturbator done")
 
-    def update_affirm(self, feedback_vec, perturbed_vec, query, ranker):
+    def update(self, feedback_vec, perturbed_vec, query, ranker):
         """
         Update the cumulative affirmativeness with the affirmativeness of
         the last iteration
         """
-        #perturbed_feature_vec = create_ranking_vector(query, perturbed_vec)
-        #feedback_feature_vec = create_ranking_vector(query, feedback_vec)
-
         weights = np.transpose(ranker.w)
-        new_affirm = np.dot(weights,feedback_vec) - np.dot(weights,perturbed_vec)
+        new_affirm = np.dot(weights, feedback_vec) \
+            - np.dot(weights, perturbed_vec)
         self.cum_affirm += new_affirm
-        print "New affirmativeness", new_affirm
-
+        # print "New affirmativeness", new_affirm
 
     def _calc_max_affirm(self, ranker, query, max_length):
         """
-        Calculate the maximum perturbation for the original
-        ranking of this iteration
+        Calculate the maximum perturbation for the original ranking of this
+        iteration
         """
         # Calculate feature vector for original ranking
         ranker.init_ranking(query)
@@ -54,35 +50,32 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         org_feature_vec = create_ranking_vector(query, ranking)
 
         # Calculate feature vector for maximum swap ranking
-        self.update_swap_probability(2.0)
-        max_ranking, single_start = self.perturb(ranker, query, max_length)
+        max_ranking, single_start = self._perturb(1, ranker, query, max_length)
         max_feature_vec = create_ranking_vector(query, max_ranking)
 
         weights = np.transpose(ranker.w)
-        return np.dot(weights,org_feature_vec) - np.dot(weights, max_feature_vec)
+        return np.dot(weights, org_feature_vec) \
+            - np.dot(weights, max_feature_vec)
 
     def perturb(self, ranker, query, max_length):
         """
-        Calculate perturbed ranking with swap probability
-        based on maximum perturbation and the cumulative affirmativeness
+        Calculate perturbed ranking with swap probability based on maximum
+        perturbation and the cumulative affirmativeness
         """
 
         # Calc the maximum perturbation
-        max_affirm = self._calc_max_affirm(ranker,
-            query, max_length)
+        max_affirm = self._calc_max_affirm(ranker, query, max_length)
 
         # Calculate swap probability and ranking
-        #print((self.delta*self.t - self.cum_affirm) / max_affirm)
+        # print((self.delta*self.t - self.cum_affirm) / max_affirm)
 
-        swap_prob = max(0,(self.delta*self.t - self.cum_affirm) / max_affirm)
+        swap_prob = max(0, (self.delta*self.t - self.cum_affirm) / max_affirm)
         # print(swap_prob)
 
-        self.update_swap_probability(swap_prob)
         self.t += 1
 
-        print(self.get_swap_probability())
-        return super(DynamicProbabilisticPerturbator, self).perturb(
-            ranker, query, max_length
+        return self._perturb(
+            swap_prob, ranker, query, max_length
         )
 
     def ranker_to_list(self, ranker, max_length):

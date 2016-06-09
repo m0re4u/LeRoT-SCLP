@@ -16,7 +16,7 @@ system_args:
     --ranker_arg 3
     --ranker_tie random
     --perturbator perturbation.ProbabilisticPerturbator
-
+    --swap_prob 0.5
 output_dir: Perterperter
 output_dir_overwrite: True
 output_prefix: Fold1

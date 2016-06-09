@@ -96,8 +96,8 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             new_ranking
         )
 
-        # self.perturbator.update_affirm(new_vector, current_vector,
-        #     self.current_query, self.ranker)
+        self.perturbator.update(new_vector, current_vector, self.current_query,
+                                self.ranker)
 
         # Update the weights
         self.ranker.update_weights(new_vector - current_vector, 1)
