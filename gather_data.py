@@ -19,7 +19,7 @@ def visualize_data(data):
     make a plot and output it
     """
     plt.plot([sample[1] for sample in data],[numpy.mean(sample[0]) for sample in data])
-    print([numpy.mean(sample[0]) for sample in data])
+    print(data)
     plt.xlabel("swap probability")
     plt.ylabel("nDCG")
     plt.show()
@@ -59,16 +59,10 @@ if __name__ == "__main__":
             experiment_eval_list.append((get_data_one_experiment(), i))
         # Write datadump
         visualize_data(experiment_eval_list)
-        with open("EvalDump.txt", 'w') as f:
+        with open("DataDump/EvalDump" +"_" + str(args.variable_key) +"_"+ str(args.variable_minimum)
+                  +"_"+ str(args.variable_maximum )+"_" + str(args.step_size) + ".txt", 'w') as f:
             f.write(str(experiment_eval_list))
-        # Restore original config file
-        with open(args.file_name, 'w') as f:
-            f.write(original_file)
-    # When something goes wrong, print error
-    except BaseException as e:
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
+    finally:
         # Restore original config file
         with open(args.file_name, 'w') as f:
             f.write(original_file)
