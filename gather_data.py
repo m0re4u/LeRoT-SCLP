@@ -50,18 +50,26 @@ if __name__ == "__main__":
     with open(args.file_name, 'r') as f:
         original_file = f.read()
         experiment_eval_list = [([0],0)]
+        dump_name = "DataDump/EvalDump" +"_" + str(args.variable_key) +"_"+ str(args.variable_minimum)
+                    +"_"+ str(args.variable_maximum )+"_" + str(args.step_size) + ".txt"
     try:
+        # Construct datadump with initial value 0,0
+        with open(dump_name, 'w') as f:
+            f.write("[([0],0)")
         for i in [args.variable_minimum + args.step_size * i
                   for i in xrange(0, int(args.variable_maximum / args.step_size))]:
             # update variable in config
             update_config(args.file_name,args.variable_key,i)
             # Add data to overall eval list as tuple
-            experiment_eval_list.append((get_data_one_experiment(), i))
-        # Write datadump
+            experiment_data = (get_data_one_experiment(),i)
+            with open(dump_name, 'a') as f:
+                f.write(experiment_data)
+            experiment_eval_list.append(experiment_data)
+        # Finish datadump
+        with open(dump_name, 'a')
+            f.write("]")
+        # Visualize data
         visualize_data(experiment_eval_list)
-        with open("DataDump/EvalDump" +"_" + str(args.variable_key) +"_"+ str(args.variable_minimum)
-                  +"_"+ str(args.variable_maximum )+"_" + str(args.step_size) + ".txt", 'w') as f:
-            f.write(str(experiment_eval_list))
     finally:
         # Restore original config file
         with open(args.file_name, 'w') as f:
