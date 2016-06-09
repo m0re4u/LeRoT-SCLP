@@ -60,11 +60,12 @@ class LearningExperiment(AbstractLearningExperiment):
             # get result list for the current query from the system
             result_list = self.system.get_ranked_list(query)
 
-            # Evaluate list only
+            # Online evaluation
             for evaluation in self.evaluations:
-                online_evaluation[evaluation].append(
-                    float(self.evaluations[evaluation]['eval_class'].evaluate_ranking(
-                        result_list, query, min(len(result_list), 10))))
+                a = float(self.evaluations[evaluation]['eval_class'].evaluate_ranking(
+                    result_list, query, self.evaluations[evaluation]['test_cutoff']))
+
+                online_evaluation[evaluation].append(a)
 
             # generate click feedback
             clicks = self.um.get_clicks(result_list, query.get_labels())
