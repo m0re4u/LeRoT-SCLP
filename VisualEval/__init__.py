@@ -1,2 +1,3 @@
 from update_config import update_config
 from get_data_one_experiment import get_data_one_experiment
+from visualize_data import visualize_data
