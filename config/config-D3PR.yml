@@ -2,7 +2,7 @@ test_queries: data/MQ2007/Fold1/test.txt
 training_queries: data/MQ2007/Fold1/train.txt
 feature_count: 46 # 64 for .Gov, 46 for MQ*, 136 for MSLR
 num_runs: 1
-num_queries: 1000
+num_queries: 1017 # Exactly the number of queries in MQ2007
 processes: 1
 query_sampling_method: fixed
 user_model: environment.CascadeUserModel
