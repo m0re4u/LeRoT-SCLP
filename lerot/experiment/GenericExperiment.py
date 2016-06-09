@@ -183,10 +183,16 @@ class GenericExperiment:
         if self.experiment_args["processes"] > 1:
             from multiprocessing import Pool
             pool = Pool(processes=self.experiment_args["processes"])
-            for run_count in range(self.num_runs):
+            results = [
                 pool.apply_async(self._run, (run_count,))
+                for run_count in range(self.num_runs)
+            ]
             pool.close()
             pool.join()
+            for result in results:
+                logging.info("Ready: {}".format(result.ready()))
+                logging.info("Successful: {}".format(result.successful()))
+            return [result.get() for result in results]
         else:
             # Run the experiment num_runs times and return the list of results
             return [self._run(run_id) for
