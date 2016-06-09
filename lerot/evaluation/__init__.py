@@ -13,28 +13,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
-from AsRbpEval import AsRbpEval
 from DcgEval import DcgEval
 from NdcgEval import NdcgEval
+from PAKEval import PAKEval
 from LetorNdcgEval import LetorNdcgEval
-from MAPEval import MAPEval
-
-from VSEval import VSEval
-from VDEval import VDEval
-from ISEval import ISEval
-from RPEval import RPEval
-
-from LivingLabsEval import LivingLabsEval
 
 __all__ = [
-    'AsRbpEval'
     'DcgEval',
     'NdcgEval',
-    'LetorNdcgEval'
-    'VSEval',
-    'VDEval',
-    'ISEval',
-    'RPEval',
-    'LivingLabsEval'
-    'MAPEval'
+    'PAKEval',
+    'LetorNdcgEval',
 ]

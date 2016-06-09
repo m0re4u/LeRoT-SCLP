@@ -84,7 +84,7 @@ class GenericExperiment:
         detail_group.add_argument(
             "-e", "--experimenter", help="Experimenter type.")
 
-        # Parse arguments, checks if arguments were earlier
+        # Parse arguments, checks earlier arguments
         if args_str:
             args = parser.parse_known_args(args_str.split())[0]
         else:
@@ -195,8 +195,7 @@ class GenericExperiment:
             return [result.get() for result in results]
         else:
             # Run the experiment num_runs times and return the list of results
-            return [self._run(run_id) for
-                    run_id in range(self.num_runs)]
+            return [self._run(run_id) for run_id in range(self.num_runs)]
 
     def _run(self, run_id):
         logging.info("run %d starts" % run_id)

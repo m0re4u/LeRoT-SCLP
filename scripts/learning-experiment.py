@@ -28,20 +28,32 @@ if __name__ == "__main__":
     # Runs a number of experiments and returns a list of those experiment
     # results
     experiment_list = experiment.run()
-    offline_ndcg_eval_list = []
+    offline_eval = {}
+    online_eval = {}
 
     # Loop over results of all runs
     # You can call:
     #   single_run["online_"+experiment.experiment_args["evaluation"][0]]
     #   single_run["offline_test_"+experiment.experiment_args["evaluation"][0]]
     #   single_run["offline_train_"+experiment.experiment_args["evaluation"][0]]
-    for single_run in experiment_list:
-        offline_ndcg_eval_list.append(
-            single_run["offline_train_" +
-                       experiment.experiment_args["evaluation"][0]][-1])
-        logging.info("RESULTS:")
-        print("Average NDCG result: " + str(float(sum(
-              offline_ndcg_eval_list)) / len(offline_ndcg_eval_list)))
-    print("NDCG mean: " + str(numpy.mean(offline_ndcg_eval_list)))
-    print("NDCG Max: " + str(max(offline_ndcg_eval_list)))
-    print("NDCG Min: " + str(min(offline_ndcg_eval_list)))
+    for evaluation_string in experiment.experiment_args["evaluation"]:
+        evaluation_type = str(evaluation_string.split()[0])
+        online_eval[evaluation_type] = []
+        offline_eval[evaluation_type] = []
+        for single_run in experiment_list:
+            online_eval[evaluation_type].append(single_run["online_" + evaluation_type][-1])
+            offline_eval[evaluation_type].append(single_run["offline_train_" + evaluation_type][-1])
+
+        logging.info(" ===== RESULTS for " + evaluation_type + " : =====")
+        # ONLINE
+        logging.info(" ----- ONLINE: -----")
+        logging.info(evaluation_type + " mean: " + str(numpy.mean(online_eval[evaluation_type])))
+        logging.info(evaluation_type + " std: " + str(numpy.std(online_eval[evaluation_type])))
+        logging.info(evaluation_type + " Max: " + str(max(online_eval[evaluation_type])))
+        logging.info(evaluation_type + " Min: " + str(min(online_eval[evaluation_type])))
+        # OFFLINE
+        logging.info(" ----- OFFLINE: -----")
+        logging.info(evaluation_type + " mean: " + str(numpy.mean(offline_eval[evaluation_type])))
+        logging.info(evaluation_type + " std: " + str(numpy.std(offline_eval[evaluation_type])))
+        logging.info(evaluation_type + " Max: " + str(max(offline_eval[evaluation_type])))
+        logging.info(evaluation_type + " Min: " + str(min(offline_eval[evaluation_type])))
