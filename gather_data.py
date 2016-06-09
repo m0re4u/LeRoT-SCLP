@@ -38,7 +38,7 @@ if __name__ == "__main__":
     with open(args.file_name, 'r') as f:
         original_file = f.read()
         experiment_eval_list = [([0],0)]
-        dump_name = "DataDump/EvalDump" +"_" + str(args.variable_key) +"_"+ str(args.variable_minimum)
+        dump_name = "DataDump/EvalDump" +"_" + str(args.variable_key) +"_"+ str(args.variable_minimum) +\
                     +"_"+ str(args.variable_maximum )+"_" + str(args.step_size) + ".txt"
     try:
         # Construct datadump with initial value 0,0
@@ -51,10 +51,10 @@ if __name__ == "__main__":
             # Add data to overall eval list as tuple
             experiment_data = (get_data_one_experiment(),i)
             with open(dump_name, 'a') as f:
-                f.write(','str(experiment_data))
+                f.write(',' + str(experiment_data))
             experiment_eval_list.append(experiment_data)
         # Finish datadump
-        with open(dump_name, 'a')
+        with open(dump_name, 'a'):
             f.write("]")
         # Visualize data
         visualize_data(experiment_eval_list)
