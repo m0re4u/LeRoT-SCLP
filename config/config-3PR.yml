@@ -21,6 +21,8 @@ output_dir: Perterperter
 output_dir_overwrite: True
 output_prefix: Fold1
 
+# Possible parameters for now: test_cutoff, train_cutoff
 evaluation:
-    - evaluation.NdcgEval
+    - evaluation.NdcgEval test_cutoff 5 train_cutoff 5
+    - evaluation.PAKEval test_cutoff 1 train_cutoff 1
 experimenter: experiment.LearningExperiment
