@@ -37,7 +37,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         new_affirm = np.dot(weights, feedback_vec) \
             - np.dot(weights, perturbed_vec)
         self.cum_affirm += new_affirm
-        print "New affirmativeness", new_affirm
+        # print "New affirmativeness", new_affirm
 
     def _calc_max_affirm(self, ranker, query, max_length):
         """
