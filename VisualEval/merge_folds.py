@@ -30,5 +30,5 @@ def merge_folds(data_dir):
     return dir_name
 
 if __name__ == '__main__':
-    from sys import args
-    merge_folds(args[1])
+    from sys import argv
+    merge_folds(argv[1])
