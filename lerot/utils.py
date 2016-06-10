@@ -49,7 +49,7 @@ def get_class(name):
         msg = ('%s while trying to import %r from %r'
                % (e.args[0], classname, module))
         e.args = (msg,) + e.args[1:]
-        raise
+        raise e
 
 
 def split_arg_str(arg_str):
