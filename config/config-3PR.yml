@@ -1,8 +1,8 @@
-test_queries: data/Fold1/test.txt
-training_queries: data/Fold1/train.txt
-feature_count: 64 # 64 for .Gov, 46 for MQ*, 136 for MSLR
+test_queries: data/MQ2007/Fold1/test.txt
+training_queries: data/MQ2007/Fold1/train.txt
+feature_count: 46 # 64 for .Gov, 46 for MQ*, 136 for MSLR
 num_runs: 1
-num_queries: 1000
+num_queries: 1017
 processes: 1
 query_sampling_method: fixed
 user_model: environment.CascadeUserModel
@@ -21,8 +21,12 @@ output_dir: Perterperter
 output_dir_overwrite: True
 output_prefix: Fold1
 
-# Possible parameters for now: test_cutoff, train_cutoff
+# Possible parameters for now:
+#   - cutoff: will cut off the ranking for every eval
+#             (offline/online, train/test). Not using this parameter will
+#             default it to the length of the ranking
 evaluation:
-    - evaluation.NdcgEval test_cutoff 5 train_cutoff 5
-    - evaluation.PAKEval test_cutoff 1 train_cutoff 1
+    - evaluation.NdcgEval cutoff 5
+    - evaluation.PAKEval cutoff 2
+    - evaluation.PAKEval cutoff 1
 experimenter: experiment.LearningExperiment
