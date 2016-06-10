@@ -54,7 +54,7 @@ if __name__ == "__main__":
             # update variable in config
             update_config(args.file_name, args.variable_key, i)
             # Add data to overall eval list as tuple
-            experiment_data = (get_data_one_experiment(), i)
+            experiment_data = (get_data_one_experiment(args.type_evaluation, args.evaluation_measure), i)
             with open(dump_name, 'a') as f:
                 f.write(',' + str(experiment_data))
             experiment_eval_list.append(experiment_data)
