@@ -13,9 +13,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
 import argparse
 import gzip
+import json
+import logging
 import os.path
 import sys
 import yaml
@@ -92,6 +93,7 @@ class GenericExperiment:
 
         # Determine whether to use config file or command line args
         self.experiment_args = None
+        self.args_file = args.file
         if args.file:
             config_file = open(args.file)
             self.experiment_args = yaml.load(config_file)
@@ -220,9 +222,18 @@ class GenericExperiment:
     def run_experiment(self, aux_log_fh):
         # Run an experiment with given parameters
         experiment = self.experimenter(
-                                    self.training_queries,
-                                    self.test_queries,
-                                    self.feature_count,
-                                    aux_log_fh,
-                                    self.experiment_args)
-        return experiment.run()
+            self.training_queries, self.test_queries, self.feature_count,
+            aux_log_fh, self.experiment_args)
+
+        experiment_list = experiment.run()
+        print("Right before dumping")
+        print(self.experiment_args)
+        print(experiment_list)
+        if 'dump_json' in self.experiment_args:
+            jf = self.args_file.replace('.yml', '') + \
+                str(self.experiment_args['num_queries'])
+            with open(jf + '.json', 'w') as fp:
+                print("Dumping experiment result to " + jf)
+                json.dump(experiment_list, fp, indent=2)
+
+        return experiment_list
