@@ -45,19 +45,23 @@ if __name__ == "__main__":
         online_eval[eval_name] = []
         offline_eval[eval_name] = []
         for single_run in experiment_list:
-            online_eval[eval_name].append(single_run[eval_name][-1])
-            offline_eval[eval_name].append(single_run[eval_name][-1])
+            if 'online' in eval_name:
+                online_eval[eval_name].append(single_run[eval_name][-1])
+            else:
+                offline_eval[eval_name].append(single_run[eval_name][-1])
 
         logging.info(" ===== RESULTS for " + eval_name + " : =====")
-        # ONLINE
-        logging.info(" ----- ONLINE: -----")
-        logging.info(eval_name + " mean: " + str(numpy.mean(online_eval[eval_name])))
-        logging.info(eval_name + " std: " + str(numpy.std(online_eval[eval_name])))
-        logging.info(eval_name + " Max: " + str(max(online_eval[eval_name])))
-        logging.info(eval_name + " Min: " + str(min(online_eval[eval_name])))
-        # OFFLINE
-        logging.info(" ----- OFFLINE: -----")
-        logging.info(eval_name + " mean: " + str(numpy.mean(offline_eval[eval_name])))
-        logging.info(eval_name + " std: " + str(numpy.std(offline_eval[eval_name])))
-        logging.info(eval_name + " Max: " + str(max(offline_eval[eval_name])))
-        logging.info(eval_name + " Min: " + str(min(offline_eval[eval_name])))
+        if 'online' in eval_name:
+            # ONLINE
+            logging.info(" ----- ONLINE: -----")
+            logging.info(eval_name + " mean: " + str(numpy.mean(online_eval[eval_name])))
+            logging.info(eval_name + " std: " + str(numpy.std(online_eval[eval_name])))
+            logging.info(eval_name + " Max: " + str(max(online_eval[eval_name])))
+            logging.info(eval_name + " Min: " + str(min(online_eval[eval_name])))
+        else:
+            # OFFLINE
+            logging.info(" ----- OFFLINE: -----")
+            logging.info(eval_name + " mean: " + str(numpy.mean(offline_eval[eval_name])))
+            logging.info(eval_name + " std: " + str(numpy.std(offline_eval[eval_name])))
+            logging.info(eval_name + " Max: " + str(max(offline_eval[eval_name])))
+            logging.info(eval_name + " Min: " + str(min(offline_eval[eval_name])))
