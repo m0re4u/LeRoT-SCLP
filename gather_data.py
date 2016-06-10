@@ -24,7 +24,8 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--evaluation_measure",
                         help="the evaluation measure used")
     parser.add_argument("-o", "--output_file",
-                        help="the evaluation measure used")
+                        help="the evaluation measure used",
+                        default="")
     parser.add_argument("-t", "--type_evaluation",
                         help="online or offline evaluation")
     parser.add_argument("-min", "--variable_minimum",
@@ -38,23 +39,37 @@ if __name__ == "__main__":
                         type=float)
     args = parser.parse_args()
     # Save original config file
+
+    config_name = os.path.join(os.path.join("VisualEval","config" ),args.output_file) + "_" + \
+                str(args.variable_key) + "_" + str(args.variable_minimum)+ \
+                "_" + str(args.variable_maximum)+"_"+str(args.step_size)+".yml"
     with open(args.file_name, 'r') as f:
         original_file = f.read()
-        experiment_eval_list = [([0], 0)]
-        dump_name = "DataDump/" + args.output_file + "EvalDump" + "_" + \
-                    str(args.variable_key) + "_" + str(args.variable_minimum)+ \
-                    "_" + str(args.variable_maximum)+"_"+str(args.step_size)+".txt"
+    # HARDE HACK VOOR CONFIG FIX
+    # If dir doesnt exist make it
+    if not os.path.exists(os.path.join("VisualEval","config")):
+        os.mkdir(os.path.join("VisualEval","config"))
+    # Past the original config
+    with open(config_name, 'w') as f:
+        f.write(original_file)
+
+    experiment_eval_list = [([0], 0)]
+    dump_name = os.path.join("DataDump", args.output_file) + "EvalDump" + "_" + \
+                str(args.variable_key) + "_" + str(args.variable_minimum)+ \
+                "_" + str(args.variable_maximum)+"_"+str(args.step_size)+".txt"
 
     try:
         # Construct datadump with initial value 0,0
+        if not os.path.exists("DataDump"):
+            os.mkdir("DataDump")
         with open(dump_name, 'w') as f:
             f.write("[([0],0)")
         for i in [args.variable_minimum + args.step_size * i
                   for i in xrange(0, int((args.variable_maximum - args.variable_minimum) / args.step_size))]:
             # update variable in config
-            update_config(args.file_name, args.variable_key, i)
+            update_config(config_name, args.variable_key, i)
             # Add data to overall eval list as tuple
-            experiment_data = (get_data_one_experiment(args.type_evaluation, args.evaluation_measure), i)
+            experiment_data = (get_data_one_experiment(args.type_evaluation, args.evaluation_measure, '-f '+config_name), i)
             with open(dump_name, 'a') as f:
                 f.write(',' + str(experiment_data))
             experiment_eval_list.append(experiment_data)
@@ -65,5 +80,6 @@ if __name__ == "__main__":
         # visualize_data(experiment_eval_list)
     finally:
         # Restore original config file
-        with open(args.file_name, 'w') as f:
-            f.write(original_file)
+        # with open(args.file_name, 'w') as f:
+        #     f.write(original_file)
+        os.remove(config_name)
