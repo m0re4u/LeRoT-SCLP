@@ -46,7 +46,7 @@ if __name__ == "__main__":
         with open(dump_name, 'w') as f:
             f.write("[([0],0)")
         for i in [args.variable_minimum + args.step_size * i
-                  for i in xrange(0, int(args.variable_maximum-args.variable_minimum / args.step_size))]:
+                  for i in xrange(0, int((args.variable_maximum - args.variable_minimum) / args.step_size))]:
             # update variable in config
             update_config(args.file_name, args.variable_key, i)
             # Add data to overall eval list as tuple
