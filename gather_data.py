@@ -37,9 +37,10 @@ if __name__ == "__main__":
     # Save original config file
     with open(args.file_name, 'r') as f:
         original_file = f.read()
-        experiment_eval_list = [([0], 0)]
-        dump_name = "DataDump/EvalDump" + "_" + str(args.variable_key) + "_" + str(args.variable_minimum) +\
-                    "_" + str(args.variable_maximum)+"_" + str(args.step_size) + ".txt"
+        experiment_eval_list = [([0],0)]
+        dump_name = "DataDump/EvalDump" +"_" + str(args.variable_key) +"_"+ str(args.variable_minimum) \
+                    +"_"+ str(args.variable_maximum )+"_" + str(args.step_size) + ".txt"
+
     try:
         # Construct datadump with initial value 0,0
         with open(dump_name, 'w') as f:
