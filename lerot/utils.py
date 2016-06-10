@@ -124,6 +124,7 @@ def sample_unit_sphere(n):
 def sample_fixed(self, n):
     return np.ones(n) / sqrt(n)
 
+
 def create_ranking_vector(current_query, ranking):
     """
     Create a ranking vector from a matrix of document vectors.
