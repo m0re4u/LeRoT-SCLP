@@ -7,7 +7,7 @@ processes: 1
 query_sampling_method: fixed
 user_model: environment.CascadeUserModel
 # for p-click and p-stop provide mappings from relevance grades to probabilities
-user_model_args: --p_click 0:0.0,1:0.5,2:1 --p_stop 0:0.0,1:0.0,2:0.0
+user_model_args: --p_click 0:0.2,1:0.8,2:1 --p_stop 0:0.0,1:0.0,2:0.0
 system: retrieval_system.PerturbationLearningSystem
 system_args:
     # for 3PR weights should be initialised with zero
