@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy
 
 def visualize_data(data):
     """
