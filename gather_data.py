@@ -24,6 +24,10 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--file_name", help="name of config file")
     parser.add_argument("-k", "--variable_key",
                         help="the name of the variable that has to be changed")
+    parser.add_argument("-m", "--evaluation_measure",
+                        help="the evaluation measure used")
+    parser.add_argument("-t", "--type_evaluation",
+                        help="online or offline evaluation")
     parser.add_argument("-min", "--variable_minimum",
                         help="the minimum of the traversable variable",
                         type=float)
