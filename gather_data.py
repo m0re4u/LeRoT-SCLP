@@ -13,9 +13,6 @@ from VisualEval import update_config
 from VisualEval import get_data_one_experiment
 from VisualEval import visualize_data
 
-
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""
             Construct and run a set of learning experiments. Provide the
@@ -25,6 +22,8 @@ if __name__ == "__main__":
     parser.add_argument("-k", "--variable_key",
                         help="the name of the variable that has to be changed")
     parser.add_argument("-m", "--evaluation_measure",
+                        help="the evaluation measure used")
+    parser.add_argument("-o", "--output_file",
                         help="the evaluation measure used")
     parser.add_argument("-t", "--type_evaluation",
                         help="online or offline evaluation")
@@ -42,8 +41,9 @@ if __name__ == "__main__":
     with open(args.file_name, 'r') as f:
         original_file = f.read()
         experiment_eval_list = [([0], 0)]
-        dump_name = "DataDump/EvalDump" + "_" + str(args.variable_key) + "_" + str(args.variable_minimum) \
-                    + "_" + str(args.variable_maximum)+"_" + str(args.step_size) + ".txt"
+        dump_name = "DataDump/" + args.output_file + "EvalDump" + "_" + \
+                    str(args.variable_key) + "_" + str(args.variable_minimum)+ \
+                    "_" + str(args.variable_maximum)+"_"+str(args.step_size)+".txt"
 
     try:
         # Construct datadump with initial value 0,0
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         with open(dump_name, 'a') as f:
             f.write("]")
         # Visualize data
-        visualize_data(experiment_eval_list)
+        # visualize_data(experiment_eval_list)
     finally:
         # Restore original config file
         with open(args.file_name, 'w') as f:
