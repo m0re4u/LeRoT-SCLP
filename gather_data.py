@@ -55,7 +55,7 @@ if __name__ == "__main__":
                 f.write(',' + str(experiment_data))
             experiment_eval_list.append(experiment_data)
         # Finish datadump
-        with open(dump_name, 'a'):
+        with open(dump_name, 'a') as f:
             f.write("]")
         # Visualize data
         visualize_data(experiment_eval_list)
