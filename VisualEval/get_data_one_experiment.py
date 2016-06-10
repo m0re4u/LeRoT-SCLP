@@ -29,9 +29,9 @@ def get_data_one_experiment(evaluation, measure):
             offline_eval[splitted_eval_name] = []
             for single_run in experiment_list:
                 if 'online' in eval_name:
-                    online_eval[splitted_eval_name].append(single_run[eval_name][-1])
+                    online_eval[splitted_eval_name].append(single_run[eval_name])
                 else:
-                    offline_eval[splitted_eval_name].append(single_run[eval_name][-1])
+                    offline_eval[splitted_eval_name].append(single_run[eval_name])
 
         if 'online' in evaluation:
             return online_eval[evaluation + "_evaluation." + measure]

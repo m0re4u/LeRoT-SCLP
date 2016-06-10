@@ -14,15 +14,12 @@
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-import sys
-import os
 
-sys.path.insert(0, os.path.abspath('..'))
-
-from SyntheticComparisonExperiment import SyntheticComparisonExperiment as sce
+from lerot.experiment.SyntheticComparisonExperiment import \
+    SyntheticComparisonExperiment as sce
 
 
-class TestRankers(unittest.TestCase):
+class TestExperiment(unittest.TestCase):
 
     def setUp(self):
         # self.experiment = SyntheticComparisonExperiment()
@@ -166,8 +163,8 @@ class TestRankers(unittest.TestCase):
         labels[0] = 1
         labels[2] = 1
         labels[4] = 1
-        print better
-        print worse
+        # print better
+        # print worse
         (better, worse) = sce._generate_synthetic_rankings_randomly(docids,
                                                                     labels)
         self.assertEqual(True, sce._pareto_dominates(better, worse, labels),
@@ -182,8 +179,8 @@ class TestRankers(unittest.TestCase):
         labels[1] = 1
         labels[5] = 1
         labels[9] = 1
-        print better
-        print worse
+        # print better
+        # print worse
         (better, worse) = sce._generate_synthetic_rankings_randomly(docids,
                                                                     labels)
         self.assertEqual(True, sce._pareto_dominates(better, worse, labels),
