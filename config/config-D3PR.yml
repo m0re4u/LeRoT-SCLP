@@ -25,5 +25,7 @@ output_prefix: Fold1
 #             (offline/online, train/test). Not using this parameter will
 #             default it to the length of the ranking
 evaluation:
-    - evaluation.NdcgEval
+    - evaluation.NdcgEval cutoff 5
+    - evaluation.PAKEval cutoff 2
+    - evaluation.PAKEval cutoff 1
 experimenter: experiment.LearningExperiment
