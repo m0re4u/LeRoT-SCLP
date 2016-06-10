@@ -20,6 +20,10 @@ output_dir: DynamicPerterPerter
 output_dir_overwrite: True
 output_prefix: Fold1
 
+# Possible parameters for now:
+#   - cutoff: will cut off the ranking for every eval
+#             (offline/online, train/test). Not using this parameter will
+#             default it to the length of the ranking
 evaluation:
     - evaluation.NdcgEval
 experimenter: experiment.LearningExperiment
