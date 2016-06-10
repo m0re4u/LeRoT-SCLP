@@ -33,7 +33,10 @@ def get_data_one_experiment(evaluation, measure):
                 else:
                     offline_eval[splitted_eval_name].append(single_run[eval_name][-1])
 
-        return online_eval[evaluation + "_evaluation." + measure]
+        if 'online' in evaluation:
+            return online_eval[evaluation + "_evaluation." + measure]
+        else:
+            return offline_eval[evaluation + "_evaluation." + measure]
 
     except BaseException as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
