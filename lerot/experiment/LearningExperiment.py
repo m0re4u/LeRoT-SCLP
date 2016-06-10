@@ -45,10 +45,13 @@ class LearningExperiment(AbstractLearningExperiment):
         online_evaluation = {}
         offline_test_evaluation = {}
         offline_train_evaluation = {}
-        for evaluation in self.evaluations:
-            online_evaluation[evaluation] = []
-            offline_test_evaluation[evaluation] = []
-            offline_train_evaluation[evaluation] = []
+        #
+        for eval_name, eval_dict in self.evaluations:
+            if eval_name + '@' + str(eval_dict['cutoff']) in online_evaluation:
+                raise ValueError("Duplicate eval args")
+            online_evaluation[eval_name + '@' + str(eval_dict['cutoff'])] = []
+            offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])] = []
+            offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])] = []
         similarities = [.0]
 
         # Process queries
@@ -60,11 +63,11 @@ class LearningExperiment(AbstractLearningExperiment):
             # get result list for the current query from the system
             result_list = self.system.get_ranked_list(query)
 
-            # Evaluate list only
-            for evaluation in self.evaluations:
-                online_evaluation[evaluation].append(
-                    float(self.evaluations[evaluation]['eval_class'].evaluate_ranking(
-                        result_list, query, min(len(result_list), 10))))
+            # Online evaluation
+            for eval_name, eval_dict in self.evaluations:
+                a = float(eval_dict['eval_class'].evaluate_ranking(
+                    result_list, query, eval_dict['cutoff']))
+                online_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(a)
 
             # generate click feedback
             clicks = self.um.get_clicks(result_list, query.get_labels())
@@ -72,36 +75,34 @@ class LearningExperiment(AbstractLearningExperiment):
             current_solution = self.system.update_solution(clicks)
 
             # compute current offline performance (over all documents)
-            for evaluation in self.evaluations:
+            for eval_name, eval_dict in self.evaluations:
                 if (not (previous_solution_w == current_solution.w).all()) or \
-                         len(offline_test_evaluation[evaluation]) == 0:
-                    e1 = self.evaluations[evaluation]['eval_class'].evaluate_all(
-                        current_solution, self.test_queries,
-                        self.evaluations[evaluation]['test_cutoff'])
-                    e2 = self.evaluations[evaluation]['eval_class'].evaluate_all(
-                        current_solution, self.training_queries,
-                        self.evaluations[evaluation]['train_cutoff'])
-                    offline_test_evaluation[evaluation].append(float(e1))
-                    offline_train_evaluation[evaluation].append(float(e2))
+                         len(offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]) == 0:
+                    e1 = eval_dict['eval_class'].evaluate_all(current_solution,
+                        self.test_queries, eval_dict['cutoff'])
+                    e2 = eval_dict['eval_class'].evaluate_all(current_solution,
+                        self.training_queries, eval_dict['cutoff'])
+                    offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(float(e1))
+                    offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(float(e2))
                 else:
-                    offline_test_evaluation[evaluation].append(
-                                    offline_test_evaluation[evaluation][-1])
-                    offline_train_evaluation[evaluation].append(
-                                    offline_train_evaluation[evaluation][-1])
+                    offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(
+                                    offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])][-1])
+                    offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(
+                                    offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])][-1])
 
             similarities.append(float(get_cosine_similarity(
-                                                        previous_solution_w,
-                                                        current_solution.w)))
+                previous_solution_w, current_solution.w)))
 
-        for evaluation in self.evaluations:
+        for eval_name, eval_dict in self.evaluations:
             logging.info("Final offline %s = %.3f" % (
-                evaluation, offline_test_evaluation[evaluation][-1]))
+                eval_name + '@' + str(eval_dict['cutoff']),
+                offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])][-1]))
         logging.info("Length of final weight vector = %.3f" % norm(
             current_solution.w))
         summary = {"weight_sim": similarities, "final_weights":
                    previous_solution_w.tolist()}
-        for evaluation in self.evaluations:
-            summary["online_" + evaluation] = online_evaluation[evaluation]
-            summary["offline_test_" + evaluation] = offline_test_evaluation[evaluation]
-            summary["offline_train_" + evaluation] = offline_train_evaluation[evaluation]
+        for eval_name, eval_dict in self.evaluations:
+            summary["online_" + eval_name + '@' + str(eval_dict['cutoff'])] = online_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]
+            summary["offline_test_" + eval_name + '@' + str(eval_dict['cutoff'])] = offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]
+            summary["offline_train_" + eval_name + '@' + str(eval_dict['cutoff'])] = offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]
         return summary

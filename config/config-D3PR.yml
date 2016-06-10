@@ -2,15 +2,15 @@ test_queries: data/MQ2007/Fold1/test.txt
 training_queries: data/MQ2007/Fold1/train.txt
 feature_count: 46 # 64 for .Gov, 46 for MQ*, 136 for MSLR
 num_runs: 1
-num_queries: 1000
+num_queries: 1017 # Exactly the number of queries in MQ2007
 processes: 1
-query_sampling_method: random
+query_sampling_method: fixed
 user_model: environment.CascadeUserModel
 # for p-click and p-stop provide mappings from relevance grades to probabilities
 user_model_args: --p_click 0:0.0,1:1,2:1 --p_stop 0:0.0,1:0.0,2:0.0
 system: retrieval_system.PerturbationLearningSystem
 system_args:
-    --init_weights random
+    --init_weights zero
     --ranker ranker.DeterministicRankingFunction
     --ranker_arg 3
     --ranker_tie random
@@ -20,6 +20,10 @@ output_dir: DynamicPerterPerter
 output_dir_overwrite: True
 output_prefix: Fold1
 
+# Possible parameters for now:
+#   - cutoff: will cut off the ranking for every eval
+#             (offline/online, train/test). Not using this parameter will
+#             default it to the length of the ranking
 evaluation:
     - evaluation.NdcgEval
 experimenter: experiment.LearningExperiment

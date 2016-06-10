@@ -36,24 +36,32 @@ if __name__ == "__main__":
     #   single_run["online_"+experiment.experiment_args["evaluation"][0]]
     #   single_run["offline_test_"+experiment.experiment_args["evaluation"][0]]
     #   single_run["offline_train_"+experiment.experiment_args["evaluation"][0]]
-    for evaluation_string in experiment.experiment_args["evaluation"]:
-        evaluation_type = str(evaluation_string.split()[0])
-        online_eval[evaluation_type] = []
-        offline_eval[evaluation_type] = []
-        for single_run in experiment_list:
-            online_eval[evaluation_type].append(single_run["online_" + evaluation_type][-1])
-            offline_eval[evaluation_type].append(single_run["offline_train_" + evaluation_type][-1])
 
-        logging.info(" ===== RESULTS for " + evaluation_type + " : =====")
-        # ONLINE
-        logging.info(" ----- ONLINE: -----")
-        logging.info(evaluation_type + " mean: " + str(numpy.mean(online_eval[evaluation_type])))
-        logging.info(evaluation_type + " std: " + str(numpy.std(online_eval[evaluation_type])))
-        logging.info(evaluation_type + " Max: " + str(max(online_eval[evaluation_type])))
-        logging.info(evaluation_type + " Min: " + str(min(online_eval[evaluation_type])))
-        # OFFLINE
-        logging.info(" ----- OFFLINE: -----")
-        logging.info(evaluation_type + " mean: " + str(numpy.mean(offline_eval[evaluation_type])))
-        logging.info(evaluation_type + " std: " + str(numpy.std(offline_eval[evaluation_type])))
-        logging.info(evaluation_type + " Max: " + str(max(offline_eval[evaluation_type])))
-        logging.info(evaluation_type + " Min: " + str(min(offline_eval[evaluation_type])))
+    # Get names for evaluation measures
+    eval_names = [eval_name for eval_name in experiment_list[0]]
+    for eval_name in eval_names:
+        if eval_name == 'weight_sim' or eval_name == 'final_weights':
+            continue
+        online_eval[eval_name] = []
+        offline_eval[eval_name] = []
+        for single_run in experiment_list:
+            if 'online' in eval_name:
+                online_eval[eval_name].append(single_run[eval_name][-1])
+            else:
+                offline_eval[eval_name].append(single_run[eval_name][-1])
+
+        logging.info(" ===== RESULTS for " + eval_name + " : =====")
+        if 'online' in eval_name:
+            # ONLINE
+            logging.info(" ----- ONLINE: -----")
+            logging.info(eval_name + " mean: " + str(numpy.mean(online_eval[eval_name])))
+            logging.info(eval_name + " std: " + str(numpy.std(online_eval[eval_name])))
+            logging.info(eval_name + " Max: " + str(max(online_eval[eval_name])))
+            logging.info(eval_name + " Min: " + str(min(online_eval[eval_name])))
+        else:
+            # OFFLINE
+            logging.info(" ----- OFFLINE: -----")
+            logging.info(eval_name + " mean: " + str(numpy.mean(offline_eval[eval_name])))
+            logging.info(eval_name + " std: " + str(numpy.std(offline_eval[eval_name])))
+            logging.info(eval_name + " Max: " + str(max(offline_eval[eval_name])))
+            logging.info(eval_name + " Min: " + str(min(offline_eval[eval_name])))
