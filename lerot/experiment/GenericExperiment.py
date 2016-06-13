@@ -15,7 +15,6 @@
 
 import argparse
 import gzip
-import json
 import logging
 import os.path
 import sys
@@ -225,15 +224,4 @@ class GenericExperiment:
             self.training_queries, self.test_queries, self.feature_count,
             aux_log_fh, self.experiment_args)
 
-        experiment_list = experiment.run()
-        print("Right before dumping")
-        print(self.experiment_args)
-        print(experiment_list)
-        if 'dump_json' in self.experiment_args:
-            jf = self.args_file.replace('.yml', '') + \
-                str(self.experiment_args['num_queries'])
-            with open(jf + '.json', 'w') as fp:
-                print("Dumping experiment result to " + jf)
-                json.dump(experiment_list, fp, indent=2)
-
-        return experiment_list
+        return experiment.run() 

@@ -18,7 +18,7 @@ system_args: --init_weights random
     --ranker_arg 3
     --ranker_tie random
 
-output_dir: NM
+output_dir: DBGD-output
 output_dir_overwrite: True
 output_prefix: Fold1
 

@@ -6,8 +6,6 @@ num_queries: 1017 # Exactly the number of queries in MQ2007
 processes: 1
 query_sampling_method: fixed
 user_model: environment.CascadeUserModel
-# Output goes in config folder - teehee
-dump_json: True
 # for p-click and p-stop provide mappings from relevance grades to probabilities
 user_model_args: --p_click 0:0.2,1:0.8,2:1 --p_stop 0:0.0,1:0.0,2:0.0
 system: retrieval_system.PerturbationLearningSystem
@@ -18,7 +16,7 @@ system_args:
     --ranker_tie random
     --perturbator perturbation.DynamicProbabilisticPerturbator
 
-output_dir: DynamicPerterPerter
+output_dir: D3PR-output
 output_dir_overwrite: True
 output_prefix: Fold1
 
