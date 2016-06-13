@@ -79,7 +79,4 @@ if __name__ == "__main__":
         # Visualize data
         # visualize_data(experiment_eval_list)
     finally:
-        # Restore original config file
-        # with open(args.file_name, 'w') as f:
-        #     f.write(original_file)
         os.remove(config_name)
