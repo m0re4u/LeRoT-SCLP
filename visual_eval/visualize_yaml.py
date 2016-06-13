@@ -1,15 +1,15 @@
 import argparse
 import numpy
 import gzip
-import json
 import os
 import yaml
-from pprint import pprint
 from multiple_plots import multiple_plots
 
 def visualize_json(evaluation, folder, x, y, z, max_bound, title, mean=False):
     """
-    ...
+    Visualize the specified evaluation from the folder given. 
+    Setting the mean flag will assume each file is one run, and take the 
+    average over runs.
     """
 
     x_data = []
