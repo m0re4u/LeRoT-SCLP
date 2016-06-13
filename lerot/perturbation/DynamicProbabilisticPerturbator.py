@@ -30,7 +30,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
 
         # Initialise affirmativeness and iteration
         self.cum_affirm = 0
-        self.t = 0
+        self.t = 1
 
     def update(self, feedback_vec, perturbed_vec, query, ranker):
         """
