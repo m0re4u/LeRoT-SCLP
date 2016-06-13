@@ -17,6 +17,7 @@ system_args:
     --ranker_tie random
     --perturbator perturbation.ProbabilisticPerturbator
     --swap_prob 0.0
+
 output_dir: Perterperter
 output_dir_overwrite: True
 output_prefix: Fold1
@@ -26,7 +27,5 @@ output_prefix: Fold1
 #             (offline/online, train/test). Not using this parameter will
 #             default it to the length of the ranking
 evaluation:
-    - evaluation.NdcgEval cutoff 5
-    - evaluation.PAKEval cutoff 2
-    - evaluation.PAKEval cutoff 1
+    - evaluation.NdcgEval cutoff 10
 experimenter: experiment.LearningExperiment
