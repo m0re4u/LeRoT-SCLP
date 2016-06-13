@@ -18,6 +18,7 @@ Retrieval system implementation for use in learning experiments.
 """
 
 import argparse
+import numpy
 
 from .AbstractLearningSystem import AbstractLearningSystem
 from ..utils import get_class, split_arg_str, create_ranking_vector
@@ -79,28 +80,66 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         self.current_query = query
         return new_ranking
 
-    def update_solution(self, clicks):
+
+    def update_solution_once(self, clicks):
         """
-        Update the ranker weights
+        Update the ranker weights without regard to multiple clicks
+        on a single link
         """
+
         new_ranking = self._get_feedback(clicks)
 
         # Calculate ranking vectors
         current_vector = create_ranking_vector(
-            self.current_query,
-            self.current_ranking
+        self.current_query,
+        self.current_ranking
         )
 
         new_vector = create_ranking_vector(
-            self.current_query,
-            new_ranking
+        self.current_query,
+        new_ranking
         )
 
         self.perturbator.update(new_vector, current_vector, self.current_query,
-                                self.ranker)
+        self.ranker)
 
         # Update the weights
         self.ranker.update_weights(new_vector - current_vector, 1)
+
+        return self.get_solution()
+
+
+    def update_solution(self, clicks):
+        """
+        Update the ranker weights while keeping in mind that documents with
+        a relevance of > 1 are clicked more than once
+        """
+
+        # Loop through clicks until no clicks are left
+        while numpy.count_nonzero(clicks) > 0:
+            new_ranking = self._get_feedback(clicks)
+
+            # Calculate ranking vectors
+            current_vector = create_ranking_vector(
+                self.current_query,
+                self.current_ranking
+            )
+
+            new_vector = create_ranking_vector(
+                self.current_query,
+                new_ranking
+            )
+
+            self.perturbator.update(new_vector, current_vector, self.current_query,
+                                    self.ranker)
+
+            # Update the weights
+            self.ranker.update_weights(new_vector - current_vector, 1)
+
+            # Remove one click per click
+            relevant_clicks = numpy.nonzero(clicks)
+            for click_index in relevant_clicks:
+                clicks[click_index]-=1
 
         return self.get_solution()
 
@@ -119,7 +158,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             new_ranking = [self.current_ranking[0]]
         else:
             new_ranking = []
-
         # Loop for swapping pairs of documents according to clicks
         for i in xrange(self.current_single_start, max_length-1, 2):
             # Swap if there is a click on the lower item of a pair
