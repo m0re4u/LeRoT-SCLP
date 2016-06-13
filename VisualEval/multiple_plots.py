@@ -10,6 +10,8 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label, y_labe
     Plot data of multiple files in one graph.
     """
 
+    #y_pos = calculate_y_pos(y_pos)
+
     # 20 RGB colours
     colours = [
         (31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),
@@ -55,7 +57,6 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label, y_labe
 
         plt.text(max_bound + 5, y_pos[i], z_label[i],
             fontsize=14, color=colours[i])
-
 
     # Add title to plot and labels to axes
     plt.title(plot_title, size=17)
