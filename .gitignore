@@ -33,3 +33,8 @@ outdir
 Perterperter/
 NM
 DataDump
+
+# Large datasets
+data/MQ2007/
+data/MQ2008/
+data/MSLR-WEB10K*

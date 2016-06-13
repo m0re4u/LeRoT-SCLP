@@ -1,13 +1,13 @@
 test_queries: data/MQ2007/Fold1/test.txt
 training_queries: data/MQ2007/Fold1/train.txt
 feature_count: 46 # 64 for .Gov, 46 for MQ*, 136 for MSLR
-num_runs: 1
+num_runs: 10
 num_queries: 1017
 processes: 1
 query_sampling_method: fixed
 user_model: environment.CascadeUserModel
 # for p-click and p-stop provide mappings from relevance grades to probabilities
-user_model_args: --p_click 0:0.0,1:0.5,2:1 --p_stop 0:0.0,1:0.0,2:0.0
+user_model_args: --p_click 0:0.2,1:0.8,2:1 --p_stop 0:0.0,1:0.0,2:0.0
 system: retrieval_system.PerturbationLearningSystem
 system_args:
     # for 3PR weights should be initialised with zero
@@ -16,7 +16,7 @@ system_args:
     --ranker_arg 3
     --ranker_tie random
     --perturbator perturbation.ProbabilisticPerturbator
-    --swap_prob 0.5
+
 output_dir: Perterperter
 output_dir_overwrite: True
 output_prefix: Fold1
@@ -26,7 +26,5 @@ output_prefix: Fold1
 #             (offline/online, train/test). Not using this parameter will
 #             default it to the length of the ranking
 evaluation:
-    - evaluation.NdcgEval cutoff 5
-    - evaluation.PAKEval cutoff 2
-    - evaluation.PAKEval cutoff 1
+    - evaluation.NdcgEval cutoff 10
 experimenter: experiment.LearningExperiment
