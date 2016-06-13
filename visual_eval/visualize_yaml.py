@@ -19,6 +19,9 @@ def visualize_json(evaluation, folder, x, y, z, max_bound, title, mean=False):
 
     for filename in os.listdir(folder):
         data = None
+        _, ext = os.path.splitext(filename)
+        if ext != '.gz' or filename.startswith('_'):
+            continue
         with gzip.open(os.path.join(folder, filename), 'r') as data_file:
             print("Reading " + str(filename))
             data = yaml.load(data_file.read())
