@@ -33,6 +33,7 @@ outdir
 Perterperter
 NM
 DataDump
+D3PR-output/
 
 # Large datasets
 data/MQ2007
