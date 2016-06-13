@@ -28,6 +28,8 @@ if __name__ == "__main__":
                         default="")
     parser.add_argument("-t", "--type_evaluation",
                         help="online or offline evaluation")
+    parser.add_argument("-name", "--output_file_name",
+                        help="start of file name")
     parser.add_argument("-min", "--variable_minimum",
                         help="the minimum of the traversable variable",
                         type=float)
@@ -45,6 +47,10 @@ if __name__ == "__main__":
                 "_" + str(args.variable_maximum)+"_"+str(args.step_size)+".yml"
     with open(args.file_name, 'r') as f:
         original_file = f.read()
+        experiment_eval_list = [([0], 0)]
+        dump_name = "DataDump/" + args.output_file_name + "EvalDump" + "_" + \
+                    str(args.variable_key) + "_" + str(args.variable_minimum)+ \
+                    "_" + str(args.variable_maximum)+"_"+str(args.step_size)+".txt"
     # HARDE HACK VOOR CONFIG FIX
     # If dir doesnt exist make it
     if not os.path.exists(os.path.join("VisualEval","config")):
