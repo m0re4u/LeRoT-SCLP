@@ -69,6 +69,15 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         Calculate perturbed ranking with swap probability based on maximum
         perturbation and the average affirmativeness
         """
+        swap_prob = self.get_swap_prob(ranker, query, max_length)
+
+        # Create ranking
+        return self._perturb(swap_prob, ranker, query, max_length)
+
+    def get_swap_prob(self, ranker, query, max_length):
+        """
+        Get the swap probability according to the average affirmativeness
+        """
         if self.t:
             # Calculate the maximum perturbation
             max_affirm = self._calc_max_affirm(ranker, query, max_length)
@@ -80,9 +89,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         else:
             # This is the first iteration
             swap_prob = self.first_swap_prob
-
-        # Create ranking
-        return self._perturb(swap_prob, ranker, query, max_length)
+        return swap_prob
 
     def ranker_to_list(self, ranker, max_length):
         """
