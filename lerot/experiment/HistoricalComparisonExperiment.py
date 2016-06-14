@@ -48,8 +48,9 @@ class HistoricalComparisonExperiment():
         self.um_args = args["user_model_args"]
         self.um = self.um_class(self.um_args)
         # set up methods to compare
-        parser = argparse.ArgumentParser(description="parse arguments of an "
-            "evaluation method.", prog="evaluation method configuration")
+        parser = argparse.ArgumentParser(
+            description="parse arguments of an evaluation method.",
+            prog="evaluation method configuration")
         parser.add_argument("-c", "--class_name")
         parser.add_argument("-r", "--ranker")
         parser.add_argument("-a", "--ranker_args")
@@ -74,9 +75,9 @@ class HistoricalComparisonExperiment():
                 ranker_args = method_args["ranker_args"]
                 self.live_methods[method]["ranker"] = ranker
                 self.live_methods[method]["ranker_args"] = ranker_args
-                if not ranker in self.rankers:
+                if ranker not in self.rankers:
                     self.rankers[ranker] = {}
-                if not ranker_args in self.rankers[ranker]:
+                if ranker_args not in self.rankers[ranker]:
                     self.rankers[ranker][ranker_args] = {}
         # init hist methods
         if "hist_evaluation_methods" in args:
@@ -95,12 +96,12 @@ class HistoricalComparisonExperiment():
                 self.hist_methods[method]["ranker"] = method_args["ranker"]
                 self.hist_methods[method]["ranker_args"] = \
                     method_args["ranker_args"]
-                if not ranker in self.rankers:
+                if ranker not in self.rankers:
                     self.rankers[ranker] = {}
-                if not ranker_args in self.rankers[ranker]:
+                if ranker_args not in self.rankers[ranker]:
                     self.rankers[ranker][ranker_args] = {}
                 self.hist_methods[method]["interleave_method"] = \
-                get_class(method_args["interleave_method"])()
+                    get_class(method_args["interleave_method"])()
         # sample source and target ranker pair, create deterministic and
         # probabilistic ranker pairs
         self.source_pair = [0, 0]
@@ -113,16 +114,18 @@ class HistoricalComparisonExperiment():
             self.feature_count, self.source_pair)
         self.target_pair[1] = self._sample_ranker_without_replacement(
             self.feature_count, [self.target_pair[0], self.source_pair[0],
-            self.source_pair[1]])
+                                 self.source_pair[1]])
         # init rankers needed by live and/or hist methods
         for ranker in self.rankers:
             for ranker_args in self.rankers[ranker]:
                 self.rankers[ranker][ranker_args]["source"] = \
                     self._get_ranker_pair(ranker, ranker_args,
-                    self.source_pair, self.feature_count, self.ties)
+                                          self.source_pair, self.feature_count,
+                                          self.ties)
                 self.rankers[ranker][ranker_args]["target"] = \
                     self._get_ranker_pair(ranker, ranker_args,
-                    self.target_pair, self.feature_count, self.ties)
+                                          self.target_pair, self.feature_count,
+                                          self.ties)
 
     def _sample_qid(self, query_keys, query_count, query_length):
             if self.query_sampling_method == "random":

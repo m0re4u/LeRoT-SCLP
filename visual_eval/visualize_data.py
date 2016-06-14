@@ -5,6 +5,7 @@ import os
 import numpy as np
 from multiple_plots import multiple_plots
 
+
 def visualize_gathered_data(folder, max_bound, plot_title, x_label, y_label):
     """
     Plot data of multiple files in one graph
@@ -29,7 +30,7 @@ def visualize_gathered_data(folder, max_bound, plot_title, x_label, y_label):
 
     # Create multiple plots
     multiple_plots(x_data, y_data, y_pos,
-        max_bound, plot_title, x_label, y_label, z_label)
+                   max_bound, plot_title, x_label, y_label, z_label)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""
@@ -47,4 +48,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     visualize_gathered_data(args.folder_name, args.max_bound, args.title,
-        args.x_label, args.y_label)
+                            args.x_label, args.y_label)

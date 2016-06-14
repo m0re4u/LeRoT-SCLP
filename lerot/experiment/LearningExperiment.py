@@ -21,6 +21,7 @@ lists
 """
 
 import logging
+import warnings
 from numpy.linalg import norm
 
 from ..utils import get_cosine_similarity
@@ -45,13 +46,16 @@ class LearningExperiment(AbstractLearningExperiment):
         online_evaluation = {}
         offline_test_evaluation = {}
         offline_train_evaluation = {}
-        #
+
         for eval_name, eval_dict in self.evaluations:
-            if eval_name + '@' + str(eval_dict['cutoff']) in online_evaluation:
-                raise ValueError("Duplicate eval args")
-            online_evaluation[eval_name + '@' + str(eval_dict['cutoff'])] = []
-            offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])] = []
-            offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])] = []
+            dict_name = eval_name + '@' + str(eval_dict['cutoff'])
+            # Stop if there are duplicate evaluations
+            if dict_name in online_evaluation:
+                warnings.warn("Duplicate evaluation arguments, omitting..")
+                continue
+            online_evaluation[dict_name] = []
+            offline_test_evaluation[dict_name] = []
+            offline_train_evaluation[dict_name] = []
         similarities = [.0]
 
         # Process queries
@@ -65,9 +69,10 @@ class LearningExperiment(AbstractLearningExperiment):
 
             # Online evaluation
             for eval_name, eval_dict in self.evaluations:
-                a = float(eval_dict['eval_class'].evaluate_ranking(
-                    result_list, query, eval_dict['cutoff']))
-                online_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(a)
+                a = float(eval_dict['eval_class'].evaluate_ranking(result_list,
+                          query, eval_dict['cutoff']))
+                online_evaluation[eval_name + '@' +
+                                  str(eval_dict['cutoff'])].append(a)
 
             # generate click feedback
             clicks = self.um.get_clicks(result_list, query.get_labels())
@@ -76,33 +81,39 @@ class LearningExperiment(AbstractLearningExperiment):
 
             # compute current offline performance (over all documents)
             for eval_name, eval_dict in self.evaluations:
+                # Create dict name as done above
+                dict_name = eval_name + '@' + str(eval_dict['cutoff'])
                 if (not (previous_solution_w == current_solution.w).all()) or \
-                         len(offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]) == 0:
-                    e1 = eval_dict['eval_class'].evaluate_all(current_solution,
-                        self.test_queries, eval_dict['cutoff'])
-                    e2 = eval_dict['eval_class'].evaluate_all(current_solution,
-                        self.training_queries, eval_dict['cutoff'])
-                    offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(float(e1))
-                    offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(float(e2))
+                        len(offline_test_evaluation[dict_name]) == 0:
+                    e1 = eval_dict['eval_class'].evaluate_all(
+                        current_solution, self.test_queries,
+                        eval_dict['cutoff'])
+                    e2 = eval_dict['eval_class'].evaluate_all(
+                        current_solution, self.training_queries,
+                        eval_dict['cutoff'])
+                    offline_test_evaluation[dict_name].append(float(e1))
+                    offline_train_evaluation[dict_name].append(float(e2))
                 else:
-                    offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(
-                                    offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])][-1])
-                    offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])].append(
-                                    offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])][-1])
+                    offline_test_evaluation[dict_name].append(
+                                    offline_test_evaluation[dict_name][-1])
+                    offline_train_evaluation[dict_name].append(
+                                    offline_train_evaluation[dict_name][-1])
 
             similarities.append(float(get_cosine_similarity(
                 previous_solution_w, current_solution.w)))
 
-        for eval_name, eval_dict in self.evaluations:
-            logging.info("Final offline %s = %.3f" % (
-                eval_name + '@' + str(eval_dict['cutoff']),
-                offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])][-1]))
-        logging.info("Length of final weight vector = %.3f" % norm(
-            current_solution.w))
+        # Finalize evaluation measures after training is done
         summary = {"weight_sim": similarities, "final_weights":
                    previous_solution_w.tolist()}
         for eval_name, eval_dict in self.evaluations:
-            summary["online_" + eval_name + '@' + str(eval_dict['cutoff'])] = online_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]
-            summary["offline_test_" + eval_name + '@' + str(eval_dict['cutoff'])] = offline_test_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]
-            summary["offline_train_" + eval_name + '@' + str(eval_dict['cutoff'])] = offline_train_evaluation[eval_name + '@' + str(eval_dict['cutoff'])]
+            dict_name = eval_name + '@' + str(eval_dict['cutoff'])
+            logging.info("Final offline %s = %.3f" % (dict_name,
+                         offline_test_evaluation[dict_name][-1]))
+            summary["online_" + dict_name] = online_evaluation[dict_name]
+            summary["offline_test_" + dict_name] = \
+                offline_test_evaluation[dict_name]
+            summary["offline_train_" + dict_name] = \
+                offline_train_evaluation[dict_name]
+        logging.info("Length of final weight vector = %.3f" %
+                     norm(current_solution.w))
         return summary

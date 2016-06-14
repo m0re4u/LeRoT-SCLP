@@ -40,12 +40,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Save original config file
-    config_path = os.path.join(os.path.join("visual_eval","tmp"),"config")
-    config_name = os.path.join(config_path,args.output_file)\
-                  + "_" + \
-                  str(args.variable_key) + "_" + str(args.variable_minimum)+ \
-                  "_" + str(args.variable_maximum)+"_"+str(args.step_size)+ \
-                  ".yml"
+    config_path = os.path.join(os.path.join("visual_eval", "tmp"), "config")
+    config_name = os.path.join(
+        config_path, args.output_file) + "_" + str(args.variable_key) + "_" + \
+        str(args.variable_minimum) + "_" + str(args.variable_maximum) + "_" + \
+        str(args.step_size) + ".yml"
     base_output_path = args.output_file
     with open(args.file_name, 'r') as original_config:
         original_file = yaml.load(original_config)
@@ -62,16 +61,16 @@ if __name__ == "__main__":
     try:
         # Construct datadump with initial value 0,0
         for i in [args.variable_minimum + args.step_size * i
-                  for i in xrange(0, int((args.variable_maximum -
-                                          args.variable_minimum)
-                                         / args.step_size))]:
+                  for i in xrange(0, int(
+                    (args.variable_maximum - args.variable_minimum) /
+                    args.step_size))]:
             # update variable in config
             update_config(config_name, args.variable_key, i)
             # Add data to overall eval list as tuple
-            output_path = os.path.join(base_output_path,args.variable_key+str(i))
-            experiment_data = get_data_one_experiment(args.type_evaluation,
-                                                      args.evaluation_measure,
-                                                      '-f ' + config_name + \
-                                                      ' -o ' + output_path)
+            output_path = os.path.join(base_output_path, args.variable_key +
+                                       str(i))
+            experiment_data = get_data_one_experiment(
+                args.type_evaluation, args.evaluation_measure, '-f ' +
+                config_name + ' -o ' + output_path)
     finally:
         os.remove(config_name)

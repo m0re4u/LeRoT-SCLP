@@ -126,7 +126,8 @@ class GenericExperiment:
         if "output_dir_overwrite" not in self.experiment_args:
             self.experiment_args["output_dir_overwrite"] = False
         if "experimenter" not in self.experiment_args:
-            self.experiment_args["experimenter"] = "experiment.LearningExperiment"
+            self.experiment_args["experimenter"] = \
+                "experiment.LearningExperiment"
         if "evaluation" not in self.experiment_args:
             self.experiment_args["evaluation"] = "evaluation.NdcgEval"
         if "processes" not in self.experiment_args:
@@ -140,10 +141,10 @@ class GenericExperiment:
             # make sure the output directory is empty
             raise Exception(
                 "Output dir %s is not an empty directory. Please"
-                " use a different directory, or move contents out of the way." %
-                self.experiment_args["output_dir"])
+                " use a different directory, or move contents out of the way."
+                % self.experiment_args["output_dir"])
 
-        logging.basicConfig(format='%(asctime)s %(module)s: %(message)s',
+        logging.basicConfig(format='%(levelname)s %(module)s: %(message)s',
                             level=logging.INFO)
         logging.info("Arguments: %s" % self.experiment_args)
 
@@ -224,4 +225,4 @@ class GenericExperiment:
             self.training_queries, self.test_queries, self.feature_count,
             aux_log_fh, self.experiment_args)
 
-        return experiment.run() 
+        return experiment.run()

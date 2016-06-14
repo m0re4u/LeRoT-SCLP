@@ -1,4 +1,6 @@
 import re
+
+
 def update_config(file, var_name, var_value):
     """
     Given file, variable name and a new value,

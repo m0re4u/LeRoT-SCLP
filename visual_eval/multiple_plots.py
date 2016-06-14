@@ -4,12 +4,12 @@ import os
 import numpy as np
 from ast import literal_eval
 
-def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label, y_label, z_label):
+
+def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label,
+                   y_label, z_label):
     """
     Plot data of multiple files in one graph.
     """
-
-    #y_pos = calculate_y_pos(y_pos)
 
     # 20 RGB colours
     colours = [
@@ -45,8 +45,8 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label, y_labe
 
     # Add hardly visible lines at every +0.1
     for y in np.arange(0, 1, 0.1):
-        plt.plot(range(0,1000), [y] * len(range(0,1000)),
-            "--", lw=0.5, color="black", alpha=0.5)
+        plt.plot(range(0, 1000), [y] * len(range(0, 1000)),
+                 "--", lw=0.5, color="black", alpha=0.5)
 
     # Plot all data
     for i in range(len(x_data)):
@@ -55,7 +55,7 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label, y_labe
         # Add a text label to the right end of every line
 
         plt.text(max_bound + 5, y_pos[i], z_label[i],
-            fontsize=14, color=colours[i])
+                 fontsize=14, color=colours[i])
 
     # Add title to plot and labels to axes
     plt.title(plot_title, size=17)

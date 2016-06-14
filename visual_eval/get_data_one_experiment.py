@@ -2,13 +2,15 @@ import os
 import sys
 from lerot.experiment import GenericExperiment
 
+
 def get_data_one_experiment(evaluation, measure, arg_string):
     """
     Get the data of a single experiment with one config file
     """
     print(arg_string)
     experiment = GenericExperiment(arg_string)
-    # Runs a number of experiments and returns a list of those experiment results
+    # Runs a number of experiments and returns a list of those experiment
+    # results
     experiment_list = experiment.run()
     offline_eval = {}
     online_eval = {}
@@ -29,9 +31,11 @@ def get_data_one_experiment(evaluation, measure, arg_string):
         offline_eval[splitted_eval_name] = []
         for single_run in experiment_list:
             if 'online' in eval_name:
-                online_eval[splitted_eval_name].append(single_run[eval_name][-1])
+                online_eval[splitted_eval_name].append(
+                    single_run[eval_name][-1])
             else:
-                offline_eval[splitted_eval_name].append(single_run[eval_name][-1])
+                offline_eval[splitted_eval_name].append(
+                    single_run[eval_name][-1])
 
     if 'online' in evaluation:
         return online_eval[evaluation + "_evaluation." + measure]
