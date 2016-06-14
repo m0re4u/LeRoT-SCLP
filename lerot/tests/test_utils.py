@@ -83,12 +83,13 @@ class TestUtils(unittest.TestCase):
         this_query = query.Queries(query_fh, feature_count)['373']
         query_fh.close()
         fake_ranking = sorted(this_query.get_docids())
-        gamma, ranking_vector = utils.create_ranking_vector(
+        # gamma, ranking_vector = utils.create_ranking_vector(
+        ranking_vector = utils.create_ranking_vector(
             this_query, fake_ranking)
-        self.assertEqual(len(gamma), len(hard_gamma))
+        # self.assertEqual(len(gamma), len(hard_gamma))
         self.assertEqual(feature_count, len(ranking_vector))
-        for i in xrange(0, len(gamma)):
-            self.assertAlmostEqual(gamma[i], hard_gamma[i])
+        # for i in xrange(0, len(gamma)):
+        #     self.assertAlmostEqual(gamma[i], hard_gamma[i])
 
         for j in xrange(0, feature_count):
             self.assertAlmostEqual(ranking_vector[j], hard_ranking_vector[j])
