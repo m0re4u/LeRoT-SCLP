@@ -47,7 +47,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         # parser.add_argument("-f", "--perturbator_args", nargs="*")
 
         parser.add_argument("-r", "--ranker", required=True)
-        parser.add_argument("-s", "--ranker_args", nargs="*")
+        parser.add_argument("-s", "--ranker_args", nargs="*", default=tuple())
         parser.add_argument("-t", "--ranker_tie", default="random")
 
         parser.add_argument("-l", "--max_results", default=float('Inf'))
@@ -113,30 +113,16 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
     def update_solution(self, clicks):
         """
-        Update the ranker weights while keeping in mind that documents with
-        a relevance of > 1 are clicked more than once
+        Update the ranker weights
+
+        while keeping in mind that documents with a relevance of > 1 are
+        clicked more than once
         """
 
         # Loop through clicks until no clicks are left
         while numpy.count_nonzero(clicks) > 0:
-            new_ranking = self._get_feedback(clicks)
-
-            # Calculate ranking vectors
-            current_vector = create_ranking_vector(
-                self.current_query,
-                self.current_ranking
-            )
-
-            new_vector = create_ranking_vector(
-                self.current_query,
-                new_ranking
-            )
-
-            self.perturbator.update(new_vector, current_vector,
-                                    self.current_query, self.ranker)
-
-            # Update the weights
-            self.ranker.update_weights(new_vector - current_vector, 1)
+            # Update
+            self.update_solution_once(clicks)
 
             # Remove one click per click
             relevant_clicks = numpy.nonzero(clicks)
