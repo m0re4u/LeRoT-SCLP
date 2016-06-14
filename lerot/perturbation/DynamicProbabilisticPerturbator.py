@@ -72,8 +72,9 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         max_affirm = self._calc_max_affirm(ranker, query, max_length)
 
         # Calculate swap probability
-        average_affirm = self.cum_affirm / self.t if self.cum_affirm else 0
-        swap_prob = (self.delta - average_affirm) / max_affirm
+        predicted_affirm = self.delta - self.cum_affirm / self.t
+        swap_prob = predicted_affirm / max_affirm if max_affirm \
+            else predicted_affirm
 
         # Create ranking
         return self._perturb(swap_prob, ranker, query, max_length)
