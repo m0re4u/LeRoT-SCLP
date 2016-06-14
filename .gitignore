@@ -34,6 +34,11 @@ Perterperter
 NM
 DataDump
 D3PR-output/
+3PR-output/
+DBGD-output/
+
+# Michiel project setting
+project.cson
 
 # Large datasets
 data/MQ2007
