@@ -80,7 +80,6 @@ class PerturbationLearningSystem(AbstractLearningSystem):
         self.current_query = query
         return new_ranking
 
-
     def update_solution_once(self, clicks):
         """
         Update the ranker weights without regard to multiple clicks
@@ -91,23 +90,26 @@ class PerturbationLearningSystem(AbstractLearningSystem):
 
         # Calculate ranking vectors
         current_vector = create_ranking_vector(
-        self.current_query,
-        self.current_ranking
+            self.current_query,
+            self.current_ranking
         )
 
         new_vector = create_ranking_vector(
-        self.current_query,
-        new_ranking
+            self.current_query,
+            new_ranking
         )
 
-        self.perturbator.update(new_vector, current_vector, self.current_query,
-        self.ranker)
+        self.perturbator.update(
+            new_vector,
+            current_vector,
+            self.current_query,
+            self.ranker
+        )
 
         # Update the weights
         self.ranker.update_weights(new_vector - current_vector, 1)
 
         return self.get_solution()
-
 
     def update_solution(self, clicks):
         """
@@ -130,8 +132,8 @@ class PerturbationLearningSystem(AbstractLearningSystem):
                 new_ranking
             )
 
-            self.perturbator.update(new_vector, current_vector, self.current_query,
-                                    self.ranker)
+            self.perturbator.update(new_vector, current_vector,
+                                    self.current_query, self.ranker)
 
             # Update the weights
             self.ranker.update_weights(new_vector - current_vector, 1)
@@ -139,7 +141,7 @@ class PerturbationLearningSystem(AbstractLearningSystem):
             # Remove one click per click
             relevant_clicks = numpy.nonzero(clicks)
             for click_index in relevant_clicks:
-                clicks[click_index]-=1
+                clicks[click_index] -= 1
 
         return self.get_solution()
 
