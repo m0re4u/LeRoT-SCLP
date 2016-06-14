@@ -64,7 +64,7 @@ if __name__ == "__main__":
         for i in [args.variable_minimum + args.step_size * i
                   for i in xrange(0, int(
                     (args.variable_maximum - args.variable_minimum) /
-                    args.step_size))]:
+                    args.step_size)+1)]:
             # update variable in config
             update_config(config_name, args.variable_key, i)
             # Add data to overall eval list as tuple
