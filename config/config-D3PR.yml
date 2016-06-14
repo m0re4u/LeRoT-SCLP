@@ -9,12 +9,11 @@ processes: 1
 query_sampling_method: fixed
 user_model: environment.RelevantUserModel
 # for p-click and p-stop provide mappings from relevance grades to probabilities
-user_model_args: -limit -1 
+user_model_args: -limit -1
 system: retrieval_system.PerturbationLearningSystem
 system_args:
     --init_weights zero
     --ranker ranker.DeterministicRankingFunction
-    --ranker_arg 3
     --ranker_tie random
     --perturbator perturbation.DynamicProbabilisticPerturbator
 

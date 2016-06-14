@@ -15,7 +15,6 @@ system_args: --init_weights random
     --delta 0.1
     --alpha 0.01
     --ranker ranker.DeterministicRankingFunction
-    --ranker_arg 3
     --ranker_tie random
 
 output_dir: DBGD-output

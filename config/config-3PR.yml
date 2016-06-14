@@ -13,7 +13,6 @@ system_args:
     # for 3PR weights should be initialised with zero
     --init_weights zero
     --ranker ranker.DeterministicRankingFunction
-    --ranker_arg 3
     --ranker_tie random
     --perturbator perturbation.ProbabilisticPerturbator
     --swap_prob 0.25
