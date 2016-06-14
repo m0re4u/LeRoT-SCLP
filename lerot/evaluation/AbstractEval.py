@@ -33,9 +33,6 @@ class AbstractEval:
         """
         Evaluate all queries given a certain solution
         """
-        if self.prev_solution_w is not None and (self.prev_solution_w ==
-                                                 solution.w).all():
-            return self.prev_score
         outcomes = []
         for query in queries:
             outcomes.append(self.evaluate_one(solution, query, cutoff, ties))
