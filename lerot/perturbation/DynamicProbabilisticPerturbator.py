@@ -30,7 +30,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
 
         # Initialise affirmativeness and iteration
         self.cum_affirm = 0
-        self.t = 0
+        self.t = 1
 
     def update(self, feedback_vec, perturbed_vec, query, ranker):
         """
@@ -72,7 +72,8 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         max_affirm = self._calc_max_affirm(ranker, query, max_length)
 
         # Calculate swap probability
-        swap_prob = (self.delta - self.cum_affirm / self.t) / max_affirm
+        average_affirm = self.cum_affirm / self.t if self.cum_affirm else 0
+        swap_prob = (self.delta - average_affirm) / max_affirm
 
         # Create ranking
         return self._perturb(swap_prob, ranker, query, max_length)
