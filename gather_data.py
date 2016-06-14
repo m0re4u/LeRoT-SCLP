@@ -45,9 +45,9 @@ if __name__ == "__main__":
         config_path, args.output_file) + "_" + str(args.variable_key) + "_" + \
         str(args.variable_minimum) + "_" + str(args.variable_maximum) + "_" + \
         str(args.step_size) + ".yml"
-    base_output_path = args.output_file
     with open(args.file_name, 'r') as original_config:
         original_file = yaml.load(original_config)
+    base_output_path =  os.path.join(original_file["output_dir"],args.output_file)
     # HARDE HACK VOOR CONFIG FIX
     # If dir doesnt exist make it
     if not os.path.exists(config_path):
