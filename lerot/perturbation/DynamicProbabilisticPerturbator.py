@@ -23,7 +23,6 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
     Application system for dynamic probabilistic perturbation on ranker
     """
 
-    # Ignore all input =D
     def __init__(self, swap_prob):
         # delta = 0 because of paper
         self.delta = 0
