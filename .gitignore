@@ -35,6 +35,7 @@ DataDump
 D3PR-output/
 3PR-output/
 DBGD-output/
+visual_eval/tmp/
 
 # Michiel project setting
 project.cson

@@ -140,4 +140,4 @@ def create_ranking_vector(current_query, ranking):
     # log(1) = 0, so fix this by starting range at 2
     gamma = 1.0 / np.log2(np.arange(2, ndocs + 2, dtype=float))
     # Assume the features are row vectors
-    return gamma, np.sum(feature_matrix.transpose() * gamma, axis=1)
+    return np.sum(feature_matrix.transpose() * gamma, axis=1)

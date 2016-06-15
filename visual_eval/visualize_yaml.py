@@ -6,7 +6,7 @@ import yaml
 from multiple_plots import multiple_plots
 
 
-def visualize_json(evaluation, folder, x, y, z, max_bound, title, mean=False):
+def visualize_yaml(evaluation, folder, x, y, z, max_bound, title, mean=False):
     """
     Visualize the specified evaluation from the folder given.
     Setting the mean flag will assume each file is one run, and take the
@@ -90,5 +90,5 @@ if __name__ == "__main__":
                         type=bool)
     args = parser.parse_args()
 
-    visualize_json(args.measure, args.folder_name, args.x_label, args.y_label,
+    visualize_yaml(args.measure, args.folder_name, args.x_label, args.y_label,
                    args.z_label, args.max_bound, args.title, args.mean)

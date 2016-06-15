@@ -20,7 +20,8 @@ if __name__ == "__main__":
             between what range, with what steps""")
     parser.add_argument("-f", "--file_name", help="name of config file")
     parser.add_argument("-k", "--variable_key",
-                        help="the name of the variable that has to be changed")
+                        help="the name of the variable that has to be changed",
+                        default="")
     parser.add_argument("-m", "--evaluation_measure",
                         help="the evaluation measure used")
     parser.add_argument("-o", "--output_file",
@@ -63,14 +64,14 @@ if __name__ == "__main__":
         for i in [args.variable_minimum + args.step_size * i
                   for i in xrange(0, int(
                     (args.variable_maximum - args.variable_minimum) /
-                    args.step_size))]:
+                    args.step_size)+1)]:
             # update variable in config
             update_config(config_name, args.variable_key, i)
             # Add data to overall eval list as tuple
             output_path = os.path.join(base_output_path, args.variable_key +
                                        str(i))
             experiment_data = get_data_one_experiment(
-                args.type_evaluation, args.evaluation_measure, '-f ' +
-                config_name + ' -o ' + output_path)
+                args.type_evaluation, args.evaluation_measure,
+                '-f '+ config_name + ' -o ' + output_path)
     finally:
         os.remove(config_name)
