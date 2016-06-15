@@ -144,7 +144,7 @@ class GenericExperiment:
                 " use a different directory, or move contents out of the way."
                 % self.experiment_args["output_dir"])
 
-        logging.basicConfig(format='%(levelname)s %(module)s: %(message)s',
+        logging.basicConfig(format='%(levelname)s %(module)s %(asctime)s: %(message)s',
                             level=logging.INFO)
         logging.info("Arguments: %s" % self.experiment_args)
 
