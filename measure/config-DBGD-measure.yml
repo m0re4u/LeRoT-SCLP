@@ -1,5 +1,5 @@
-test_queries: data/MQ2007/Fold1/test.txt
-training_queries: data/MQ2007/Fold1/train.txt
+test_queries: ../data/MQ2007/Fold1/test.txt
+training_queries: ../data/MQ2007/Fold1/train.txt
 feature_count: 46 # 64 for .Gov, 46 for MQ*, 136 for MSLR
 num_runs: 20
 num_queries: 1017
@@ -17,7 +17,7 @@ system_args: --init_weights random
     --ranker ranker.DeterministicRankingFunction
     --ranker_tie random
 
-output_dir: DBGD-output
+output_dir: Datadump/DBGD-output
 output_dir_overwrite: True
 output_prefix: Fold1
 
