@@ -26,6 +26,7 @@ import logging
 import warnings
 from numpy.linalg import norm
 
+from ..utils import write_chars
 from ..utils import get_cosine_similarity
 from AbstractLearningExperiment import AbstractLearningExperiment
 
@@ -75,7 +76,7 @@ class LearningExperiment(AbstractLearningExperiment):
             query_time = time.clock()
 
             # Every five queries calculate the estimated completion time
-            if query_count % 5 == 0 and query_count > 0:
+            if query_count % 10 == 0 and query_count > 0:
                 estimated_time = str((total_time/query_count)*(self.num_queries - query_count))
                 sys.stdout.write(estimated_time)
                 write_chars(len(estimated_time), '\b')
