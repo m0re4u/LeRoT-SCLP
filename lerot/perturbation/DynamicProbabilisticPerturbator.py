@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with Lerot.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
 import numpy as np
 from .ProbabilisticPerturbator import ProbabilisticPerturbator
 from ..utils import create_ranking_vector
@@ -70,7 +71,7 @@ class DynamicProbabilisticPerturbator(ProbabilisticPerturbator):
         perturbation and the average affirmativeness
         """
         swap_prob = self.get_swap_prob(ranker, query, max_length)
-
+        logging.info("Swap prob {:0.5}".format(swap_prob))
         # Create ranking
         return self._perturb(swap_prob, ranker, query, max_length)
 
