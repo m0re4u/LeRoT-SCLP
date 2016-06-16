@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import argparse
 import numpy
 import gzip
@@ -63,7 +65,7 @@ def open_file(evaluation, filename, folder, x_data, y, y_data, y_pos, z, z_label
             z_labels.append(z + " " + filename.split("@")[0])
 
             for measure in data:
-                if evaluation in measure and y in measure:
+                if evaluation in measure and measure.endswith(y):
                    data = data[measure]
 
             y_data.append(data)
@@ -81,13 +83,14 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--folder_name", help="name of folder with data")
     parser.add_argument("-m", "--measure", help="offline or online evaluation")
     parser.add_argument("-x", "--x_label", help="label for x-axis")
-    parser.add_argument("-y", "--y_label", help="label for y-axis")
+    parser.add_argument("-y", "--y_label", help="label for y-axis" \
+                        "(HAS TO BE EVALUATION MEASURE LIKE IN CONFIG)")
     parser.add_argument("-z", "--z_label", help="label for z-axis")
     parser.add_argument("-max", "--max_bound",
                         help="maximum number for x-axis", type=int)
     parser.add_argument("-title", help="title for plot")
     parser.add_argument("-mean", help="take the average of all evals",
-                        type=bool)
+                        action="store_true")
     args = parser.parse_args()
 
     visualize_yaml(args.measure, args.folder_name, args.x_label, args.y_label,
