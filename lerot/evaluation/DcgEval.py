@@ -22,6 +22,10 @@ class DcgEval(AbstractEval):
     """Compute DCG (with gain = 2**rel-1 and log2 discount)."""
 
     def get_dcg(self, ranked_labels, cutoff=-1):
+        """
+        Get the dcg value of a list ranking.
+        Does not check if the numer for ranked labels is smaller than cutoff.
+        """
         if (cutoff == -1):
             cutoff = len(ranked_labels)
 
