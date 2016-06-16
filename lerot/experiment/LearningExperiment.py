@@ -20,6 +20,8 @@ e.g., sampling queries, observing user clicks, external evaluation of result
 lists
 """
 
+import sys
+import time
 import logging
 import warnings
 from numpy.linalg import norm
