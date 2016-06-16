@@ -45,7 +45,7 @@ class LearningExperiment(AbstractLearningExperiment):
         # setup evaluation
         online_evaluation = {}
         offline_test_evaluation = {}
-        offline_train_evaluation = {}
+        # offline_train_evaluation = {}
 
         for eval_name, eval_dict in self.evaluations:
             dict_name = eval_name + '@' + str(eval_dict['cutoff'])
@@ -55,7 +55,7 @@ class LearningExperiment(AbstractLearningExperiment):
                 continue
             online_evaluation[dict_name] = []
             offline_test_evaluation[dict_name] = []
-            offline_train_evaluation[dict_name] = []
+            # offline_train_evaluation[dict_name] = []
         similarities = [.0]
 
         # Process queries
@@ -88,16 +88,16 @@ class LearningExperiment(AbstractLearningExperiment):
                     e1 = eval_dict['eval_class'].evaluate_all(
                         current_solution, self.test_queries,
                         eval_dict['cutoff'])
-                    e2 = eval_dict['eval_class'].evaluate_all(
-                        current_solution, self.training_queries,
-                        eval_dict['cutoff'])
+                    # e2 = eval_dict['eval_class'].evaluate_all(
+                    #     current_solution, self.training_queries,
+                    #     eval_dict['cutoff'])
                     offline_test_evaluation[dict_name].append(float(e1))
-                    offline_train_evaluation[dict_name].append(float(e2))
+                    # offline_train_evaluation[dict_name].append(float(e2))
                 else:
                     offline_test_evaluation[dict_name].append(
                                     offline_test_evaluation[dict_name][-1])
-                    offline_train_evaluation[dict_name].append(
-                                    offline_train_evaluation[dict_name][-1])
+                    # offline_train_evaluation[dict_name].append(
+                    #                 offline_train_evaluation[dict_name][-1])
 
             similarities.append(float(get_cosine_similarity(
                 previous_solution_w, current_solution.w)))
@@ -112,8 +112,8 @@ class LearningExperiment(AbstractLearningExperiment):
             summary["online_" + dict_name] = online_evaluation[dict_name]
             summary["offline_test_" + dict_name] = \
                 offline_test_evaluation[dict_name]
-            summary["offline_train_" + dict_name] = \
-                offline_train_evaluation[dict_name]
+            # summary["offline_train_" + dict_name] = \
+            #     offline_train_evaluation[dict_name]
         logging.info("Length of final weight vector = %.3f" %
                      norm(current_solution.w))
         return summary
