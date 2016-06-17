@@ -1,10 +1,10 @@
-test_queries: ../data/MQ2007/Fold1/test.txt
-training_queries: ../data/MQ2007/Fold1/train.txt
-feature_count: 46 # 64 for .Gov, 46 for MQ*, 136 for MSLR
-num_runs: 20
+test_queries: ./data/Webscope_C14B/ltrc_yahoo/set1.test.txt
+training_queries: ./data/Webscope_C14B/ltrc_yahoo/set1.train.txt
+feature_count: 700 # 64 for .Gov, 46 for MQ*, 136 for MSLR
+num_runs: 2
 # 1017 = Exactly the number of queries in MQ2007 Fold 1
 # 6000 = Exactly the number of queries in MSLR-WEB10K Fold 1
-num_queries: 1017
+num_queries: 19944
 processes: 1
 query_sampling_method: fixed
 user_model: environment.RelevantUserModel
@@ -17,9 +17,9 @@ system_args:
     --ranker_tie random
     --perturbator perturbation.DynamicProbabilisticPerturbator
 
-output_dir: Datadump/D3PR-output
+output_dir: Datadump/D3PR
 output_dir_overwrite: True
-output_prefix: Fold1
+output_prefix: D3PR-Webscope-set1-run2
 
 # Possible parameters for now:
 #   - cutoff: will cut off the ranking for every eval

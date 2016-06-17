@@ -145,7 +145,7 @@ class GenericExperiment:
                 % self.experiment_args["output_dir"])
 
         logging.basicConfig(format='%(levelname)s %(module)s %(asctime)s: %(message)s',
-                            level=logging.INFO)
+                            level=logging.INFO, filename='logweb2.txt')
         logging.info("Arguments: %s" % self.experiment_args)
 
         # Printing out arguments that are used in execution
