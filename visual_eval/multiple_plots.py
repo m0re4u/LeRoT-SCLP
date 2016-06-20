@@ -6,7 +6,7 @@ from ast import literal_eval
 
 
 def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
-    x_label, y_label, z_label):
+                   x_label, y_label, z_label):
     """
     Plot data of multiple files in one graph.
     """
