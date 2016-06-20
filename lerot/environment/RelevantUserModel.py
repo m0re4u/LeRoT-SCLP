@@ -31,8 +31,9 @@ class RelevantUserModel(AbstractUserModel):
     """
 
     def __init__(self, arg_str):
-        parser = argparse.ArgumentParser(description="Defines a user model that clicks on all relevant documents in a list "
-            "with an optional limit",
+        parser = argparse.ArgumentParser(
+            description="Defines a user model that clicks on all relevant "
+            "documents in a list with an optional limit",
             prog="RelevantUserModel")
         parser.add_argument("-limit", "--result_click_limit", default=-1)
         args = vars(parser.parse_args(split_arg_str(arg_str)))
