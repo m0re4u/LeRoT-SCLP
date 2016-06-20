@@ -1,8 +1,5 @@
-import argparse
 import matplotlib.pyplot as plt
-import os
 import numpy as np
-from ast import literal_eval
 
 
 def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
