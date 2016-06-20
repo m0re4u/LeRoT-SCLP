@@ -5,8 +5,8 @@ import numpy as np
 from ast import literal_eval
 
 
-def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label,
-                   y_label, z_label):
+def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
+    x_label, y_label, z_label):
     """
     Plot data of multiple files in one graph.
     """
@@ -36,7 +36,7 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label,
     ax.spines["left"].set_visible(True)
 
     # Limit the range of the plot to where the data is
-    plt.ylim(0, 1)
+    plt.ylim(ymin, ymax)
     plt.xlim(0, max_bound)
 
     # Remove the tick marks at top and right
@@ -45,7 +45,7 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label,
 
     # Add hardly visible lines at every +0.1
     for y in np.arange(0, 1, 0.1):
-        plt.plot(range(0, 1000), [y] * len(range(0, 1000)),
+        plt.plot(range(0, max_bound), [y] * len(range(0, max_bound)),
                  "--", lw=0.5, color="black", alpha=0.5)
 
     # Plot all data
@@ -53,14 +53,12 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, plot_title, x_label,
         plt.plot(x_data[i], y_data[i], lw=2, color=colours[i])
 
         # Add a text label to the right end of every line
-
         plt.text(max_bound + 5, y_pos[i], z_label[i],
-                 fontsize=14, color=colours[i])
+                 fontsize=17, color=colours[i])
 
     # Add title to plot and labels to axes
-    plt.title(plot_title, size=17)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+    plt.xlabel(x_label, size=17)
+    plt.ylabel(y_label, size=17)
 
     # Save plot as picture
-    plt.savefig(plot_title + ".png", bbox_inches="tight")
+    plt.savefig(title + ".png", bbox_inches="tight")
