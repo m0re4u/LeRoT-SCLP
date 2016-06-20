@@ -34,8 +34,8 @@ def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=0, ymax=1,
         y_data[i] = running_mean(y_data[i], run_mean)[:-run_mean]
         if evaluation == "online":
             y_data[i] = calc_cumulative(y_data[i])
-        if y_data[i][-1] > ymax:
-            ymax = y_data[i][-1]
+        if max(y_data[i]) > ymax:
+            ymax = max(y_data[i])
         y_pos.append(y_data[i][-1])
 
     multiple_plots(x_data, y_data, y_pos, max_bound-run_mean, ymin, ymax,
