@@ -113,7 +113,7 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--measure", help="offline or online evaluation")
     parser.add_argument("-x", "--x_label", help="label for x-axis")
     parser.add_argument("-y", "--y_label", help="label for y-axis"
-                        "(HAS TO BE EVALUATION MEASURE LIKE IN CONFIG)")
+                        " (HAS TO BE EVALUATION MEASURE LIKE IN CONFIG)")
     parser.add_argument("-max_x", "--max_bound_x",
                         help="maximum number for x-axis", type=int)
     parser.add_argument("-max_y", "--max_bound_y",
