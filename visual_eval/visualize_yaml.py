@@ -40,7 +40,12 @@ def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=0, ymax=1,
             ymin = min(y_data[i])
         y_pos.append(y_data[i][-1])
 
-    multiple_plots(x_data, y_data, y_pos, max_bound-run_mean, ymin, ymax,
+    if max_bound is None:
+        max_bound = len(x_data)
+    else:
+        max_bound-run_mean
+
+    multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax,
                    title, x, y, z_labels)
 
 
@@ -125,7 +130,7 @@ if __name__ == "__main__":
                         help="maximum number for y-axis", type=float, default=0)
     parser.add_argument("-min_y", "--min_bound_y",
                         help="minimum number for y-axis", type=float, default=0)
-    parser.add_argument("-title", help="title for image")
+    parser.add_argument("-output", help="output file for image")
     parser.add_argument("-run_mean", help="parameter for running mean",
                         type=int, default=1)
     # parser.add_argument("-log", "--logarithmic",
