@@ -61,7 +61,7 @@ def open_file(evaluation, filename, folder, x_data, y, y_data,
         temp_y = []
         temp_z = []
         for file in os.listdir(new_folder):
-            temp_x, temp_y, temp_y_pos, temp_z = open_file(
+            temp_x, temp_y, temp_z = open_file(
                 evaluation, file, new_folder, temp_x, y, temp_y,
                 temp_z
             )
