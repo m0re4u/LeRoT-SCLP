@@ -25,8 +25,8 @@ def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=0, ymax=1,
         evaluation = "offline_test"
 
     for filename in os.listdir(folder):
-        x_data, y_data, y_pos, z_labels = open_file(
-            evaluation, filename, folder, x_data, y, y_data, y_pos, z_labels
+        x_data, y_data, z_labels = open_file(
+            evaluation, filename, folder, x_data, y, y_data, z_labels
         )
 
     for i in range(len(y_data)):
@@ -46,18 +46,23 @@ def running_mean(x, N):
     return np.convolve(x, np.ones((N,))/N)[(N-1):]
 
 
-def open_file(evaluation, filename, folder, x_data, y, y_data, y_pos,
+def open_file(evaluation, filename, folder, x_data, y, y_data,
               z_labels):
+    """
+    Open a file or folder
 
+    When opening a folder, calculate the median of all files.
+    Otherwise just read the numbers into a list and append that list to the
+    current data collection.
+    """
     if os.path.isdir(os.path.join(folder, filename)):
         new_folder = os.path.join(folder, filename)
         temp_x = []
         temp_y = []
-        temp_y_pos = []
         temp_z = []
         for file in os.listdir(new_folder):
             temp_x, temp_y, temp_y_pos, temp_z = open_file(
-                evaluation, file, new_folder, temp_x, y, temp_y, temp_y_pos,
+                evaluation, file, new_folder, temp_x, y, temp_y,
                 temp_z
             )
 
@@ -84,7 +89,7 @@ def open_file(evaluation, filename, folder, x_data, y, y_data, y_pos,
             y_data.append(data)
             x_data.append(list(range(1, len(data)+1)))
 
-    return (x_data, y_data, y_pos, z_labels)
+    return (x_data, y_data, z_labels)
 
 
 def calc_cumulative(y_data):
