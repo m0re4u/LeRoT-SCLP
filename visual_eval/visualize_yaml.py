@@ -137,4 +137,4 @@ if __name__ == "__main__":
 
     visualize_yaml(args.measure, args.folder_name, args.x_label, args.y_label,
                    args.max_bound_x, args.min_bound_y, args.max_bound_y,
-                   args.title, args.run_mean, args.logarithmic)
+                   args.title, args.run_mean)  # , args.logarithmic)
