@@ -109,11 +109,14 @@ if __name__ == "__main__":
             Construct and run a set of learning experiments. Provide the
             name of the config file, and which parameter you want to be shifted
             between what range, with what steps""")
-    parser.add_argument("-f", "--folder_name", help="name of folder with data")
-    parser.add_argument("-m", "--measure", help="offline or online evaluation")
+    parser.add_argument("-f", "--folder_name", help="name of folder with data",
+                        required=True)
+    parser.add_argument("-m", "--measure", help="offline or online evaluation",
+                        required=True)
     parser.add_argument("-x", "--x_label", help="label for x-axis")
     parser.add_argument("-y", "--y_label", help="label for y-axis"
-                        " (HAS TO BE EVALUATION MEASURE LIKE IN CONFIG)")
+                        " (HAS TO BE EVALUATION MEASURE LIKE IN CONFIG)",
+                        required=True)
     parser.add_argument("-max_x", "--max_bound_x",
                         help="maximum number for x-axis", type=int)
     parser.add_argument("-max_y", "--max_bound_y",
@@ -123,10 +126,10 @@ if __name__ == "__main__":
     parser.add_argument("-title", help="title for image")
     parser.add_argument("-run_mean", help="parameter for running mean",
                         type=int, default=1)
-    parser.add_argument("-log", "--logarithmic",
-                        help="parameter for running mean",
-                        action='store_true',
-                        default=False)
+    # parser.add_argument("-log", "--logarithmic",
+    #                     help="flag for log",
+    #                     action='store_true',
+    #                     default=False)
     # parser.add_argument("-cum", "--cumulative",
     #                     help="boolean for want cumulative evaluation",
     #                     action=storetrue)

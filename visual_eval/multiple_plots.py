@@ -34,6 +34,8 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
 
     # Limit the range of the plot to where the data is
     plt.ylim(ymin, ymax)
+    if max_bound is None:
+        max_bound = len(x_data)
     plt.xlim(0, max_bound)
 
     # Remove the tick marks at top and right
