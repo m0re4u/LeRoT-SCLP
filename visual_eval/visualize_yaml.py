@@ -9,7 +9,7 @@ from multiple_plots import multiple_plots
 
 
 def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=0, ymax=1,
-                   title="plot", run_mean=1):
+                   title="plot", run_mean=1, logarithmic=False):
     """
     Visualize the specified evaluation from the folder given.
     Setting the mean flag will assume each file is one run, and take the
@@ -122,7 +122,11 @@ if __name__ == "__main__":
                         help="minimum number for y-axis", type=float)
     parser.add_argument("-title", help="title for image")
     parser.add_argument("-run_mean", help="parameter for running mean",
-                        type=int)
+                        type=int, default=1)
+    parser.add_argument("-log", "--logarithmic",
+                        help="parameter for running mean",
+                        action='store_true',
+                        default=False)
     # parser.add_argument("-cum", "--cumulative",
     #                     help="boolean for want cumulative evaluation",
     #                     action=storetrue)
@@ -130,4 +134,4 @@ if __name__ == "__main__":
 
     visualize_yaml(args.measure, args.folder_name, args.x_label, args.y_label,
                    args.max_bound_x, args.min_bound_y, args.max_bound_y,
-                   args.title, args.run_mean)
+                   args.title, args.run_mean, args.logarithmic)
