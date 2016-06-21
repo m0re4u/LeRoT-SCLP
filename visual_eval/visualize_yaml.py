@@ -8,7 +8,7 @@ import yaml
 from multiple_plots import multiple_plots
 
 
-def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=0, ymax=1,
+def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=None, ymax=None,
                    title="plot", run_mean=1, logarithmic=False):
     """
     Visualize the specified evaluation from the folder given.
@@ -34,14 +34,14 @@ def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=0, ymax=1,
         y_data[i] = running_mean(y_data[i], run_mean)[:-run_mean]
         if evaluation == "online":
             y_data[i] = calc_cumulative(y_data[i])
-        if max(y_data[i]) > ymax:
+        if ymax is None or max(y_data[i]) > ymax:
             ymax = max(y_data[i])
-        if min(y_data[i]) < ymin:
+        if ymin is None or min(y_data[i]) < ymin:
             ymin = min(y_data[i])
         y_pos.append(y_data[i][-1])
 
     if max_bound is None:
-        max_bound = len(x_data)
+        max_bound = len(x_data[0])
     else:
         max_bound-run_mean
 
@@ -127,9 +127,9 @@ if __name__ == "__main__":
     parser.add_argument("-max_x", "--max_bound_x",
                         help="maximum number for x-axis", type=int)
     parser.add_argument("-max_y", "--max_bound_y",
-                        help="maximum number for y-axis", type=float, default=0)
+                        help="maximum number for y-axis", type=float)
     parser.add_argument("-min_y", "--min_bound_y",
-                        help="minimum number for y-axis", type=float, default=0)
+                        help="minimum number for y-axis", type=float)
     parser.add_argument("-output", help="output file for image")
     parser.add_argument("-run_mean", help="parameter for running mean",
                         type=int, default=1)
@@ -144,4 +144,4 @@ if __name__ == "__main__":
 
     visualize_yaml(args.measure, args.folder_name, args.x_label, args.y_label,
                    args.max_bound_x, args.min_bound_y, args.max_bound_y,
-                   args.title, args.run_mean)  # , args.logarithmic)
+                   args.output, args.run_mean)  # , args.logarithmic)
