@@ -105,4 +105,4 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
     plt.ylabel(y_label, size=26)
 
     # Save plot as picture
-    plt.savefig(title + ".png", bbox_inches="tight")
+    plt.savefig(title + ".png", bbox_inches="tight", transparent=True)
