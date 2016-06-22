@@ -55,12 +55,13 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
     )
 
     # Plot all data
-    for i in range(len(x_data)):
-        plt.plot(x_data[i], y_data[i], lw=2, color=COLOURS[i])
+    for x_datum, y_datum, color, y, z in zip(x_data, y_data, COLOURS, y_pos,
+                                             z_label):
+        plt.plot(x_datum, y_datum, lw=2, color=color)
 
         # Add a text label to the right end of every line
-        plt.text(max_bound + 5, y_pos[i], z_label[i],
-                 fontsize=17, color=COLOURS[i])
+        plt.text(max_bound + 5, y, z,
+                 fontsize=17, color=color)
 
     # Add labels to axes
     plt.xlabel(x_label, size=26)
