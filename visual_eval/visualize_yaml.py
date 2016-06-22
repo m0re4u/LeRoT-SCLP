@@ -90,8 +90,13 @@ def open_file(evaluation, filename, folder, x_data, y, y_data,
             z_labels.append(filename.split("@")[0])
 
             for measure in data:
-                if (evaluation in measure) and measure.endswith(y):
+                if (evaluation.lower() in measure.lower()) and \
+                        y.lower() in measure.lower():
                     data = data[measure]
+                    break
+            else:
+                raise KeyError("The measure {} with evaluation {} couldn't be"
+                               " found.".format(y, evaluation))
 
             y_data.append(data)
             x_data.append(list(range(1, len(data)+1)))
