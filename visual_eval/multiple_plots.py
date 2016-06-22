@@ -44,10 +44,7 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
                     labelbottom="on", left="on", right="off", labelleft="on",
                     labelsize=20)
 
-    # # Add hardly visible lines at every +0.1
-    # for y in np.arange(0, 1, 0.1):
-    #     plt.plot(range(0, max_bound), [y] * len(range(0, max_bound)),
-    #              "--", lw=0.5, color="black", alpha=0.5)
+    # Add major grid lines
     ax.grid(
         which='major',
         axis='y',
