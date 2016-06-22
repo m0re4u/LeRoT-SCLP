@@ -29,7 +29,7 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
     plt.figure(figsize=(15, 10))
 
     # Set visibility of plot frame lines
-    ax = plt.subplot(111)
+    ax = plt.axes()
     ax.spines["top"].set_visible(False)
     ax.spines["bottom"].set_visible(True)
     ax.spines["right"].set_visible(False)
@@ -41,7 +41,8 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
 
     # Remove the tick marks at top and right
     plt.tick_params(axis="both", which="both", bottom="on", top="off",
-                    labelbottom="on", left="on", right="off", labelleft="on")
+                    labelbottom="on", left="on", right="off", labelleft="on",
+                    labelsize=20)
 
     # # Add hardly visible lines at every +0.1
     # for y in np.arange(0, 1, 0.1):
@@ -64,9 +65,9 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
         plt.text(max_bound + 5, y_pos[i], z_label[i],
                  fontsize=17, color=COLOURS[i])
 
-    # Add title to plot and labels to axes
-    plt.xlabel(x_label, size=17)
-    plt.ylabel(y_label, size=17)
+    # Add labels to axes
+    plt.xlabel(x_label, size=26)
+    plt.ylabel(y_label, size=26)
 
     # Save plot as picture
     plt.savefig(title + ".png", bbox_inches="tight")
