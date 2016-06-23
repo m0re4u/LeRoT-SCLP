@@ -11,7 +11,7 @@ INTERVAL = 500
 
 
 def create_histogram(filename, iterations, stepsize, x_label, y_label, max_x,
-                     min_y, max_y, title):
+                     min_y, max_y):
     fig = plt.figure(facecolor='white')
 
     datafile = open(filename, "r").read()
@@ -27,7 +27,6 @@ def create_histogram(filename, iterations, stepsize, x_label, y_label, max_x,
         max_y,
         x_label,
         y_label,
-        title,
         iterations
     ]
     animation.FuncAnimation(
