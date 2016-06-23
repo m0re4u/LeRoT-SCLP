@@ -28,7 +28,7 @@ def overlap(positions, size):
 
 
 def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
-                   x_label, y_label, z_label):
+                   x_label, y_label, z_label, logarithmic):
     """
     Plot data of multiple files in one graph.
     """
@@ -37,20 +37,12 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
     plt.figure(figsize=(15, 10))
 
     # Set visibility of plot frame lines
-    ax = plt.axes()
+    kwargs = {"xscale": "log"} if logarithmic else {}
+    ax = plt.axes(**kwargs)
     ax.spines["top"].set_visible(False)
     ax.spines["bottom"].set_visible(True)
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_visible(True)
-
-    # Limit the range of the plot to where the data is
-    plt.ylim(ymin, ymax)
-    plt.xlim(0, max_bound)
-
-    # Remove the tick marks at top and right
-    plt.tick_params(axis="both", which="both", bottom="on", top="off",
-                    labelbottom="on", left="on", right="off", labelleft="on",
-                    labelsize=20)
 
     # Add major grid lines
     ax.grid(
@@ -61,6 +53,15 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
         color='black',
         alpha=0.5
     )
+
+    # Limit the range of the plot to where the data is
+    plt.ylim(ymin, ymax)
+    plt.xlim(1, max_bound)
+
+    # Remove the tick marks at top and right
+    plt.tick_params(axis="both", which="both", bottom="on", top="off",
+                    labelbottom="on", left="on", right="off", labelleft="on",
+                    labelsize=20)
 
     # Plot all data and apply magic to the labels.
     # I apologise for the following code.
@@ -101,8 +102,8 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
                  fontsize=FONTSIZE, color=label['color'])
 
     # Add labels to axes
-    plt.xlabel(x_label, size=26)
-    plt.ylabel(y_label, size=26)
+    plt.xlabel(x_label, size=30)
+    plt.ylabel(y_label, size=30)
 
     # Save plot as picture
     plt.savefig(title + ".png", bbox_inches="tight", transparent=True)
