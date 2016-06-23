@@ -90,7 +90,7 @@ def open_file(evaluation, filename, folder, x_data, y, y_data,
             z_labels.append(filename.split("@")[0])
 
             for measure in data:
-                if (evaluation.lower() in measure.lower()) and \
+                if evaluation.lower() in measure.lower() and \
                         y.lower() in measure.lower():
                     data = data[measure]
                     break
