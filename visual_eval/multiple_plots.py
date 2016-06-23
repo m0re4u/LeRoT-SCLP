@@ -19,10 +19,10 @@ COLOURS = [
 ]
 
 
-def overlap(positions, size):
+def overlap(positions, size, margin):
     positions = sorted(positions)
     for pos, next_pos in zip(positions, positions[1:]):
-        if pos + size > next_pos:
+        if pos + size > next_pos + margin:
             return True
     return False
 
@@ -82,7 +82,7 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
 
     labels = sorted(labels, key=lambda a: a['position'])
 
-    while overlap([l['position'] for l in labels], labelsize):
+    while overlap([l['position'] for l in labels], labelsize, paddingsize):
         # Calculate the "force" on every label (in distance to be moved)
         forces = [0.0 for _ in labels]
         for this_i, next_pos in enumerate(l['position'] for l in labels[1:]):
