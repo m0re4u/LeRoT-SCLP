@@ -46,7 +46,7 @@ def visualize_yaml(evaluation, folder, x, y, max_bound, ymin=None, ymax=None,
         max_bound-run_mean
 
     multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax,
-                   title, x, y, z_labels)
+                   title, x, y, z_labels, logarithmic)
 
 
 def running_mean(x, N):
@@ -135,13 +135,12 @@ if __name__ == "__main__":
                         help="maximum number for y-axis", type=float)
     parser.add_argument("-min_y", "--min_bound_y",
                         help="minimum number for y-axis", type=float)
-    parser.add_argument("-output", help="output file for image")
-    parser.add_argument("-run_mean", help="parameter for running mean",
+    parser.add_argument("-0", "--output", help="output file for image")
+    parser.add_argument("--run_mean", help="parameter for running mean",
                         type=int, default=1)
-    # parser.add_argument("-log", "--logarithmic",
-    #                     help="flag for log",
-    #                     action='store_true',
-    #                     default=False)
+    parser.add_argument("-l", "--logarithmic",
+                        help="flag for log",
+                        action='store_true')
     # parser.add_argument("-cum", "--cumulative",
     #                     help="boolean for want cumulative evaluation",
     #                     action=storetrue)
@@ -149,4 +148,4 @@ if __name__ == "__main__":
 
     visualize_yaml(args.measure, args.folder_name, args.x_label, args.y_label,
                    args.max_bound_x, args.min_bound_y, args.max_bound_y,
-                   args.output, args.run_mean)  # , args.logarithmic)
+                   args.output, args.run_mean, args.logarithmic)
