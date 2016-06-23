@@ -1,0 +1,674 @@
+Folder:  ../Project Results!/MQ2007
+Combination  ('3PR 0.0', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -1.41501853849
+two-tailed p-value:  0.165246034987
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -1.35044539208
+two-tailed p-value:  0.184875153678
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -1.88983727032
+two-tailed p-value:  0.0670059031391
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -0.922394618024
+two-tailed p-value:  0.36222239636
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -1.22834672579
+two-tailed p-value:  0.226947339552
+Combination  ('3PR 0.25', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  6.38129354318
+two-tailed p-value:  1.78872189109e-07
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  6.22646578067
+two-tailed p-value:  3.25513459147e-07
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  5.72606135665
+two-tailed p-value:  1.35302532679e-06
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  4.72845961294
+two-tailed p-value:  3.25148968749e-05
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  5.73583817265
+two-tailed p-value:  1.34218968779e-06
+Combination  ('3PR 0.25', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  3.7872092003
+two-tailed p-value:  0.000536657758737
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  4.68754955403
+two-tailed p-value:  3.5900091341e-05
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  3.03737025681
+two-tailed p-value:  0.00457622792753
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  4.33757351391
+two-tailed p-value:  0.000108042189249
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  3.86080087278
+two-tailed p-value:  0.00042809788794
+Combination  ('3PR 1.0', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  2.39216646676
+two-tailed p-value:  0.0218036212044
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  1.6885718677
+two-tailed p-value:  0.099556301839
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  1.58716975549
+two-tailed p-value:  0.12173865013
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.16854442982
+two-tailed p-value:  0.250705308542
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  2.2343709985
+two-tailed p-value:  0.0315640017657
+Combination  ('3PR 1.0', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -1.42647342199
+two-tailed p-value:  0.161956835269
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -2.26048800392
+two-tailed p-value:  0.0297057774189
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -2.31898353945
+two-tailed p-value:  0.0270573945589
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -2.32519359367
+two-tailed p-value:  0.0258821869842
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -1.50911707108
+two-tailed p-value:  0.139933984036
+Combination  ('3PR 0.25', '3PR 0.5')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  0.664088727865
+two-tailed p-value:  0.51065820308
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  1.3330052204
+two-tailed p-value:  0.190653836171
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  0.174873814362
+two-tailed p-value:  0.862111415921
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.28099606629
+two-tailed p-value:  0.207978214409
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  0.837890407328
+two-tailed p-value:  0.407340327596
+Combination  ('D3PR', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  3.72635751914
+two-tailed p-value:  0.000637495378569
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  3.75398368838
+two-tailed p-value:  0.000582723704122
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  5.01472708218
+two-tailed p-value:  1.31991481478e-05
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  3.03030259791
+two-tailed p-value:  0.00439730073868
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  3.42072041785
+two-tailed p-value:  0.00151156569196
+Combination  ('3PR 0.0', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -0.0989742508635
+two-tailed p-value:  0.921691528473
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  0.774242560945
+two-tailed p-value:  0.443719506258
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  0.621936058995
+two-tailed p-value:  0.53785739017
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.13167462384
+two-tailed p-value:  0.26580714865
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  0.0737017387283
+two-tailed p-value:  0.941672111826
+Combination  ('3PR 0.0', '3PR 0.25')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -3.55056659663
+two-tailed p-value:  0.00111175160495
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -3.41515033035
+two-tailed p-value:  0.00161970448444
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -2.71613287185
+two-tailed p-value:  0.00997248793032
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -2.52123329987
+two-tailed p-value:  0.0161769658462
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -3.16364339761
+two-tailed p-value:  0.00317218235216
+Combination  ('3PR 0.5', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  3.06049317439
+two-tailed p-value:  0.00405047421754
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  3.08286884568
+two-tailed p-value:  0.00381006574603
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  2.96224764572
+two-tailed p-value:  0.00566899182653
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  2.81517355147
+two-tailed p-value:  0.00785909426371
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  2.91005827534
+two-tailed p-value:  0.00604477452463
+Combination  ('3PR 0.75', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  1.04035878789
+two-tailed p-value:  0.30633709274
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  0.305695125479
+two-tailed p-value:  0.761813693286
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -0.0888470247506
+two-tailed p-value:  0.929690612025
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  0.0749275390591
+two-tailed p-value:  0.940684115815
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  0.854002995857
+two-tailed p-value:  0.399665636484
+Combination  ('3PR 0.25', '3PR 0.75')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  1.49532716464
+two-tailed p-value:  0.143907748414
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  2.12891865451
+two-tailed p-value:  0.040102970296
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  1.23041303972
+two-tailed p-value:  0.226899173537
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.78868262585
+two-tailed p-value:  0.0818085461258
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  1.53780738651
+two-tailed p-value:  0.133403311939
+Combination  ('3PR 0.75', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  5.81024365996
+two-tailed p-value:  1.75679420544e-06
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  4.8491496424
+two-tailed p-value:  2.89764967852e-05
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  5.35922190926
+two-tailed p-value:  5.77482296925e-06
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  3.38384334123
+two-tailed p-value:  0.00178089473874
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  5.12259399922
+two-tailed p-value:  1.3675571503e-05
+Combination  ('3PR 0.0', '3PR 0.5')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -2.89986756384
+two-tailed p-value:  0.00630519919224
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -2.05447217785
+two-tailed p-value:  0.0469747073608
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -2.63158795331
+two-tailed p-value:  0.0124079890725
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -1.31046494369
+two-tailed p-value:  0.198061245455
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -2.38396080948
+two-tailed p-value:  0.0224590949499
+Combination  ('3PR 0.25', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  2.09466587275
+two-tailed p-value:  0.043224732063
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  1.9696028309
+two-tailed p-value:  0.0566325435922
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  1.05736118133
+two-tailed p-value:  0.297124005447
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.67738816151
+two-tailed p-value:  0.101721830128
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  1.97254433645
+two-tailed p-value:  0.0560233159136
+Combination  ('3PR 0.5', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  1.44875875598
+two-tailed p-value:  0.155793822463
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  0.662396168849
+two-tailed p-value:  0.511747226875
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  0.910773298651
+two-tailed p-value:  0.368174775575
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  0.403111767026
+two-tailed p-value:  0.689126554072
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  1.16325610263
+two-tailed p-value:  0.2520662521
+Combination  ('3PR 0.5', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  5.57108250812
+two-tailed p-value:  2.21825622271e-06
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  4.6050739415
+two-tailed p-value:  4.53850027034e-05
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  5.73966907209
+two-tailed p-value:  1.32085761996e-06
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  3.4484364512
+two-tailed p-value:  0.00140728941558
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  4.8242513028
+two-tailed p-value:  2.3043339897e-05
+Combination  ('3PR 0.0', '3PR 0.75')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -2.68641187683
+two-tailed p-value:  0.0117768491161
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -1.89774278811
+two-tailed p-value:  0.0669982082515
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -1.94781096352
+two-tailed p-value:  0.0604243130434
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -1.07483730617
+two-tailed p-value:  0.289946702352
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -2.24897437864
+two-tailed p-value:  0.0322438956577
+Combination  ('3PR 0.5', '3PR 0.75')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  0.680312558101
+two-tailed p-value:  0.50099265024
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  0.4826738314
+two-tailed p-value:  0.632443271596
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  1.08171328364
+two-tailed p-value:  0.286667993091
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  0.370115548909
+two-tailed p-value:  0.713429066788
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  0.528067777122
+two-tailed p-value:  0.600980983136
+Combination  ('3PR 0.0', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  2.09429860458
+two-tailed p-value:  0.043174186604
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  2.29304961605
+two-tailed p-value:  0.0275120491967
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  2.55855092318
+two-tailed p-value:  0.0147129855417
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.97642020113
+two-tailed p-value:  0.0554050011383
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  1.96749802708
+two-tailed p-value:  0.0566631991869
+Combination  ('3PR 0.75', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  2.88987767074
+two-tailed p-value:  0.00684803119844
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  3.1189691682
+two-tailed p-value:  0.00365094577471
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  2.37423913939
+two-tailed p-value:  0.0247477492307
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  2.72938441521
+two-tailed p-value:  0.0095671034018
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  2.93483196491
+two-tailed p-value:  0.00585215884059
+Folder:  ../Project Results!/Websearch
+Combination  ('3PR 0.0', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -0.162263218136
+two-tailed p-value:  0.881707161972
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  0.426855693662
+two-tailed p-value:  0.708502056634
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -0.00927318266614
+two-tailed p-value:  0.993657363542
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  0.403644094376
+two-tailed p-value:  0.724450318928
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -0.224266763066
+two-tailed p-value:  0.837530686827
+Combination  ('3PR 0.25', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  149.596485823
+two-tailed p-value:  0.000733904260233
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  6.51447714009
+two-tailed p-value:  0.0636578195225
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  13.3927424359
+two-tailed p-value:  0.0057612928158
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  5.46623538638
+two-tailed p-value:  0.0766776456831
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  98.1439727387
+two-tailed p-value:  0.00648579083053
+Combination  ('3PR 0.25', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Combination  ('3PR 1.0', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Combination  ('3PR 1.0', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Combination  ('3PR 0.25', '3PR 0.5')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  5.9986802665
+two-tailed p-value:  0.0279445471044
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  2.25674317091
+two-tailed p-value:  0.165596348133
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  1.94427996647
+two-tailed p-value:  0.192227105945
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.82011628892
+two-tailed p-value:  0.210434659509
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  4.57798240673
+two-tailed p-value:  0.0527203980548
+Combination  ('D3PR', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  43.1695528018
+two-tailed p-value:  0.000447890230349
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  7.48472544181
+two-tailed p-value:  0.075139968159
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  18.2728200179
+two-tailed p-value:  0.00560058416061
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  6.49986226916
+two-tailed p-value:  0.0734797091653
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  46.2561209296
+two-tailed p-value:  0.000467029563561
+Combination  ('3PR 0.0', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Combination  ('3PR 0.0', '3PR 0.25')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -2.43909866862
+two-tailed p-value:  0.182996887438
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  1.84633654905
+two-tailed p-value:  0.227024613645
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  0.780421157493
+two-tailed p-value:  0.51700695117
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  2.72642704833
+two-tailed p-value:  0.220012779751
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -1.55794826725
+two-tailed p-value:  0.262039964999
+Combination  ('3PR 0.5', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Combination  ('3PR 0.75', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -2.3184386718
+two-tailed p-value:  0.145984273452
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -12.6969403975
+two-tailed p-value:  0.00105731456502
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -8.43048843325
+two-tailed p-value:  0.00521999940899
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -8.72642055473
+two-tailed p-value:  0.0110906700737
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -3.20642803947
+two-tailed p-value:  0.084854218948
+Combination  ('3PR 0.25', '3PR 0.75')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  13.3509909957
+two-tailed p-value:  0.0440477080446
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  5.56312397384
+two-tailed p-value:  0.0779401657127
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  3.72509469158
+two-tailed p-value:  0.14560696823
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  4.28171895335
+two-tailed p-value:  0.140692959643
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  8.50912371056
+two-tailed p-value:  0.0734137969345
+Combination  ('3PR 0.75', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  327.235668447
+two-tailed p-value:  0.000775628339592
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  4.74187810471
+two-tailed p-value:  0.126209877714
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  15.1906448944
+two-tailed p-value:  0.0289822513154
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  4.20672458091
+two-tailed p-value:  0.147783706132
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  1477.70010933
+two-tailed p-value:  0.000414299218858
+Combination  ('3PR 0.0', '3PR 0.5')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  1.44267777948
+two-tailed p-value:  0.318313759346
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  3.94857424042
+two-tailed p-value:  0.100124731952
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  2.7045724966
+two-tailed p-value:  0.115960031638
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  5.39432036051
+two-tailed p-value:  0.11319802534
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  2.4019003685
+two-tailed p-value:  0.161376516502
+Combination  ('3PR 0.25', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  1.3245561729
+two-tailed p-value:  0.302153612449
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -1.65890739007
+two-tailed p-value:  0.277729225656
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -1.00623908447
+two-tailed p-value:  0.4424546945
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -1.93090580384
+two-tailed p-value:  0.184806148025
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  0.799560422728
+two-tailed p-value:  0.487480643539
+Combination  ('3PR 0.5', 'D3PR')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  -1.08516397127
+two-tailed p-value:  0.375686263515
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  -3.86647361014
+two-tailed p-value:  0.120455617435
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  -3.55569122962
+two-tailed p-value:  0.0891832950715
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  -4.01654290285
+two-tailed p-value:  0.0486463699508
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  -1.72890240414
+two-tailed p-value:  0.202648713339
+Combination  ('3PR 0.5', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  125.084142134
+two-tailed p-value:  0.00138640038487
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  4.9246640471
+two-tailed p-value:  0.0681553736905
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  11.9629968359
+two-tailed p-value:  0.00692333781742
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  4.58060004125
+two-tailed p-value:  0.0970505841083
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  127.284650027
+two-tailed p-value:  0.00500055111412
+Combination  ('3PR 0.0', '3PR 0.75')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  3.6816486196
+two-tailed p-value:  0.167421785038
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  10.9721371489
+two-tailed p-value:  0.0181846857511
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  4.60946472034
+two-tailed p-value:  0.117511796647
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  45.4507079994
+two-tailed p-value:  0.000627602898303
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  5.31057187756
+two-tailed p-value:  0.117517690463
+Combination  ('3PR 0.5', '3PR 0.75')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  3.71430262904
+two-tailed p-value:  0.16275077383
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  1.41287876872
+two-tailed p-value:  0.371741815667
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  1.25918228142
+two-tailed p-value:  0.406873675906
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  1.80562571838
+two-tailed p-value:  0.316353202279
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  3.93060033743
+two-tailed p-value:  0.155942591692
+Combination  ('3PR 0.0', 'DBGD')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  73.3033551702
+two-tailed p-value:  0.006087753954
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  7.52629422126
+two-tailed p-value:  0.068970242422
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  13.853005871
+two-tailed p-value:  0.00564648822939
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  6.87923396677
+two-tailed p-value:  0.0914585198209
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  82.8853320916
+two-tailed p-value:  0.00767986563712
+Combination  ('3PR 0.75', '3PR 1.0')
+Measure:  offline_test_evaluation.NdcgEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@5
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@1
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.PAKEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
+Measure:  offline_test_evaluation.NdcgEval@10
+t-statistic:  nan
+two-tailed p-value:  nan
