@@ -65,6 +65,6 @@ if __name__ == '__main__':
     )
 
     for measure, ress in values.items():
-        logging.info("Measure: {}".format(measure))
-        logging.info("t-statistic: {}".format(ress[0]))
-        logging.info("two-tailed p-value: {}".format(ress[1]))
+        print "Measure:", measure
+        print "t-statistic:", ress[0]
+        print "two-tailed p-value:", ress[1]
