@@ -33,23 +33,27 @@ def visualize_yaml(folder_name, measures, y_labels, x_label, max_bound_x,
             if measure == "online":
                 y_data[i] = calc_cumulative(y_data[i])
             if max_bound_y is None or max(y_data[i]) > max_bound_y:
-                max_bound_y = max(y_data[i])
+                temp_y_max = max(y_data[i])
+            else:
+                temp_y_max = max_bound_y
             if min_bound_y is None or min(y_data[i]) < min_bound_y:
-                min_bound_y = min(y_data[i])
+                temp_y_min = min(y_data[i])
+            else:
+                temp_y_min = min_bound_y
             y_pos.append(y_data[i][-1])
 
         if max_bound_x is None:
-            max_bound_x = len(x_data[0])
+            temp_bound = len(x_data[0])
         else:
-            max_bound_x-run_mean
+            temp_bound = max_bound_x - run_mean
 
         multiple_plots(
             x_data=x_data,
             y_data=y_data,
             y_pos=y_pos,
-            max_bound=max_bound_x,
-            ymin=min_bound_y,
-            ymax=max_bound_y,
+            max_bound=temp_bound,
+            ymin=temp_y_min,
+            ymax=temp_y_max,
             output=output + measure,
             x_label=x_label,
             y_label=y_label,
