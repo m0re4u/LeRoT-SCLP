@@ -27,7 +27,7 @@ def overlap(positions, size, margin):
     return False
 
 
-def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
+def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, output,
                    x_label, y_label, z_label, logarithmic):
     """
     Plot data of multiple files in one graph.
@@ -106,4 +106,4 @@ def multiple_plots(x_data, y_data, y_pos, max_bound, ymin, ymax, title,
     plt.ylabel(y_label, size=30)
 
     # Save plot as picture
-    plt.savefig(title + ".png", bbox_inches="tight", transparent=True)
+    plt.savefig(output + ".png", bbox_inches="tight", transparent=True)
