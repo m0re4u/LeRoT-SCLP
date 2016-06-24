@@ -1,13 +1,13 @@
 from time import sleep
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import numpy as np
 import argparse
 import yaml
 import sys
 
 SEAGREEN = (0, 128 / 255., 102 / 255.)
 INTERVAL = 500
+MINIMUM = 0.03
 
 
 def create_histogram(filename, iterations, stepsize, x_label, y_label, max_x,
@@ -17,6 +17,7 @@ def create_histogram(filename, iterations, stepsize, x_label, y_label, max_x,
     datafile = open(filename, "r").read()
     y_data = [sorted(data, reverse=True) for data in yaml.load(datafile)]
     y_data = [y_data[i*stepsize] for i in range(0, len(y_data) // stepsize)]
+    y_data = [[max(MINIMUM, d) for d in data] for data in y_data]
     x_data = list(range(0, len(y_data[0])))
 
     fargs = [
@@ -68,15 +69,20 @@ def animate(i, x_data, y_data, fig, min_y, max_y, x_label, y_label,
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_visible(True)
 
+    # Add major grid lines
+    ax.grid(
+        which='major',
+        axis='y',
+        linestyle='--',
+        linewidth=0.5,
+        color='black',
+        alpha=0.5
+    )
+
     # Remove the tick marks at top and right
     plt.tick_params(axis="both", which="both", bottom="on", top="off",
                     labelbottom="on", left="on", right="off",
                     labelleft="on")
-
-    # Add hardly visible lines at every +0.1
-    for y in np.arange(0, 1, 0.1):
-        plt.plot(range(0, max_x+1), [y] * len(range(0, max_x+1)),
-                 "--", lw=0.5, color="black", alpha=0.5)
 
     return plt
 
