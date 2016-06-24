@@ -128,7 +128,8 @@ if __name__ == "__main__":
                         required=True, nargs='*')
     parser.add_argument("-y", "--y_labels", help="labels for y-axis",
                         nargs='*', required=True)
-    parser.add_argument("-x", "--x_label", help="label for x-axis")
+    parser.add_argument("-x", "--x_label", help="label for x-axis",
+                        required=True)
     parser.add_argument("-max_x", "--max_bound_x",
                         help="maximum number for x-axis", type=int)
     parser.add_argument("-max_y", "--max_bound_y",
